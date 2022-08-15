@@ -4,6 +4,7 @@
 
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QInputDialog>
 #include <QtWidgets/QPushButton>
 
 #include <boost/algorithm/cxx11/any_of.hpp>
@@ -42,6 +43,7 @@
 #include <nx/vms/api/data/dewarping_data.h>
 #include <nx/vms/api/data/videowall_data.h>
 #include <nx/vms/api/types/connection_types.h>
+#include <nx/vms/client/desktop/ini.h>
 #include <nx/vms/client/desktop/license/videowall_license_validator.h>
 #include <nx/vms/client/desktop/radass/radass_types.h>
 #include <nx/vms/client/desktop/resource_views/data/resource_tree_globals.h>
@@ -230,6 +232,15 @@ auto offlineItemOnThisPc = []
                 return !pcUuid.isNull() && item.pcUuid == pcUuid && !item.runtimeStatus.online;
             };
     };
+
+// Main window geometry should have position in physical coordinates and size - in logical.
+QRect mainWindowGeometry(const QnScreenSnaps& snaps)
+{
+    if (!snaps.isValid())
+        return {};
+
+    return snaps.geometry(nx::gui::Screens::logicalGeometries());
+}
 
 } /* anonymous namespace */
 
@@ -687,11 +698,11 @@ void QnWorkbenchVideoWallHandler::switchToVideoWallMode(const QnVideoWallResourc
 
     for (const auto& item: items)
     {
-        openNewWindow(videoWall->getId(), item.uuid);
+        openNewWindow(videoWall->getId(), item);
     }
 }
 
-void QnWorkbenchVideoWallHandler::openNewWindow(QnUuid videoWallId, QnUuid videoWallInstanceId)
+void QnWorkbenchVideoWallHandler::openNewWindow(QnUuid videoWallId, const QnVideoWallItem& item)
 {
     if (!NX_ASSERT(connection(), "Client must be connected while we are running the video wall"))
         return;
@@ -700,12 +711,14 @@ void QnWorkbenchVideoWallHandler::openNewWindow(QnUuid videoWallId, QnUuid video
     connectionInfo.address = connectionAddress();
     // Connection credentials will be constructed by callee from videowall IDs.
 
+    const int leftmostScreen = item.screenSnaps.left().screenIndex;
+
     QStringList arguments;
     arguments
         << "--videowall"
         << videoWallId.toString()
         << "--videowall-instance"
-        << videoWallInstanceId.toString()
+        << item.uuid.toString()
         << "--auth"
         << QnStartupParameters::createAuthenticationString(connectionInfo);
 
@@ -722,7 +735,7 @@ void QnWorkbenchVideoWallHandler::openVideoWallItem(const QnVideoWallResourcePtr
     }
 
     QnVideoWallItem item = videoWall->items()->getItem(m_videoWallMode.instanceGuid);
-    updateMainWindowGeometry(item.screenSnaps); // TODO: #sivanov Check if it is needed at all.
+    executeDelayedParented([this, item] { updateMainWindowGeometry(item.screenSnaps); }, this);
 
     QnLayoutResourcePtr layout = resourcePool()->getResourceById<QnLayoutResource>(item.layout);
 
@@ -1310,7 +1323,7 @@ void QnWorkbenchVideoWallHandler::submitDelayedItemOpen()
             if (item.pcUuid != pcUuid || item.runtimeStatus.online)
                 continue;
 
-            openNewWindow(m_videoWallMode.guid, item.uuid);
+            openNewWindow(m_videoWallMode.guid, item);
         }
         closeInstanceDelayed();
     }
@@ -3139,11 +3152,25 @@ void QnWorkbenchVideoWallHandler::setItemControlledBy(
 
 void QnWorkbenchVideoWallHandler::updateMainWindowGeometry(const QnScreenSnaps& screenSnaps)
 {
-    const QRect targetGeometry = screenSnaps.geometry(nx::gui::Screens::geometries());
+    if (!NX_ASSERT(screenSnaps.isValid()))
+        return;
+
+    // Target geometry will be used in QWidget::setGeometry(), so it expects physical coordinates
+    // for window position and logical coordinates for it's size.
+    const QRect targetGeometry = mainWindowGeometry(screenSnaps);
+
+    if (!NX_ASSERT(targetGeometry.isValid()))
+        return;
+
     if (!m_geometrySetter)
         m_geometrySetter.reset(new GeometrySetter(mainWindowWidget()));
 
+    // Geometry must be changed twice: after the first time window screen is updated correctly, so
+    // on the second time it is correctly used for QWidget internal dpi-aware calculations.
     m_geometrySetter->changeGeometry(targetGeometry);
+    executeDelayedParented(
+        [this, targetGeometry]{ m_geometrySetter->changeGeometry(targetGeometry); },
+        this);
 }
 
 void QnWorkbenchVideoWallHandler::updateControlLayout(
