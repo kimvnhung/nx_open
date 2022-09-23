@@ -344,7 +344,7 @@ public:
 
         nx::analytics::db::Filter filter;
         filter.maxObjectTracksToSelect = 1;
-        filter.timePeriod = {QnTimePeriod::kMinTimeValue, QnTimePeriod::kMaxTimeValue};
+        filter.timePeriod = {QnTimePeriod::kMinTimeValueMs, QnTimePeriod::kMaxTimeValueMs};
 
         auto callback = utils::guarded(this,
             [this, originalServer = m_server->getId()](

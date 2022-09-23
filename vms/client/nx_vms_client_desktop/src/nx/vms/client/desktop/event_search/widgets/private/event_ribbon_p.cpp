@@ -286,7 +286,7 @@ void EventRibbon::Private::updateTile(int index)
         ? EventTile::Style::informer
         : EventTile::Style::standard);
 
-    QString tileDescription = modelIndex.data(Qn::DescriptionTextRole).toString();
+    QString tileDescription = modelIndex.data(core::DescriptionTextRole).toString();
 
     // Limit the number of lines inside tile description.
     // Empty description should remain empty, without any invisible html.
@@ -317,7 +317,7 @@ void EventRibbon::Private::updateTile(int index)
             widget->setProgressTitle(modelIndex.data(Qt::DisplayRole).toString());
             widget->setProgressFormat(modelIndex.data(Qn::ProgressFormatRole).toString());
             widget->setDescription(tileDescription);
-            widget->setToolTip(modelIndex.data(Qn::DescriptionTextRole).toString());
+            widget->setToolTip(modelIndex.data(core::DescriptionTextRole).toString());
             widget->setCloseable(modelIndex.data(Qn::RemovableRole).toBool());
             return;
         }
@@ -332,7 +332,7 @@ void EventRibbon::Private::updateTile(int index)
     widget->setProgressBarVisible(false);
     widget->setTitle(title);
     widget->setIcon(modelIndex.data(Qt::DecorationRole).value<QPixmap>());
-    widget->setTimestamp(modelIndex.data(Qn::TimestampTextRole).toString());
+    widget->setTimestamp(modelIndex.data(core::TimestampTextRole).toString());
     widget->setDescription(tileDescription);
     widget->setFooterText(modelIndex.data(Qn::AdditionalTextRole).toString());
     widget->setAttributeList(modelIndex.data(Qn::GroupedAttributesRole)
@@ -346,7 +346,7 @@ void EventRibbon::Private::updateTile(int index)
 
     setHelpTopic(widget, modelIndex.data(Qn::HelpTopicIdRole).toInt());
 
-    const auto resourceList = modelIndex.data(Qn::DisplayedResourceListRole);
+    const auto resourceList = modelIndex.data(core::DisplayedResourceListRole);
     if (resourceList.isValid())
     {
         if (resourceList.canConvert<QnResourceList>())
@@ -371,7 +371,7 @@ void EventRibbon::Private::updateTilePreview(int index)
 
     const auto modelIndex = m_model->index(index);
 
-    const auto previewResource = modelIndex.data(Qn::ResourceRole).value<QnResourcePtr>();
+    const auto previewResource = modelIndex.data(core::ResourceRole).value<QnResourcePtr>();
     const auto mediaResource = previewResource.dynamicCast<QnMediaResource>();
     if (!mediaResource)
         return;
@@ -380,7 +380,7 @@ void EventRibbon::Private::updateTilePreview(int index)
         ? kDefaultThumbnailWidth
         : kAlternativeThumbnailWidth;
 
-    const auto previewTime = modelIndex.data(Qn::PreviewTimeRole).value<microseconds>();
+    const auto previewTime = modelIndex.data(core::PreviewTimeRole).value<microseconds>();
 
     const auto rotation = mediaResource->forcedRotation().value_or(0);
     const auto previewCropRect = nx::vms::client::core::Geometry::rotatedRelativeRectangle(
@@ -1095,18 +1095,18 @@ void EventRibbon::Private::updateHighlightedTiles()
                 return false;
 
             const auto modelIndex = m_model->index(index);
-            const auto timestamp = modelIndex.data(Qn::TimestampRole).value<microseconds>();
+            const auto timestamp = modelIndex.data(core::TimestampRole).value<microseconds>();
             if (timestamp <= 0us)
                 return false;
 
-            const auto duration = modelIndex.data(Qn::DurationRole).value<microseconds>();
+            const auto duration = modelIndex.data(core::DurationRole).value<microseconds>();
             if (duration <= 0us)
                 return false;
 
             const auto isHighlightedResource =
                 [this](const QnResourcePtr& res) { return m_highlightedResources.contains(res); };
 
-            const auto resources = modelIndex.data(Qn::ResourceListRole).value<QnResourceList>();
+            const auto resources = modelIndex.data(core::ResourceListRole).value<QnResourceList>();
             if (std::none_of(resources.cbegin(), resources.cend(), isHighlightedResource))
                 return false;
 

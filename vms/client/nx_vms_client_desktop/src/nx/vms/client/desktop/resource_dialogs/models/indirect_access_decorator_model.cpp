@@ -114,7 +114,7 @@ QVariant IndirectAccessDecoratorModel::data(const QModelIndex& index, int role) 
         return base_type::data(index, role);
     }
 
-    if (const auto resource = sourceResourceIndex.data(Qn::ResourceRole).value<QnResourcePtr>())
+    if (const auto resource = sourceResourceIndex.data(core::ResourceRole).value<QnResourcePtr>())
     {
         if (role == Qt::DecorationRole)
         {

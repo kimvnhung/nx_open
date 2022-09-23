@@ -143,7 +143,7 @@ void PermissionsHandler::at_shareLayoutAction_triggered()
     const auto params = menu()->currentParameters(sender());
     const auto layout = params.resource().dynamicCast<QnLayoutResource>();
     const auto user = params.argument<QnUserResourcePtr>(Qn::UserResourceRole);
-    const auto roleId = params.argument<QnUuid>(Qn::UuidRole);
+    const auto roleId = params.argument<QnUuid>(core::UuidRole);
 
     QnResourceAccessSubject subject = user
         ? QnResourceAccessSubject(user)
@@ -164,7 +164,7 @@ void PermissionsHandler::at_stopSharingLayoutAction_triggered()
 {
     const auto params = menu()->currentParameters(sender());
     const auto user = params.argument<QnUserResourcePtr>(Qn::UserResourceRole);
-    const auto roleId = params.argument<QnUuid>(Qn::UuidRole);
+    const auto roleId = params.argument<QnUuid>(core::UuidRole);
     NX_ASSERT(user || !roleId.isNull());
     if (!user && roleId.isNull())
         return;
@@ -201,7 +201,7 @@ void PermissionsHandler::at_shareCameraAction_triggered()
     const auto params = menu()->currentParameters(sender());
     const auto camera = params.resource().dynamicCast<QnVirtualCameraResource>();
     const auto user = params.argument<QnUserResourcePtr>(Qn::UserResourceRole);
-    const auto roleId = params.argument<QnUuid>(Qn::UuidRole);
+    const auto roleId = params.argument<QnUuid>(core::UuidRole);
 
     QnResourceAccessSubject subject = user
         ? QnResourceAccessSubject(user)
@@ -215,7 +215,7 @@ void PermissionsHandler::at_shareWebPageAction_triggered()
     const auto params = menu()->currentParameters(sender());
     const auto webPage = params.resource().dynamicCast<QnWebPageResource>();
     const auto user = params.argument<QnUserResourcePtr>(Qn::UserResourceRole);
-    const auto roleId = params.argument<QnUuid>(Qn::UuidRole);
+    const auto roleId = params.argument<QnUuid>(core::UuidRole);
 
     QnResourceAccessSubject subject = user
         ? QnResourceAccessSubject(user)

@@ -14,6 +14,7 @@
 #include <core/resource/media_server_resource.h>
 #include <core/resource/camera_resource.h>
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 
 QnNewVirtualCameraDialog::QnNewVirtualCameraDialog(QWidget* parent):
@@ -81,7 +82,7 @@ QString QnNewVirtualCameraDialog::name() const
 
 const QnMediaServerResourcePtr QnNewVirtualCameraDialog::server() const
 {
-    QVariant data = ui->serverComboBox->currentData(Qn::ResourceRole);
+    QVariant data = ui->serverComboBox->currentData(ResourceRole);
     return data.value<QnResourcePtr>().dynamicCast<QnMediaServerResource>();
 }
 

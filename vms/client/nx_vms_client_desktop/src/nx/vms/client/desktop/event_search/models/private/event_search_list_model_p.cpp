@@ -16,15 +16,16 @@
 #include <core/resource_management/resource_pool.h>
 #include <nx/utils/datetime.h>
 #include <nx/utils/scope_guard.h>
+#include <nx/vms/client/core/utils/managed_camera_set.h>
 #include <nx/vms/client/desktop/analytics/analytics_attribute_helper.h>
 #include <nx/vms/client/desktop/style/skin.h>
 #include <nx/vms/client/desktop/style/software_trigger_pixmaps.h>
-#include <nx/vms/client/desktop/utils/managed_camera_set.h>
 #include <nx/vms/common/html/html.h>
 #include <nx/vms/event/strings_helper.h>
 #include <ui/common/notification_levels.h>
 #include <ui/help/help_topics.h>
 #include <ui/workbench/workbench_access_controller.h>
+#include <ui/workbench/workbench_context.h>
 #include <utils/common/synctime.h>
 
 namespace nx::vms::client::desktop {
@@ -57,17 +58,17 @@ static const auto upperBoundPredicate =
         return left > startTime(right);
     };
 
-void truncate(ActionDataList& data, AbstractSearchListModel::FetchDirection direction,
+void truncate(ActionDataList& data, core::EventSearch::FetchDirection direction,
     milliseconds maxTimestamp)
 {
-    if (direction == AbstractSearchListModel::FetchDirection::earlier)
+    if (direction == core::EventSearch::FetchDirection::earlier)
     {
         const auto end = std::lower_bound(data.begin(), data.end(), maxTimestamp,
             lowerBoundPredicate);
 
         data.erase(data.begin(), end);
     }
-    else if (NX_ASSERT(direction == AbstractSearchListModel::FetchDirection::later))
+    else if (NX_ASSERT(direction == core::EventSearch::FetchDirection::later))
     {
         const auto begin = std::lower_bound(data.rbegin(), data.rend(), maxTimestamp,
             lowerBoundPredicate).base();
@@ -87,10 +88,14 @@ QString eventTypesToString(const std::vector<EventType>& types)
 
 } // namespace
 
-EventSearchListModel::Private::Private(EventSearchListModel* q):
+EventSearchListModel::Private::Private(
+    QnWorkbenchContext* context,
+    EventSearchListModel* q)
+    :
     base_type(q),
     q(q),
-    m_helper(new vms::event::StringsHelper(q->commonModule())),
+    m_context(context),
+    m_helper(new vms::event::StringsHelper(m_context->commonModule())),
     m_liveUpdateTimer(new QTimer())
 {
     connect(m_liveUpdateTimer.data(), &QTimer::timeout, this, &Private::fetchLive);
@@ -162,18 +167,24 @@ QVariant EventSearchListModel::Private::data(const QModelIndex& index, int role,
             return iconPath(eventParams);
 
         case Qt::DecorationRole:
+        {
             if (eventParams.eventType == EventType::softwareTriggerEvent)
             {
                 return QVariant::fromValue(SoftwareTriggerPixmaps::colorizedPixmap(
                     eventParams.description, QPalette().light().color()));
             }
+
+            if (const auto path = index.data(Qn::DecorationPathRole).toString(); !path.isEmpty())
+                return qnSkin->pixmap(path);
+
             handled = false;
             return {};
+        }
 
         case Qt::ForegroundRole:
             return QVariant::fromValue(color(eventParams));
 
-        case Qn::DescriptionTextRole:
+        case core::DescriptionTextRole:
             return description(eventParams);
 
         case Qn::GroupedAttributesRole:
@@ -186,39 +197,40 @@ QVariant EventSearchListModel::Private::data(const QModelIndex& index, int role,
                 && eventParams.eventTimestampUsec > 0
                 && eventParams.eventTimestampUsec != DATETIME_NOW;
 
-        case Qn::PreviewTimeRole:
+        case core::PreviewTimeRole:
             if (!hasPreview(eventParams.eventType))
                 return QVariant();
             [[fallthrough]];
-        case Qn::TimestampRole:
+        case core::TimestampRole:
             return QVariant::fromValue(microseconds(eventParams.eventTimestampUsec));
         case Qn::ObjectTrackIdRole:
             return QVariant::fromValue(eventParams.objectTrackId);
 
-        case Qn::DisplayedResourceListRole:
+        case core::DisplayedResourceListRole:
         {
             if (eventParams.eventResourceId.isNull() && !eventParams.resourceName.isEmpty())
                 return QVariant::fromValue(QStringList({eventParams.resourceName}));
         }
         [[fallthrough]];
-        case Qn::ResourceListRole:
+        case core::ResourceListRole:
         {
-            const auto resource = q->resourcePool()->getResourceById(eventParams.eventResourceId);
+            const auto resource =
+                m_context->resourcePool()->getResourceById(eventParams.eventResourceId);
             if (resource)
                 return QVariant::fromValue(QnResourceList({resource}));
 
-            if (role == Qn::DisplayedResourceListRole)
+            if (role == core::DisplayedResourceListRole)
                 return {}; //< TODO: #vkutin Replace with <deleted camera> or <deleted server>.
 
             return {};
         }
 
-        case Qn::ResourceRole: //< Resource for thumbnail preview only.
+        case core::ResourceRole: //< Resource for thumbnail preview only.
         {
             if (!hasPreview(eventParams.eventType))
                 return false;
 
-            return QVariant::fromValue<QnResourcePtr>(q->resourcePool()->
+            return QVariant::fromValue<QnResourcePtr>(m_context->resourcePool()->
                 getResourceById<QnVirtualCameraResource>(eventParams.eventResourceId));
         }
 
@@ -244,13 +256,18 @@ void EventSearchListModel::Private::truncateToMaximumCount()
     if (!q->truncateDataToMaximumCount(m_data, &startTime))
         return;
 
-    if (q->fetchDirection() == FetchDirection::earlier)
+    if (q->fetchDirection() == core::EventSearch::FetchDirection::earlier)
         q->setLive(false);
 }
 
 void EventSearchListModel::Private::truncateToRelevantTimePeriod()
 {
     q->truncateDataToTimePeriod(m_data, &startTime, q->relevantTimePeriod());
+}
+
+bool EventSearchListModel::Private::hasAccessRights() const
+{
+    return m_context->accessController()->hasGlobalPermission(GlobalPermission::viewLogs);
 }
 
 rest::Handle EventSearchListModel::Private::requestPrefetch(const QnTimePeriod& period)
@@ -281,7 +298,7 @@ rest::Handle EventSearchListModel::Private::requestPrefetch(const QnTimePeriod& 
             completePrefetch(actuallyFetched, success, int(m_prefetch.size()));
         };
 
-    const auto sortOrder = currentRequest().direction == FetchDirection::earlier
+    const auto sortOrder = currentRequest().direction == core::EventSearch::FetchDirection::earlier
         ? Qt::DescendingOrder
         : Qt::AscendingOrder;
 
@@ -344,10 +361,10 @@ bool EventSearchListModel::Private::commitPrefetch(const QnTimePeriod& periodToC
 {
     const auto clearPrefetch = nx::utils::makeScopeGuard([this]() { m_prefetch.clear(); });
 
-    if (currentRequest().direction == FetchDirection::earlier)
+    if (currentRequest().direction == core::EventSearch::FetchDirection::earlier)
         return commitInternal(periodToCommit, m_prefetch.begin(), m_prefetch.end(), count(), false);
 
-    NX_ASSERT(currentRequest().direction == FetchDirection::later);
+    NX_ASSERT(currentRequest().direction == core::EventSearch::FetchDirection::later);
     return commitInternal(
         periodToCommit, m_prefetch.rbegin(), m_prefetch.rend(), 0, q->effectiveLiveSupported());
 }
@@ -362,7 +379,7 @@ void EventSearchListModel::Private::fetchLive()
 
     const milliseconds from = (m_data.empty() ? 0ms : startTime(m_data.front()));
     m_liveFetch.period = QnTimePeriod(from.count(), QnTimePeriod::kInfiniteDuration);
-    m_liveFetch.direction = FetchDirection::later;
+    m_liveFetch.direction = core::EventSearch::FetchDirection::later;
     m_liveFetch.batchSize = q->fetchBatchSize();
 
     const auto liveEventsReceived =
@@ -410,7 +427,7 @@ rest::Handle EventSearchListModel::Private::getEvents(
         return {};
 
     QnEventLogMultiserverRequestData request;
-    request.filter.cameras = q->cameraSet()->type() != ManagedCameraSet::Type::all
+    request.filter.cameras = q->cameraSet()->type() != core::ManagedCameraSet::Type::all
         ? q->cameraSet()->cameras().values()
         : QnVirtualCameraResourceList();
 

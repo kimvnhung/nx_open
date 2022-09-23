@@ -62,6 +62,7 @@
 
 using namespace nx;
 using namespace nx::vms::event;
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 using namespace nx::vms::client::desktop::ui;
 
@@ -754,7 +755,7 @@ void QnEventLogDialog::at_eventsGrid_customContextMenuRequested(const QPoint&)
     QModelIndex idx = ui->gridEvents->currentIndex();
     if (idx.isValid())
     {
-        QnResourcePtr resource = m_model->data(idx, Qn::ResourceRole).value<QnResourcePtr>();
+        QnResourcePtr resource = m_model->data(idx, ResourceRole).value<QnResourcePtr>();
         auto manager = context()->menu();
         if (resource && accessController()->hasPermissions(resource, Qn::ViewContentPermission))
         {

@@ -28,6 +28,7 @@
 #include <ui/workbench/workbench_access_controller.h>
 #include <ui/workbench/workbench_context.h>
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 using namespace nx::vms::client::desktop::ui;
 
@@ -229,7 +230,7 @@ void QnUserRolesDialog::applyChanges()
                 for (const auto& layout: layouts)
                 {
                     actionManager->trigger(action::ShareLayoutAction,
-                        action::Parameters(layout).withArgument(Qn::UuidRole, role.id));
+                        action::Parameters(layout).withArgument(UuidRole, role.id));
                 }
                 qnResourcesChangesManager->saveAccessibleResources(role, accessibleResources);
             });
@@ -309,7 +310,7 @@ void QnUserRolesDialog::at_model_currentChanged(const QModelIndex& current)
     if (!valid)
         return;
 
-    QnUuid userRoleId = current.data(Qn::UuidRole).value<QnUuid>();
+    QnUuid userRoleId = current.data(UuidRole).value<QnUuid>();
     if (m_model->selectedUserRoleId() == userRoleId)
         return;
 

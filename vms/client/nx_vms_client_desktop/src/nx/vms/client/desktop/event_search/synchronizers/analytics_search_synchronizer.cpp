@@ -26,10 +26,10 @@
 #include <ui/workbench/workbench_navigator.h>
 
 #include <nx/utils/log/log.h>
+#include <nx/vms/client/core/event_search/utils/text_filter_setup.h>
 #include <nx/vms/client/desktop/ini.h>
 #include <nx/vms/client/desktop/event_search/utils/analytics_search_setup.h>
 #include <nx/vms/client/desktop/event_search/utils/common_object_search_setup.h>
-#include <nx/vms/client/desktop/event_search/utils/text_filter_setup.h>
 #include <nx/vms/client/desktop/ui/actions/actions.h>
 #include <nx/vms/client/desktop/utils/video_cache.h>
 
@@ -221,7 +221,7 @@ AnalyticsSearchSynchronizer::AnalyticsSearchSynchronizer(
             if (on)
             {
                 setActive(true);
-                m_commonSetup->setCameraSelection(RightPanel::CameraSelection::current);
+                m_commonSetup->setCameraSelection(core::EventSearch::CameraSelection::current);
 
                 if (!m_updating)
                     m_analyticsSetup->setAreaSelectionActive(true);
@@ -265,7 +265,7 @@ void AnalyticsSearchSynchronizer::updateAreaSelection()
     const auto area = mediaWidget->analyticsFilterRect();
 
     if (area.isValid())
-        m_commonSetup->setCameraSelection(RightPanel::CameraSelection::current);
+        m_commonSetup->setCameraSelection(core::EventSearch::CameraSelection::current);
 
     m_analyticsSetup->setArea(m_analyticsSetup->areaEnabled() ? area : QRectF());
 }
@@ -303,8 +303,8 @@ void AnalyticsSearchSynchronizer::updateWorkbench()
 
     const auto cameraSetType = m_commonSetup->cameraSelection();
 
-    if (cameraSetType != RightPanel::CameraSelection::all
-        && cameraSetType != RightPanel::CameraSelection::layout)
+    if (cameraSetType != core::EventSearch::CameraSelection::all
+        && cameraSetType != core::EventSearch::CameraSelection::layout)
     {
         for (const auto& camera: m_commonSetup->selectedCameras())
             m_filter.deviceIds.insert(camera->getId());
@@ -343,7 +343,7 @@ void AnalyticsSearchSynchronizer::updateWorkbench()
 void AnalyticsSearchSynchronizer::updateAction()
 {
     action(ui::action::ObjectSearchModeAction)->setChecked(active()
-        && m_commonSetup->cameraSelection() == RightPanel::CameraSelection::current);
+        && m_commonSetup->cameraSelection() == core::EventSearch::CameraSelection::current);
 }
 
 void AnalyticsSearchSynchronizer::updateMediaResourceWidgetAnalyticsMode(
@@ -413,7 +413,7 @@ void AnalyticsSearchSynchronizer::setupInstanceSynchronization()
                 instance->setActive(active());
         });
 
-    connect(m_commonSetup->textFilter(), &TextFilterSetup::textChanged, this,
+    connect(m_commonSetup->textFilter(), &core::TextFilterSetup::textChanged, this,
         [this]()
         {
             for (auto instance: instancesToNotify())
@@ -437,7 +437,7 @@ void AnalyticsSearchSynchronizer::setupInstanceSynchronization()
     connect(m_commonSetup, &CommonObjectSearchSetup::selectedCamerasChanged, this,
         [this]()
         {
-            if (m_commonSetup->cameraSelection() != RightPanel::CameraSelection::custom)
+            if (m_commonSetup->cameraSelection() != core::EventSearch::CameraSelection::custom)
                 return;
 
             for (auto instance: instancesToNotify())
@@ -495,7 +495,7 @@ void AnalyticsSearchSynchronizer::setupInstanceSynchronization()
     m_commonSetup->setTimeSelection(master->m_commonSetup->timeSelection());
     m_commonSetup->setCameraSelection(master->m_commonSetup->cameraSelection());
 
-    if (m_commonSetup->cameraSelection() == RightPanel::CameraSelection::custom)
+    if (m_commonSetup->cameraSelection() == core::EventSearch::CameraSelection::custom)
         m_commonSetup->setCustomCameras(master->m_commonSetup->selectedCameras());
 
     m_analyticsSetup->setEngine(master->m_analyticsSetup->engine());

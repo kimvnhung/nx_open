@@ -47,6 +47,7 @@ const QMap<int, std::pair<int, int>> kColumnsWidthLimit{
 
 } // namespace
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 using namespace nx::vms::client::desktop::ui;
 
@@ -236,7 +237,7 @@ bool QnSearchBookmarksDialogPrivate::fillActionParameters(action::Parameters &pa
         if (!index.isValid())
             return QnCameraBookmark();
 
-        const auto bookmark = m_model->data(index, Qn::CameraBookmarkRole).value<QnCameraBookmark>();
+        const auto bookmark = m_model->data(index, CameraBookmarkRole).value<QnCameraBookmark>();
         if (!bookmark.isValid())
             return QnCameraBookmark();
 
@@ -279,9 +280,9 @@ bool QnSearchBookmarksDialogPrivate::fillActionParameters(action::Parameters &pa
             continue;
         bookmarkIds << bookmark.guid;
 
-        bookmarks << bookmark;
+        bookmarks.push_back(bookmark);
     }
-    if (bookmarks.isEmpty())
+    if (bookmarks.empty())
         return false;
     else
         params.setArgument(Qn::CameraBookmarkListRole, bookmarks);
@@ -289,12 +290,12 @@ bool QnSearchBookmarksDialogPrivate::fillActionParameters(action::Parameters &pa
     if (bookmarks.size() != 1)
         return true;
 
-    QnCameraBookmark currentBookmark = bookmarks.first();
+    QnCameraBookmark currentBookmark = bookmarks.front();
     /* User should not be able to export or open invalid bookmark. */
     if (!currentBookmark.isValid())
         return true;
 
-    params.setArgument(Qn::CameraBookmarkRole, currentBookmark);
+    params.setArgument(CameraBookmarkRole, currentBookmark);
 
     auto camera = availableCameraById(currentBookmark.cameraId);
     if (camera)

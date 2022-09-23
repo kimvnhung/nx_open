@@ -13,8 +13,8 @@
 #include <QtCore/QTimer>
 
 #include <motion/motion_detection.h>
+#include <nx/vms/client/core/event_search/models/private/abstract_async_search_list_model_p.h>
 #include <nx/vms/client/core/network/remote_connection_aware.h>
-#include <nx/vms/client/desktop/event_search/models/private/abstract_async_search_list_model_p.h>
 #include <recording/time_period.h>
 #include <recording/time_period_list.h>
 

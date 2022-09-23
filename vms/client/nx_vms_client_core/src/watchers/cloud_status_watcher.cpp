@@ -369,11 +369,12 @@ QnCloudStatusWatcherPrivate::QnCloudStatusWatcherPrivate(QnCloudStatusWatcher *p
 
     m_tokenUpdater = std::make_unique<CloudSessionTokenUpdater>(this);
 
-    connect(
-        m_tokenUpdater.get(),
-        &CloudSessionTokenUpdater::sessionTokenExpiring,
-        this,
-        &QnCloudStatusWatcherPrivate::issueAccessToken);
+    connect(m_tokenUpdater.get(), &CloudSessionTokenUpdater::sessionTokenExpiring, this,
+        [this, q]()
+        {
+            if (q->status() != QnCloudStatusWatcher::Status::LoggedOut)
+                issueAccessToken();
+        });
 }
 
 bool QnCloudStatusWatcherPrivate::cloudIsEnabled() const

@@ -272,7 +272,7 @@ Factory::ActionList LayoutTourSettingsFactory::newActions(const Parameters& para
     auto actionGroup = new QActionGroup(parent);
     actionGroup->setExclusive(true);
 
-    auto id = parameters.argument<QnUuid>(Qn::UuidRole);
+    auto id = parameters.argument<QnUuid>(core::UuidRole);
     const bool isCurrentTour = id.isNull();
     NX_ASSERT(!isCurrentTour || workbench()->currentLayout()->isLayoutTourReview());
 
@@ -303,7 +303,7 @@ Factory::ActionList LayoutTourSettingsFactory::newActions(const Parameters& para
 
                 tour.settings.manual = manual;
                 layoutTourManager()->addOrUpdateTour(tour);
-                menu()->trigger(action::SaveLayoutTourAction, {Qn::UuidRole, id});
+                menu()->trigger(action::SaveLayoutTourAction, {core::UuidRole, id});
             });
         actionGroup->addAction(action);
     }

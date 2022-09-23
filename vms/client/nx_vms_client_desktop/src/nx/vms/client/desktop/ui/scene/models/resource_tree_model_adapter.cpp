@@ -247,7 +247,7 @@ struct ResourceTreeModelAdapter::Private
                         continue;
                     }
 
-                    const auto resource = index.data(Qn::ResourceRole).value<QnResourcePtr>();
+                    const auto resource = index.data(core::ResourceRole).value<QnResourcePtr>();
                     if (!resource)
                     {
                         hasNotOpenableItems = hasNotOpenableItems || q->rowCount(index) == 0;
@@ -367,7 +367,7 @@ QVariant ResourceTreeModelAdapter::data(const QModelIndex& index, int role) cons
             static const QString kCustomExtInfoTemplate = //< "- %1" with en-dash
                 QString::fromWCharArray(L"\x2013 %1");
 
-            const auto resource = base_type::data(index, Qn::ResourceRole).value<QnResourcePtr>();
+            const auto resource = base_type::data(index, core::ResourceRole).value<QnResourcePtr>();
             const auto nodeType = base_type::data(
                 index, Qn::NodeTypeRole).value<ResourceTree::NodeType>();
 
@@ -401,7 +401,7 @@ QVariant ResourceTreeModelAdapter::data(const QModelIndex& index, int role) cons
 
         case Qn::RawResourceRole:
         {
-            const auto resource = data(index, Qn::ResourceRole).value<QnResourcePtr>();
+            const auto resource = data(index, core::ResourceRole).value<QnResourcePtr>();
             if (!resource)
                 return {};
 
@@ -425,7 +425,7 @@ QVariant ResourceTreeModelAdapter::data(const QModelIndex& index, int role) cons
             {
                 case NodeType::resource:
                 {
-                    const auto resource = index.data(Qn::ResourceRole).value<QnResourcePtr>();
+                    const auto resource = index.data(core::ResourceRole).value<QnResourcePtr>();
                     if (resource && resource->hasFlags(Qn::server))
                     {
                         const auto serverCount = d->context->resourcePool()
@@ -457,7 +457,7 @@ QHash<int, QByteArray> ResourceTreeModelAdapter::roleNames() const
     roleNames[Qn::AutoExpandRole] = "autoExpand";
     roleNames[Qn::RawResourceRole] = "resource";
     roleNames[Qn::HelpTopicIdRole] = "helpTopicId";
-    roleNames[Qn::UuidRole] = "uuid";
+    roleNames[core::UuidRole] = "uuid";
     roleNames[Qn::ResourceTreeCustomGroupIdRole] = "customGroupId";
     roleNames[Qn::CameraGroupIdRole] = "cameraGroupId";
     return roleNames;
@@ -631,7 +631,7 @@ bool ResourceTreeModelAdapter::isExtraInfoForced(QnResource* resource) const
 
 bool ResourceTreeModelAdapter::expandsOnDoubleClick(const QModelIndex& index) const
 {
-    const auto resource = index.data(Qn::ResourceRole).value<QnResourcePtr>();
+    const auto resource = index.data(core::ResourceRole).value<QnResourcePtr>();
     return !resource || !resource->hasFlags(Qn::layout);
 }
 
@@ -654,7 +654,7 @@ ResourceTree::ExpandedNodeId ResourceTreeModelAdapter::expandedNodeId(
     {
         case ResourceTree::NodeType::resource:
         {
-            const auto resource = index.data(Qn::ResourceRole).value<QnResourcePtr>();
+            const auto resource = index.data(core::ResourceRole).value<QnResourcePtr>();
             return NX_ASSERT(resource) &&
                 (resource->hasFlags(Qn::server) || resource->hasFlags(Qn::videowall))
                 ? ResourceTree::ExpandedNodeId{nodeType, resource->getId().toSimpleString()}
@@ -675,7 +675,7 @@ ResourceTree::ExpandedNodeId ResourceTreeModelAdapter::expandedNodeId(
                 const auto type = parent.data(Qn::NodeTypeRole).value<ResourceTree::NodeType>();
                 if (type == ResourceTree::NodeType::resource)
                 {
-                    const auto resource = parent.data(Qn::ResourceRole).value<QnResourcePtr>();
+                    const auto resource = parent.data(core::ResourceRole).value<QnResourcePtr>();
                     if (NX_ASSERT(resource))
                         parentId = resource->getId().toSimpleString();
                     break;

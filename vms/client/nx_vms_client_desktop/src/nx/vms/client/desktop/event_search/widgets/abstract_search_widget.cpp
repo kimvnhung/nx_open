@@ -11,7 +11,7 @@ namespace nx::vms::client::desktop {
 
 AbstractSearchWidget::AbstractSearchWidget(
     QnWorkbenchContext* context,
-    AbstractSearchListModel* model,
+    core::AbstractSearchListModel* model,
     QWidget* parent)
     :
     base_type(parent),
@@ -26,7 +26,7 @@ AbstractSearchWidget::~AbstractSearchWidget()
     // Required here for forward-declared scoped pointer destruction.
 }
 
-AbstractSearchListModel* AbstractSearchWidget::model() const
+core::AbstractSearchListModel* AbstractSearchWidget::model() const
 {
     return d->model();
 }

@@ -52,6 +52,7 @@
 using namespace std::chrono;
 
 using namespace nx;
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 using namespace nx::vms::client::desktop::ui;
 using namespace nx::vms::event;
@@ -221,7 +222,7 @@ void QnWorkbenchNotificationsHandler::handleFullscreenCameraAction(
 
             using namespace ui::action;
             menu()->triggerIfPossible(JumpToTimeAction,
-                Parameters().withArgument(Qn::TimestampRole, navigationTime));
+                Parameters().withArgument(TimestampRole, navigationTime));
         }
     }
 }

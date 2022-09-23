@@ -449,7 +449,7 @@ void WorkbenchExportHandler::handleExportVideoAction(const ui::action::Parameter
 
 void WorkbenchExportHandler::handleExportBookmarkAction(const ui::action::Parameters& parameters)
 {
-    const auto bookmark = parameters.argument<QnCameraBookmark>(Qn::CameraBookmarkRole);
+    const auto bookmark = parameters.argument<QnCameraBookmark>(core::CameraBookmarkRole);
     NX_ASSERT(bookmark.isValid());
     if (!bookmark.isValid())
         return;

@@ -2,16 +2,16 @@
 
 #pragma once
 
-#include "abstract_event_list_model.h"
-
 #include <nx/utils/impl_ptr.h>
+#include <nx/vms/client/core/event_search/models/abstract_event_list_model.h>
+#include <ui/workbench/workbench_context_aware.h>
 
 namespace nx::vms::client::desktop {
 
-class SystemHealthListModel: public AbstractEventListModel
+class SystemHealthListModel: public core::AbstractEventListModel, public QnWorkbenchContextAware
 {
     Q_OBJECT
-    using base_type = AbstractEventListModel;
+    using base_type = core::AbstractEventListModel;
 
 public:
     explicit SystemHealthListModel(QnWorkbenchContext* context, QObject* parent = nullptr);

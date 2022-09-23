@@ -12,9 +12,9 @@
 #include <ui/workbench/workbench_navigator.h>
 
 #include <nx/utils/log/assert.h>
-#include <nx/vms/client/desktop/event_search/models/abstract_search_list_model.h>
+#include <nx/vms/client/core/event_search/models/abstract_search_list_model.h>
+#include <nx/vms/client/core/event_search/utils/text_filter_setup.h>
 #include <nx/vms/client/desktop/event_search/utils/common_object_search_setup.h>
-#include <nx/vms/client/desktop/event_search/utils/text_filter_setup.h>
 #include <nx/vms/client/desktop/ui/actions/actions.h>
 #include <nx/vms/client/desktop/ui/actions/action_manager.h>
 
@@ -41,7 +41,7 @@ BookmarkSearchSynchronizer::BookmarkSearchSynchronizer(
     connect(navigator(), &QnWorkbenchNavigator::currentResourceChanged,
         this, &BookmarkSearchSynchronizer::updateTimelineBookmarks);
 
-    connect(m_searchSetup->textFilter(), &TextFilterSetup::textChanged,
+    connect(m_searchSetup->textFilter(), &core::TextFilterSetup::textChanged,
         this, &BookmarkSearchSynchronizer::updateTimelineBookmarks);
 }
 
@@ -60,7 +60,7 @@ void BookmarkSearchSynchronizer::updateTimelineBookmarks()
     const bool relevant = camera && m_searchSetup->selectedCameras().contains(camera);
 
     const auto cameraSetType = m_searchSetup->cameraSelection();
-    const auto cameras = cameraSetType == RightPanel::CameraSelection::current
+    const auto cameras = cameraSetType == core::EventSearch::CameraSelection::current
         ? m_searchSetup->selectedCameras()
         : QnVirtualCameraResourceSet();
 

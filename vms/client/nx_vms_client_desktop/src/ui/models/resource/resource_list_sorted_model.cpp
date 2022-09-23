@@ -6,6 +6,7 @@
 #include <core/resource/resource.h>
 #include <client/client_globals.h>
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 
 QnResourceListSortedModel::QnResourceListSortedModel(QObject* parent):
@@ -35,7 +36,7 @@ bool QnResourceListSortedModel::filterAcceptsRow(
         && resources::search_helper::isSearchStringValid(filterRegExp().pattern()))
     {
         const auto sourceIndex = sourceModel()->index(sourceRow, filterKeyColumn(), sourceParent);
-        if (const auto resource = sourceIndex.data(Qn::ResourceRole).value<QnResourcePtr>())
+        if (const auto resource = sourceIndex.data(ResourceRole).value<QnResourcePtr>())
             return resources::search_helper::matches(filterRegExp().pattern(), resource);
     }
     return base_type::filterAcceptsRow(sourceRow, sourceParent);

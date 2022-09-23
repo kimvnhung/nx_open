@@ -1792,7 +1792,7 @@ int QnTimeSlider::helpTopicAt(const QPointF& pos) const
         return Qn::MainWindow_MediaItem_SmartSearch_Help;
 
     if (!m_bookmarksHelper->bookmarksAtPosition(timeFromPosition(pos),
-        milliseconds(qint64(m_msecsPerPixel))).isEmpty())
+        milliseconds(qint64(m_msecsPerPixel))).empty())
             return Qn::Bookmarks_Usage_Help;
 
     return Qn::MainWindow_Slider_Timeline_Help;
@@ -1968,7 +1968,7 @@ void QnTimeSlider::updateLivePreview()
         && m_view->underMouse()
         && rect().contains(cursorPos)
         && navigator()->currentResource()
-        && m_bookmarksViewer->getDisplayedBookmarks().isEmpty()
+        && m_bookmarksViewer->getDisplayedBookmarks().empty()
         && !m_tooltip->widget()->underMouse())
     {
         const QPoint positionAtTopLine = mapItemToGlobal(this, {0.0, 0.0});

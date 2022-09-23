@@ -6,7 +6,7 @@
 
 #include <nx/utils/impl_ptr.h>
 #include <nx/utils/scoped_model_operations.h>
-#include <nx/vms/client/desktop/common/models/abstract_mapping_model.h>
+#include <nx/vms/client/core/common/models/abstract_mapping_model.h>
 
 class QJSValue;
 

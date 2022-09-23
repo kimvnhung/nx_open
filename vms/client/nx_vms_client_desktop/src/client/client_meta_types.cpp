@@ -21,6 +21,7 @@
 #include <nx/cloud/db/api/result_code.h>
 #include <nx/cloud/db/api/system_data.h>
 #include <nx/utils/uuid.h>
+#include <nx/vms/client/core/thumbnails/resource_id_thumbnail.h>
 #include <nx/vms/client/desktop/analytics/analytics_icon_manager.h>
 #include <nx/vms/client/desktop/analytics/analytics_taxonomy_manager.h>
 #include <nx/vms/client/desktop/common/models/index_list_model.h>
@@ -45,7 +46,6 @@
 #include <nx/vms/client/desktop/system_update/update_contents.h>
 #include <nx/vms/client/desktop/resource_dialogs/filtering/filtered_resource_proxy_model.h>
 #include <nx/vms/client/desktop/thumbnails/live_camera_thumbnail.h>
-#include <nx/vms/client/desktop/thumbnails/resource_id_thumbnail.h>
 #include <nx/vms/client/desktop/thumbnails/roi_camera_thumbnail.h>
 #include <nx/vms/client/desktop/ui/actions/action_parameters.h>
 #include <nx/vms/client/desktop/ui/actions/actions.h>
@@ -241,7 +241,6 @@ void QnClientMetaTypes::registerQmlTypes()
     ListNavigationHelper::registerQmlType();
     ItemGrabber::registerQmlType();
     DragAndDrop::registerQmlType();
-    ResourceIdentificationThumbnail::registerQmlType();
     LiveCameraThumbnail::registerQmlType();
     RoiCameraThumbnail::registerQmlType();
     QuickMessageBox::registerQmlType();

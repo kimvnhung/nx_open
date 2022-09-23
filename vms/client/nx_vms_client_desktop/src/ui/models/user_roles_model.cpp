@@ -169,7 +169,7 @@ QVariant QnUserRolesModel::data(const QModelIndex& index, int role) const
                 : QVariant();
 
         /* Role uuid (for custom roles): */
-        case Qn::UuidRole:
+        case nx::vms::client::core::UuidRole:
             return QVariant::fromValue(d->id(index.row(), d->m_predefinedRoleIdsEnabled));
 
         /* Role permissions (for built-in roles): */

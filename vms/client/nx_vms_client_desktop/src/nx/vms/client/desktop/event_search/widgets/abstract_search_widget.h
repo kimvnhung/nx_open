@@ -9,21 +9,26 @@
 #include <ui/workbench/workbench_context_aware.h>
 
 #include <nx/utils/impl_ptr.h>
-#include <nx/vms/client/desktop/event_search/utils/text_filter_setup.h>
+#include <nx/vms/client/core/event_search/utils/text_filter_setup.h>
 
 class QMenu;
 class QLabel;
 class QAction;
 class QToolButton;
 
+namespace nx::vms::client::core {
+
+class TextFilterSetup;
+class AbstractSearchListModel;
+
+} // nx::vms::client::core
+
 namespace nx::vms::client::desktop {
 
 class EventTile;
 class EventRibbon;
 class SelectableTextButton;
-class AbstractSearchListModel;
 class CommonObjectSearchSetup;
-class TextFilterSetup;
 
 /**
  * Base class for Right Panel search tabs. Contains common filter setup controls, tiles view
@@ -39,12 +44,12 @@ class AbstractSearchWidget:
 public:
     AbstractSearchWidget(
         QnWorkbenchContext* context,
-        AbstractSearchListModel* model, //< Ownership is taken.
+        core::AbstractSearchListModel* model, //< Ownership is taken.
         QWidget* parent = nullptr);
 
     virtual ~AbstractSearchWidget() override;
 
-    AbstractSearchListModel* model() const;
+    core::AbstractSearchListModel* model() const;
 
     /** Whether the search widget should be visible. */
     bool isAllowed() const;

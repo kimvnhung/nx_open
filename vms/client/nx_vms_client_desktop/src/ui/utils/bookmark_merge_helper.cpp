@@ -217,10 +217,10 @@ QnCameraBookmarkList QnBookmarkMergeHelper::bookmarksAtPosition(milliseconds tim
                     NX_ASSERT(bookmarkItem->bookmark,
                         "Zero level item should contain real bookmarks");
                     if (bookmarkItem->bookmark)
-                        result.append(*bookmarkItem->bookmark);
+                        result.push_back(*bookmarkItem->bookmark);
                 }
 
-                if (!result.isEmpty())
+                if (!result.empty())
                     break;
             }
         }
@@ -237,7 +237,7 @@ QnCameraBookmarkList QnBookmarkMergeHelper::bookmarksAtPosition(milliseconds tim
             {
                 NX_ASSERT(bookmarkItem->bookmark, "Zero level item should contain real bookmarks");
                 if (bookmarkItem->bookmark)
-                    result.append(*bookmarkItem->bookmark);
+                    result.push_back(*bookmarkItem->bookmark);
             }
         }
     }
@@ -255,7 +255,7 @@ QnCameraBookmarkList QnBookmarkMergeHelper::bookmarksAtPosition(milliseconds tim
                 NX_ASSERT(bookmarkItem->bookmark,
                     "Zero level item should contain real bookmarks");
                 if (bookmarkItem->bookmark)
-                    result.append(*bookmarkItem->bookmark);
+                    result.push_back(*bookmarkItem->bookmark);
             }
         }
     }

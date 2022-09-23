@@ -317,7 +317,8 @@ void QnBookmarksViewer::Impl::updateBookmarks(QnCameraBookmarkList bookmarks)
     const int bookmarksCount = std::min<int>(m_bookmarks.size(), kMaxBookmarksCount);
     const int bookmarksLeft = m_bookmarks.size() - bookmarksCount;
     const auto& trimmedBookmarks = (bookmarksLeft
-        ? m_bookmarks.mid(0, kMaxBookmarksCount) : m_bookmarks);
+        ? QnCameraBookmarkList(m_bookmarks.begin() , m_bookmarks.begin() + kMaxBookmarksCount)
+        : m_bookmarks);
 
     if (m_bookmarkTooltip)
     {

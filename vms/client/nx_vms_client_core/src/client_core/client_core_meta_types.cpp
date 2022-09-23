@@ -34,9 +34,14 @@
 #include <nx/vms/client/core/common/utils/validators.h>
 #include <nx/vms/client/core/common/utils/velocity_meter.h>
 #include <nx/vms/client/core/common/helpers/texture_size_helper.h>
+#include <nx/vms/client/core/event_search/event_search_globals.h>
+#include <nx/vms/client/core/event_search/models/abstract_search_list_model.h>
+#include <nx/vms/client/core/event_search/utils/common_object_search_setup.h>
+#include <nx/vms/client/core/event_search/utils/text_filter_setup.h>
 #include <nx/vms/client/core/graphics/shader_helper.h>
 #include <nx/vms/client/core/items/grid_viewport.h>
 #include <nx/vms/client/core/thumbnails/abstract_resource_thumbnail.h>
+#include <nx/vms/client/core/thumbnails/resource_id_thumbnail.h>
 #include <nx/vms/client/core/settings/welcome_screen_info.h>
 #include <nx/vms/client/core/media/media_player.h>
 #include <nx/vms/client/core/network/oauth_client.h>
@@ -134,8 +139,12 @@ void initializeMetaTypes()
     FileIO::registerQmlType();
     DisplayTimeHelper::registerQmlType();
     OauthClient::registerQmlType();
-
+    EventSearch::registerQmlType();
+    ResourceIdentificationThumbnail::registerQmlType();
+    TextFilterSetup::registerQmlType();
     MediaPlayer::registerQmlTypes();
+    AbstractSearchListModel::registerQmlType();
+    CommonObjectSearchSetup::registerQmlType();
 
     qRegisterMetaType<MediaDewarpingParams>();
     qmlRegisterUncreatableType<MediaDewarpingParams>("nx.vms.client.core", 1, 0,

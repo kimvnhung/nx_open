@@ -85,7 +85,7 @@ LayoutTourReviewController::LayoutTourReviewController(QObject* parent):
     auto saveQueuedTours = [this]
         {
             for (const auto& id: m_saveToursQueue)
-                menu()->trigger(action::SaveLayoutTourAction, {Qn::UuidRole, id});
+                menu()->trigger(action::SaveLayoutTourAction, {core::UuidRole, id});
             m_saveToursQueue.clear();
         };
     m_saveToursOperation =
@@ -550,7 +550,7 @@ void LayoutTourReviewController::handleItemDataChanged(const QnUuid& id, Qn::Ite
 void LayoutTourReviewController::at_reviewLayoutTourAction_triggered()
 {
     const auto parameters = menu()->currentParameters(sender());
-    auto id = parameters.argument<QnUuid>(Qn::UuidRole);
+    auto id = parameters.argument<QnUuid>(core::UuidRole);
     reviewLayoutTour(layoutTourManager()->tour(id));
 }
 
@@ -575,7 +575,7 @@ void LayoutTourReviewController::at_startCurrentLayoutTourAction_triggered()
     const auto startTourAction = action(action::ToggleLayoutTourModeAction);
     NX_ASSERT(!startTourAction->isChecked());
     if (!startTourAction->isChecked())
-        menu()->trigger(action::ToggleLayoutTourModeAction, {Qn::UuidRole, tour.id});
+        menu()->trigger(action::ToggleLayoutTourModeAction, {core::UuidRole, tour.id});
 }
 
 void LayoutTourReviewController::at_saveCurrentLayoutTourAction_triggered()
@@ -605,7 +605,7 @@ void LayoutTourReviewController::at_saveCurrentLayoutTourAction_triggered()
 void LayoutTourReviewController::at_removeCurrentLayoutTourAction_triggered()
 {
     NX_ASSERT_HEAVY_CONDITION(isLayoutTourReviewMode());
-    menu()->trigger(action::RemoveLayoutTourAction, {Qn::UuidRole, currentTourId()});
+    menu()->trigger(action::RemoveLayoutTourAction, {core::UuidRole, currentTourId()});
 }
 
 } // namespace workbench

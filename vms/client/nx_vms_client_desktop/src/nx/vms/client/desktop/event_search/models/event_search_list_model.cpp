@@ -4,11 +4,17 @@
 #include "private/event_search_list_model_p.h"
 
 #include <ui/workbench/workbench_access_controller.h>
+#include <ui/workbench/workbench_context.h>
 
 namespace nx::vms::client::desktop {
 
-EventSearchListModel::EventSearchListModel(QnWorkbenchContext* context, QObject* parent):
-    base_type(context, [this]() { return new Private(this); }, parent),
+EventSearchListModel::EventSearchListModel(
+    QnWorkbenchContext* context,
+    QObject* parent)
+    :
+    base_type(
+        context->commonModule(),
+        [this, context]() { return new Private(context, this); }, parent),
     d(qobject_cast<Private*>(base_type::d.data()))
 {
     setLiveSupported(true);
@@ -53,7 +59,7 @@ bool EventSearchListModel::isConstrained() const
 
 bool EventSearchListModel::hasAccessRights() const
 {
-    return accessController()->hasGlobalPermission(GlobalPermission::viewLogs);
+    return d->hasAccessRights();
 }
 
 } // namespace nx::vms::client::desktop

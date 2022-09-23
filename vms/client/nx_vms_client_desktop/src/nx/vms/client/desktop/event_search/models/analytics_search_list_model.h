@@ -7,15 +7,17 @@
 
 #include <QtCore/QRectF>
 
-#include <nx/vms/client/desktop/event_search/models/abstract_async_search_list_model.h>
+#include <nx/vms/client/core/event_search/models/abstract_async_search_list_model.h>
+
+class QnWorkbenchContext;
 
 namespace nx::analytics::db { struct ObjectTrack; }
 
+namespace nx::vms::client::core { class TextFilterSetup; }
+
 namespace nx::vms::client::desktop {
 
-class TextFilterSetup;
-
-class AnalyticsSearchListModel: public AbstractAsyncSearchListModel
+class AnalyticsSearchListModel: public core::AbstractAsyncSearchListModel
 {
     Q_OBJECT
     using base_type = AbstractAsyncSearchListModel;
@@ -27,7 +29,7 @@ public:
     QRectF filterRect() const;
     void setFilterRect(const QRectF& relativeRect);
 
-    virtual TextFilterSetup* textFilter() const override;
+    virtual core::TextFilterSetup* textFilter() const override;
 
     QnUuid selectedEngine() const;
     void setSelectedEngine(const QnUuid& value);

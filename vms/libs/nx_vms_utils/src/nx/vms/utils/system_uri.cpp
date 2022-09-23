@@ -55,7 +55,8 @@ const QMap<SystemUri::SystemAction, QString> systemActionToString
 const QMap<SystemUri::ReferralSource, QString> referralSourceToString
 {
     {SystemUri::ReferralSource::None,           ""},
-    {SystemUri::ReferralSource::DesktopClient,  "client"}, {SystemUri::ReferralSource::MobileClient,   "mobile"},
+    {SystemUri::ReferralSource::DesktopClient,  "client"},
+    {SystemUri::ReferralSource::MobileClient,   "mobile"},
     {SystemUri::ReferralSource::CloudPortal,    "portal"},
     {SystemUri::ReferralSource::WebAdmin,       "webadmin"}
 };

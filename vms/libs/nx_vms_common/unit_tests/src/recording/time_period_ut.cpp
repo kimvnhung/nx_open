@@ -57,8 +57,8 @@ TEST(QnTimePeriodTest, fromInterval)
 {
     ASSERT_EQ(QnTimePeriod(3, 5), QnTimePeriod::fromInterval(3, 8));
     ASSERT_EQ(QnTimePeriod(3, 5), QnTimePeriod::fromInterval(8, 3));
-    ASSERT_EQ(QnTimePeriod(3, -1), QnTimePeriod::fromInterval(3, QnTimePeriod::kMaxTimeValue));
-    ASSERT_EQ(QnTimePeriod(3, -1), QnTimePeriod::fromInterval(QnTimePeriod::kMaxTimeValue, 3));
+    ASSERT_EQ(QnTimePeriod(3, -1), QnTimePeriod::fromInterval(3, QnTimePeriod::kMaxTimeValueMs));
+    ASSERT_EQ(QnTimePeriod(3, -1), QnTimePeriod::fromInterval(QnTimePeriod::kMaxTimeValueMs, 3));
 }
 
 } // namespace test

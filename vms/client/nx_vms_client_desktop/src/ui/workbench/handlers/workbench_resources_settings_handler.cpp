@@ -39,6 +39,7 @@
 #include <ui/workbench/workbench_layout.h>
 #include <utils/camera/camera_bitrate_calculator.h>
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 using namespace ui;
 
@@ -183,7 +184,7 @@ void QnWorkbenchResourcesSettingsHandler::at_userRolesAction_triggered()
     const auto parameters = menu()->currentParameters(sender());
     const auto parent = utils::extractParentWidget(parameters, mainWindowWidget());
 
-    QnUuid userRoleId = parameters.argument(Qn::UuidRole).value<QnUuid>();
+    QnUuid userRoleId = parameters.argument(UuidRole).value<QnUuid>();
 
     QScopedPointer<QnUserRolesDialog> dialog(new QnUserRolesDialog(parent));
     if (!userRoleId.isNull())

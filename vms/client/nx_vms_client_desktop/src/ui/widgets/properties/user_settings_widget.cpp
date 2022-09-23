@@ -26,6 +26,7 @@
 #include <ui/workbench/workbench_context.h>
 #include <utils/email/email.h>
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 
 namespace {
@@ -183,7 +184,7 @@ QnUserSettingsWidget::QnUserSettingsWidget(QnUserSettingsModel* model, QWidget* 
         [this]
         {
             menu()->trigger(ui::action::UserRolesAction, ui::action::Parameters()
-                .withArgument(Qn::UuidRole, selectedUserRoleId())
+                .withArgument(UuidRole, selectedUserRoleId())
                 .withArgument(Qn::ParentWidgetRole, QPointer<QWidget>(this)));
         });
 
@@ -650,7 +651,7 @@ Qn::UserRole QnUserSettingsWidget::selectedRole() const
 
 QnUuid QnUserSettingsWidget::selectedUserRoleId() const
 {
-    return ui->roleComboBox->itemData(ui->roleComboBox->currentIndex(), Qn::UuidRole).value<QnUuid>();
+    return ui->roleComboBox->itemData(ui->roleComboBox->currentIndex(), UuidRole).value<QnUuid>();
 }
 
 bool QnUserSettingsWidget::validMode() const

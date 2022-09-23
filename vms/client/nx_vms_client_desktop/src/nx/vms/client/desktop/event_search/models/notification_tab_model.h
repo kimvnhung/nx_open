@@ -3,7 +3,7 @@
 #pragma once
 
 #include <nx/utils/impl_ptr.h>
-#include <nx/vms/client/desktop/common/models/concatenation_list_model.h>
+#include <nx/vms/client/core/common/models/concatenation_list_model.h>
 
 class QnWorkbenchContext;
 

@@ -273,7 +273,7 @@ void StartupActionsHandler::submitDelayedDrops()
     }
 
     for (const auto& tour: tours)
-        menu()->trigger(ReviewLayoutTourAction, {Qn::UuidRole, tour.id});
+        menu()->trigger(ReviewLayoutTourAction, {core::UuidRole, tour.id});
 }
 
 void StartupActionsHandler::handleStartupParameters()

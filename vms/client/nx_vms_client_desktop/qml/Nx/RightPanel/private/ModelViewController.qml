@@ -25,18 +25,18 @@ NxObject
         function onAtYEndChanged()
         {
             if (view.atYEnd)
-                controller.requestFetchIfNeeded()
+                controller.requestUpdateIfNeeded()
         }
 
         function onAtYBeginningChanged()
         {
             if (view.atYBeginning)
-                controller.requestFetchIfNeeded()
+                controller.requestUpdateIfNeeded()
         }
 
         function onVisibleChanged()
         {
-            controller.requestFetchIfNeeded()
+            controller.requestUpdateIfNeeded()
 
             if (view.model)
                 view.model.setLivePaused(!visible)
@@ -72,7 +72,7 @@ NxObject
 
         function onDataNeeded()
         {
-            controller.requestFetchIfNeeded(/*immediately*/ true)
+            controller.requestUpdateIfNeeded(/*immediately*/ true)
         }
 
         function onLiveAboutToBeCommitted()
@@ -140,13 +140,13 @@ NxObject
         return false
     }
 
-    function requestFetchIfNeeded(immediately)
+    function requestUpdateIfNeeded(immediately)
     {
         if (d.fixupInProgress)
             return
 
         if (view && view.visible && !view.model.fetchInProgress() && updateFetchDirection())
-            view.model.requestFetch(!!immediately)
+            view.model.requestUpdate(!!immediately)
     }
 
     TilePreloader

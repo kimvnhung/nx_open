@@ -2,8 +2,6 @@
 
 #pragma once
 
-#include "abstract_event_list_model.h"
-
 #include <chrono>
 
 #include <QtGui/QPixmap>
@@ -14,16 +12,19 @@
 
 #include <nx/utils/impl_ptr.h>
 #include <nx/utils/uuid.h>
+#include <nx/vms/client/core/event_search/models/abstract_event_list_model.h>
 #include <nx/vms/client/desktop/ui/actions/action.h>
 #include <nx/vms/client/desktop/ui/actions/action_parameters.h>
 #include <nx/vms/client/desktop/common/utils/command_action.h>
+#include <ui/workbench/workbench_context_aware.h>
 
 namespace nx::vms::client::desktop {
 
-class EventListModel: public AbstractEventListModel
+class EventListModel: public core::AbstractEventListModel,
+    public QnWorkbenchContextAware
 {
     Q_OBJECT
-    using base_type = AbstractEventListModel;
+    using base_type = core::AbstractEventListModel;
 
 public:
     struct EventData

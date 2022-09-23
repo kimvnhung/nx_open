@@ -1,0 +1,2 @@
+module Nx.Core.Ui
+ViewUpdateWatcher 1.0 ViewUpdateWatcher.qml

@@ -1,36 +1,75 @@
 // Copyright 2018-present Network Optix, Inc. Licensed under MPL 2.0: www.mozilla.org/MPL/2.0/
 
 #include "bookmark_search_list_model.h"
-#include "private/bookmark_search_list_model_p.h"
 
-#include <ui/workbench/workbench_access_controller.h>
+#include <QtGui/QPalette>
+
+#include <client/client_globals.h>
+#include <nx/vms/client/core/event_search/models/private/bookmark_search_list_model_p.h>
+#include <nx/vms/client/desktop/style/skin.h>
+#include <ui/help/help_topics.h>
 
 namespace nx::vms::client::desktop {
 
-BookmarkSearchListModel::BookmarkSearchListModel(QnWorkbenchContext* context, QObject* parent):
-    base_type(context, [this]() { return new Private(this); }, parent),
-    d(qobject_cast<Private*>(base_type::d.data()))
+namespace {
+
+QString iconPath()
 {
+    return "soft_triggers/user_selectable/bookmark.png";
 }
 
-TextFilterSetup* BookmarkSearchListModel::textFilter() const
+QColor color()
 {
-    return d->textFilter.get();
+    return QPalette().color(QPalette::Light);
 }
 
-bool BookmarkSearchListModel::isConstrained() const
+QPixmap pixmap()
 {
-    return !d->textFilter->text().isEmpty() || base_type::isConstrained();
+    return Skin::colorize(qnSkin->pixmap(iconPath()), color());
 }
 
-bool BookmarkSearchListModel::hasAccessRights() const
-{
-    return accessController()->hasGlobalPermission(GlobalPermission::viewBookmarks);
-}
+} // namespace
 
-void BookmarkSearchListModel::dynamicUpdate(const QnTimePeriod& period)
+//-------------------------------------------------------------------------------------------------
+
+class BookmarkSearchListModel::Private: public core::BookmarkSearchListModel::Private
 {
-    d->dynamicUpdate(period);
+    using base_type = core::BookmarkSearchListModel::Private;
+
+public:
+    explicit Private(BookmarkSearchListModel* q):
+        base_type(q)
+    {
+    }
+
+    virtual QVariant data(const QModelIndex& index, int role, bool& handled) const override
+    {
+        switch (role)
+        {
+            case Qn::DecorationPathRole:
+                return iconPath();
+
+            case Qt::DecorationRole:
+                return QVariant::fromValue(pixmap());
+
+            case Qt::ForegroundRole:
+                return QVariant::fromValue(color());
+
+            case Qn::HelpTopicIdRole:
+                return Qn::Bookmarks_Usage_Help;
+
+            default:
+                return base_type::data(index, role, handled);
+        }
+    }
+};
+
+BookmarkSearchListModel::BookmarkSearchListModel(
+    QnCommonModule* commonModule,
+    QObject* parent)
+    :
+    base_type(commonModule, CreatePrivate([this]() { return new Private(this); }), parent)
+{
 }
 
 } // namespace nx::vms::client::desktop

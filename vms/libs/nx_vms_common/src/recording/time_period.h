@@ -20,12 +20,14 @@ struct NX_VMS_COMMON_API QnTimePeriod
     /**
      * Minimal possible timestamp value.
      */
-    static constexpr qint64 kMinTimeValue = 0;
+    static constexpr qint64 kMinTimeValueMs = 0;
+    static constexpr std::chrono::milliseconds kMinTimeValue{0};
 
     /**
      * Maximal possible timestamp value.
      */
-    static constexpr qint64 kMaxTimeValue = std::numeric_limits<qint64>::max();
+    static constexpr qint64 kMaxTimeValueMs = std::numeric_limits<qint64>::max();
+    static constexpr std::chrono::milliseconds kMaxTimeValue{std::numeric_limits<qint64>::max()};
 
     /**
      * Constructs a null time period.
@@ -57,12 +59,12 @@ struct NX_VMS_COMMON_API QnTimePeriod
         if (startTimeMs <= endTimeMs)
         {
             auto durationMs =
-                endTimeMs == kMaxTimeValue ? kInfiniteDuration : endTimeMs - startTimeMs;
+                endTimeMs == kMaxTimeValueMs ? kInfiniteDuration : endTimeMs - startTimeMs;
             return QnTimePeriod(startTimeMs, durationMs);
         }
 
         auto durationMs =
-            startTimeMs == kMaxTimeValue ? kInfiniteDuration : startTimeMs - endTimeMs;
+            startTimeMs == kMaxTimeValueMs ? kInfiniteDuration : startTimeMs - endTimeMs;
         return QnTimePeriod(endTimeMs, durationMs);
     };
 
@@ -123,7 +125,7 @@ struct NX_VMS_COMMON_API QnTimePeriod
      */
     static constexpr QnTimePeriod anytime()
     {
-        return QnTimePeriod(kMinTimeValue, kInfiniteDuration);
+        return QnTimePeriod(kMinTimeValueMs, kInfiniteDuration);
     };
 
     /**

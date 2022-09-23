@@ -5,6 +5,7 @@ import QtQuick.Controls 2.4
 
 import Nx 1.0
 import Nx.Controls 1.0
+import Nx.Core.Items 1.0
 import Nx.Items 1.0
 
 import nx.vms.client.desktop 1.0
@@ -81,6 +82,11 @@ Control
             IntervalPreview
             {
                 id: intervalPreview
+
+                delayMs: ClientSettings.iniConfigValue("intervalPreviewDelayMs")
+                loopDelayMs: ClientSettings.iniConfigValue("intervalPreviewLoopDelayMs")
+                durationMs: ClientSettings.iniConfigValue("intervalPreviewDurationMs")
+                speedFactor: ClientSettings.iniConfigValue("intervalPreviewSpeedFactor")
 
                 anchors.fill: parent
                 aspectRatio: preview.previewAspectRatio

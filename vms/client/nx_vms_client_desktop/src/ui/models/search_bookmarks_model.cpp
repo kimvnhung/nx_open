@@ -146,7 +146,7 @@ QnSearchBookmarksModelPrivate::QnSearchBookmarksModelPrivate(QnSearchBookmarksMo
 
             Q_Q(QnSearchBookmarksModel);
             q->beginRemoveRows(QModelIndex(), index, index);
-            m_bookmarks.removeAt(index);
+            m_bookmarks.erase(m_bookmarks.begin() + index);
             q->endRemoveRows();
         });
 
@@ -280,8 +280,10 @@ int QnSearchBookmarksModelPrivate::columnCount(const QModelIndex& /*parent*/) co
 
 QVariant QnSearchBookmarksModelPrivate::getData(const QModelIndex& index, int role) const
 {
+    using namespace nx::vms::client::core;
+
     static const QSet<int> kAcceptedRolesSet =
-        { Qt::DecorationRole, Qt::DisplayRole, Qt::ToolTipRole, Qn::CameraBookmarkRole };
+        { Qt::DecorationRole, Qt::DisplayRole, Qt::ToolTipRole, CameraBookmarkRole };
 
     const int row = index.row();
     if (row >= m_bookmarks.size() || !kAcceptedRolesSet.contains(role))
@@ -289,7 +291,7 @@ QVariant QnSearchBookmarksModelPrivate::getData(const QModelIndex& index, int ro
 
     const QnCameraBookmark& bookmark = m_bookmarks.at(row);
 
-    if (role == Qn::CameraBookmarkRole)
+    if (role == CameraBookmarkRole)
         return QVariant::fromValue(bookmark);
 
 

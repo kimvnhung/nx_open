@@ -5,10 +5,16 @@
 
 #include <algorithm>
 
+#include <ui/workbench/workbench_context.h>
+
 namespace nx::vms::client::desktop {
 
-MotionSearchListModel::MotionSearchListModel(QnWorkbenchContext* context, QObject* parent):
-    base_type(context, [this]() { return new Private(this); }, parent),
+MotionSearchListModel::MotionSearchListModel(
+    QnWorkbenchContext* context,
+    QObject* parent)
+    :
+    base_type(context->commonModule(), [this]() { return new Private(this); }, parent),
+    QnWorkbenchContextAware(context),
     d(qobject_cast<Private*>(base_type::d.data()))
 {
     setLiveSupported(true);

@@ -83,7 +83,7 @@ QVariant RoleListModel::data(const QModelIndex& index, int role) const
     if (!m_roleValidator && !m_userValidator)
         return QVariant::fromValue(QValidator::Acceptable);
 
-    const auto roleId = index.data(Qn::UuidRole).value<QnUuid>();
+    const auto roleId = index.data(core::UuidRole).value<QnUuid>();
     const auto iter = m_validationStates.find(roleId);
 
     if (iter != m_validationStates.end())
@@ -331,7 +331,7 @@ bool UserListModel::isIndirectlyChecked(const QModelIndex& index) const
 QnUserResourcePtr UserListModel::getUser(const QModelIndex& index)
 {
     return index.sibling(index.row(), NameColumn)
-        .data(Qn::ResourceRole).value<QnResourcePtr>().dynamicCast<QnUserResource>();
+        .data(core::ResourceRole).value<QnResourcePtr>().dynamicCast<QnUserResource>();
 }
 
 void UserListModel::setUserValidator(UserValidator userValidator)
@@ -402,7 +402,7 @@ void RoleListDelegate::getDisplayInfo(const QModelIndex& index,
     QString& baseName, QString& extInfo) const
 {
     static const auto kExtraInfoTemplate = QString::fromWCharArray(L"\x2013 %1"); //< "- %1"
-    const auto roleId = index.data(Qn::UuidRole).value<QnUuid>();
+    const auto roleId = index.data(core::UuidRole).value<QnUuid>();
     const int usersInRole = countEnabledUsers(resourceAccessSubjectsCache()->usersInRole(roleId));
     baseName = userRolesManager()->userRoleName(roleId);
     extInfo = kExtraInfoTemplate.arg(tr("%n Users", "", usersInRole));

@@ -29,7 +29,7 @@ public:
     virtual QVariant data(const QModelIndex& index, int role) const override;
 
     virtual bool setData(const QModelIndex& index, const QVariant& value,
-        int role = Qn::DefaultNotificationRole) override;
+        int role /*= Qn::DefaultNotificationRole*/) override;
 
     virtual bool removeRows(
         int row, int count, const QModelIndex& parent = QModelIndex()) override;

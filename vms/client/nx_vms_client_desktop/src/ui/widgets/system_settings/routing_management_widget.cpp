@@ -32,6 +32,7 @@
 #include <nx/network/url/url_builder.h>
 #include <nx/utils/string.h>
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 
 namespace {
@@ -504,7 +505,8 @@ void QnRoutingManagementWidget::at_serversView_currentIndexChanged(const QModelI
 
     updateFromModel();
 
-    QnMediaServerResourcePtr server = current.data(Qn::ResourceRole).value<QnResourcePtr>().dynamicCast<QnMediaServerResource>();
+    QnMediaServerResourcePtr server =
+        current.data(ResourceRole).value<QnResourcePtr>().dynamicCast<QnMediaServerResource>();
     if (server == m_server)
         return;
 

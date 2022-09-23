@@ -13,25 +13,31 @@
 #include <recording/time_period_list.h>
 
 #include <nx/vms/client/core/common/data/motion_selection.h>
-#include <nx/vms/client/desktop/event_search/models/abstract_search_list_model.h>
+#include <nx/vms/client/core/event_search/models/abstract_search_list_model.h>
+
+#include <ui/workbench/workbench_context_aware.h>
 
 class QMenu;
+class QnWorkbenchContext;
 
 namespace nx::vms::client::desktop {
 
 /**
  * Motion search list model for current workbench navigator resource.
  */
-class SimpleMotionSearchListModel: public AbstractSearchListModel
+class SimpleMotionSearchListModel: public core::AbstractSearchListModel,
+    public QnWorkbenchContextAware
 {
     Q_OBJECT
     Q_PROPERTY(bool filterEmpty READ isFilterEmpty NOTIFY filterRegionsChanged)
 
-    using base_type = AbstractSearchListModel;
+    using base_type = core::AbstractSearchListModel;
     using MotionSelection = nx::vms::client::core::MotionSelection;
 
 public:
-    explicit SimpleMotionSearchListModel(QnWorkbenchContext* context, QObject* parent = nullptr);
+    explicit SimpleMotionSearchListModel(
+        QnWorkbenchContext* context,
+        QObject* parent = nullptr);
     virtual ~SimpleMotionSearchListModel() override = default;
 
     MotionSelection filterRegions() const;

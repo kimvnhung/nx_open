@@ -24,50 +24,6 @@ enum class Tab
 };
 Q_ENUM_NS(Tab)
 
-enum class FetchDirection
-{
-    earlier,
-    later
-};
-Q_ENUM_NS(FetchDirection)
-
-enum class FetchResult
-{
-    complete, //< Successful. There's no more data to fetch.
-    incomplete, //< Successful. There's more data to fetch.
-    failed, //< Unsuccessful.
-    cancelled //< Cancelled.
-};
-Q_ENUM_NS(FetchResult)
-
-enum class CameraSelection
-{
-    all,
-    layout,
-    current,
-    custom
-};
-Q_ENUM_NS(CameraSelection)
-
-enum class TimeSelection
-{
-    anytime,
-    day,
-    week,
-    month,
-    selection
-};
-Q_ENUM_NS(TimeSelection)
-
-enum class PreviewState
-{
-    initial,
-    busy,
-    ready,
-    missing
-};
-Q_ENUM_NS(PreviewState)
-
 struct EventCategory
 {
     enum Type
@@ -94,16 +50,6 @@ struct EventCategory
 };
 
 void registerQmlType();
-
-inline uint qHash(RightPanel::TimeSelection source)
-{
-    return uint(source);
-}
-
-inline uint qHash(RightPanel::CameraSelection source)
-{
-    return uint(source);
-}
 
 } // namespace RightPanel
 } // namespace nx::vms::client::desktop

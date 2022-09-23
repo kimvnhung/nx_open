@@ -137,7 +137,7 @@ struct NX_VMS_COMMON_API QnCameraBookmarkSearchFilter
     milliseconds startTimeMs{};
 
     /** Maximum end time for the bookmark. */
-    milliseconds endTimeMs{}; // TODO: #sivanov Bookmarks now work as maximum start time.
+    milliseconds endTimeMs{}; // TODO: #sivanov Bookmarks now work as maximum start time. #ynikitenkov - that's OK, we rely on it.
 
     /** Text-search filter string. */
     QString text;
@@ -168,6 +168,21 @@ struct NX_VMS_COMMON_API QnCameraBookmarkSearchFilter
 };
 #define QnCameraBookmarkSearchFilter_Fields (startTimeMs)(endTimeMs)(text)(limit)(orderBy)\
     (minVisibleLengthMs)(creationStartTimeMs)(creationEndTimeMs)(id)(cameras)
+
+/**
+ * @brief Request parameters for the directional fetch for the tail bookmarks. Makes request from
+ * the start point to the direction of reference point and returns not more than specified limits.
+ */
+struct NX_VMS_COMMON_API QnTailBookmarkSearchFilter
+{
+    std::chrono::milliseconds referencePointMs; //< Current reference point timestamp.
+    std::chrono::milliseconds startPointMs; //< Current bookmarks range start timestamp.
+    std::chrono::milliseconds minStartTimeMs; //< Minimal start timestamp for the bookmarks.
+    int bodyLimit = QnCameraBookmarkSearchFilter::kNoLimit;
+    int tailLimit = QnCameraBookmarkSearchFilter::kNoLimit;
+    std::set<QnUuid> cameras;
+    QString text;
+};
 
 struct NX_VMS_COMMON_API QnCameraBookmarkTag
 {

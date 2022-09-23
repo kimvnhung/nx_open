@@ -521,7 +521,7 @@ void EventPanel::Private::at_eventTileHovered(const QModelIndex& index, EventTil
 std::unique_ptr<MultiImageProvider> EventPanel::Private::multiImageProvider(
     const QModelIndex& index) const
 {
-    const auto previewTimeData = index.data(Qn::PreviewTimeRole);
+    const auto previewTimeData = index.data(core::PreviewTimeRole);
     if (previewTimeData.isNull())
         return {};
 
@@ -531,12 +531,12 @@ std::unique_ptr<MultiImageProvider> EventPanel::Private::multiImageProvider(
         ? Qn::ViewFootagePermission
         : Qn::ViewLivePermission;
 
-    const auto cameras = index.data(Qn::ResourceListRole).value<QnResourceList>()
+    const auto cameras = index.data(core::ResourceListRole).value<QnResourceList>()
         .filtered<QnVirtualCameraResource>(
             [this, requiredPermission](const QnVirtualCameraResourcePtr& camera)
             {
                 return accessController()->hasPermissions(camera, requiredPermission);
-            });
+            }); // TODO: CHECK ME
 
     if (cameras.size() < 2)
         return {};

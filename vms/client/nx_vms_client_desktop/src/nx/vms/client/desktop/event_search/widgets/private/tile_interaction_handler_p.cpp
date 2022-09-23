@@ -107,7 +107,7 @@ TileInteractionHandler* TileInteractionHandler::doInstall(
                 return;
 
             const auto model = const_cast<QAbstractItemModel*>(index.model());
-            model->setData(index, link, Qn::ActivateLinkRole);
+            model->setData(index, link, core::ActivateLinkRole);
         });
 
     connect(tileInteractionSource, &T::clicked,
@@ -179,7 +179,7 @@ void TileInteractionHandler::handleClick(
     if (button == Qt::LeftButton && !modifiers.testFlag(Qt::ControlModifier))
     {
         const auto model = const_cast<QAbstractItemModel*>(index.model());
-        if (!model->setData(index, QVariant(), Qn::DefaultNotificationRole))
+        if (!model->setData(index, QVariant(), core::DefaultNotificationRole))
             navigateToSource(index, /*instantMessages*/ false);
     }
     else if ((button == Qt::LeftButton && modifiers.testFlag(Qt::ControlModifier))
@@ -193,12 +193,12 @@ void TileInteractionHandler::navigateToSource(
     const QPersistentModelIndex& index, bool instantMessages)
 {
     // Obtain requested time.
-    const auto timestamp = index.data(Qn::TimestampRole);
+    const auto timestamp = index.data(core::TimestampRole);
     if (!timestamp.canConvert<microseconds>())
         return;
 
     // Obtain requested camera list.
-    const auto resourceList = index.data(Qn::ResourceListRole).value<QnResourceList>()
+    const auto resourceList = index.data(core::ResourceListRole).value<QnResourceList>()
         .filtered(&QnResourceAccessFilter::isOpenableInLayout);
 
     const auto showMessage =
@@ -256,7 +256,7 @@ void TileInteractionHandler::navigateToSource(
 
     // Perform navigation.
     menu()->triggerIfPossible(JumpToTimeAction,
-        Parameters().withArgument(Qn::TimestampRole, navigationTime));
+        Parameters().withArgument(core::TimestampRole, navigationTime));
 }
 
 QHash<int, QVariant> TileInteractionHandler::setupDropActionParameters(
@@ -390,7 +390,7 @@ void TileInteractionHandler::copyBookmarkToClipboard(const QModelIndex &index)
 
             { /* Fill table with data */
                 QString cellValue;
-                auto bookmark = index.data(Qn::CameraBookmarkRole).value<QnCameraBookmark>();
+                auto bookmark = index.data(core::CameraBookmarkRole).value<QnCameraBookmark>();
                 html::Tag tableRowTag("tr", htmlData);
                 for (const auto& header: headers)
                 {
@@ -511,7 +511,7 @@ bool TileInteractionHandler::requestPluginActionSettings(const QJsonObject& sett
 void TileInteractionHandler::openSource(
     const QModelIndex& index, bool inNewTab, bool fromDoubleClick)
 {
-    auto resourceList = index.data(Qn::ResourceListRole).value<QnResourceList>()
+    auto resourceList = index.data(core::ResourceListRole).value<QnResourceList>()
         .filtered(&QnResourceAccessFilter::isOpenableInLayout);
 
     const auto currentLayout = workbench()->currentLayout();
@@ -534,7 +534,7 @@ void TileInteractionHandler::openSource(
         && ini().startPlaybackOnTileNavigation);
 
     Parameters parameters(resourceList);
-    const auto arguments = setupDropActionParameters(resourceList, index.data(Qn::TimestampRole));
+    const auto arguments = setupDropActionParameters(resourceList, index.data(core::TimestampRole));
 
     for (const auto& param: nx::utils::constKeyValueRange(arguments))
         parameters.setArgument(param.first, param.second);
@@ -546,7 +546,7 @@ void TileInteractionHandler::openSource(
 void TileInteractionHandler::performDragAndDrop(
     const QModelIndex& index, const QPoint& pos, const QSize& size)
 {
-    const auto resourceList = index.data(Qn::ResourceListRole).value<QnResourceList>()
+    const auto resourceList = index.data(core::ResourceListRole).value<QnResourceList>()
         .filtered(&QnResourceAccessFilter::isDroppable);
 
     if (resourceList.empty())
@@ -558,7 +558,7 @@ void TileInteractionHandler::performDragAndDrop(
 
     MimeData data(baseMimeData.get(), nullptr);
     data.setResources(resourceList);
-    data.setArguments(setupDropActionParameters(resourceList, index.data(Qn::TimestampRole)));
+    data.setArguments(setupDropActionParameters(resourceList, index.data(core::TimestampRole)));
 
     QScopedPointer<QDrag> drag(new QDrag(this));
     drag->setMimeData(data.createMimeData());
@@ -603,7 +603,7 @@ void TileInteractionHandler::showContextMenu(
 
     if (withStandardInteraction)
     {
-        const auto resourceList = index.data(Qn::ResourceListRole).value<QnResourceList>()
+        const auto resourceList = index.data(core::ResourceListRole).value<QnResourceList>()
             .filtered(&QnResourceAccessFilter::isOpenableInLayout);
 
         if (!resourceList.empty())
@@ -628,7 +628,7 @@ void TileInteractionHandler::showContextMenu(
         }
     }
 
-    const auto bookmark = index.data(Qn::CameraBookmarkRole);
+    const auto bookmark = index.data(core::CameraBookmarkRole);
     if (bookmark.isValid())
     {
         const auto exportBookmarkAction =

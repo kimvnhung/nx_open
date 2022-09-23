@@ -64,8 +64,8 @@ LayoutToursHandler::LayoutToursHandler(QObject* parent):
                 usedNames, tr("Showreel"), tr("Showreel %1"));
             layoutTourManager()->addOrUpdateTour(tour);
             saveTourToServer(tour);
-            menu()->trigger(action::SelectNewItemAction, {Qn::UuidRole, tour.id});
-            menu()->trigger(action::ReviewLayoutTourAction, {Qn::UuidRole, tour.id});
+            menu()->trigger(action::SelectNewItemAction, {core::UuidRole, tour.id});
+            menu()->trigger(action::ReviewLayoutTourAction, {core::UuidRole, tour.id});
         });
 
     connect(action(action::MakeLayoutTourAction), &QAction::triggered, this,
@@ -82,14 +82,14 @@ LayoutToursHandler::LayoutToursHandler(QObject* parent):
         [this]()
         {
             const auto parameters = menu()->currentParameters(sender());
-            auto id = parameters.argument<QnUuid>(Qn::UuidRole);
+            auto id = parameters.argument<QnUuid>(core::UuidRole);
             auto tour = layoutTourManager()->tour(id);
             if (!tour.isValid())
                 return;
 
             const auto userId = context()->user()->getId();
 
-            const QString name = parameters.argument<QString>(Qn::ResourceNameRole).trimmed();
+            const QString name = parameters.argument<QString>(core::ResourceNameRole).trimmed();
 
             // Ask to override tour with the same name (if any). Create local copy to avoid crash.
             const auto tours = layoutTourManager()->tours();
@@ -120,7 +120,7 @@ LayoutToursHandler::LayoutToursHandler(QObject* parent):
         [this]()
         {
             const auto parameters = menu()->currentParameters(sender());
-            auto id = parameters.argument<QnUuid>(Qn::UuidRole);
+            auto id = parameters.argument<QnUuid>(core::UuidRole);
             NX_ASSERT(!id.isNull());
 
             const auto tour = layoutTourManager()->tour(id);
@@ -144,7 +144,7 @@ LayoutToursHandler::LayoutToursHandler(QObject* parent):
         [this](bool toggled)
         {
             const auto parameters = menu()->currentParameters(sender());
-            auto id = parameters.argument<QnUuid>(Qn::UuidRole);
+            auto id = parameters.argument<QnUuid>(core::UuidRole);
 
             if (!toggled)
             {
@@ -195,7 +195,7 @@ LayoutToursHandler::LayoutToursHandler(QObject* parent):
         [this]
         {
             const auto parameters = menu()->currentParameters(sender());
-            auto id = parameters.argument<QnUuid>(Qn::UuidRole);
+            auto id = parameters.argument<QnUuid>(core::UuidRole);
             auto tour = layoutTourManager()->tour(id);
             if (!tour.isValid())
                 return;

@@ -6,6 +6,7 @@
 
 #include <core/resource_management/layout_tour_manager.h>
 
+#include <nx/vms/client/core/client_core_globals.h>
 #include <nx/vms/client/desktop/ui/actions/actions.h>
 #include <nx/vms/client/desktop/ui/actions/action_parameters.h>
 #include <nx/vms/client/desktop/workbench/handlers/layout_tours_handler.h>
@@ -26,7 +27,7 @@ namespace
 
 QnUuid tourId(const Parameters& parameters)
 {
-    return parameters.argument(Qn::UuidRole).value<QnUuid>();
+    return parameters.argument(core::UuidRole).value<QnUuid>();
 }
 
 bool tourIsRunning(QnWorkbenchContext* context)

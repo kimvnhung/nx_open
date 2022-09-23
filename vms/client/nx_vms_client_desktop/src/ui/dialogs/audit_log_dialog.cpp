@@ -52,6 +52,7 @@
 #include <utils/common/event_processors.h>
 #include <utils/math/color_transformations.h>
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 using namespace ui;
 
@@ -973,7 +974,7 @@ void QnAuditLogDialog::at_customContextMenuRequested(const QPoint&)
     QModelIndex idx = gridMaster->currentIndex();
     if (idx.isValid())
     {
-        QnResourcePtr resource = gridMaster->model()->data(idx, Qn::ResourceRole).value<QnResourcePtr>();
+        QnResourcePtr resource = gridMaster->model()->data(idx, ResourceRole).value<QnResourcePtr>();
         auto manager = context()->menu();
 
         if (resource)

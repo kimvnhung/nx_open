@@ -27,6 +27,7 @@
 #include <utils/common/ldap.h>
 
 using namespace nx;
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 
 static const int kUpdateFilterDelayMs = 200;
@@ -195,7 +196,7 @@ void QnLdapUsersDialog::importUsers(const QnLdapUsers &users)
         ui->userRoleComboBox->currentIndex(), Qn::UserRoleRole).value<Qn::UserRole>();
     const GlobalPermissions permissions = QnUserRolesManager::userRolePermissions(selectedRole);
     const QnUuid selectedUserRoleId = ui->userRoleComboBox->itemData(
-        ui->userRoleComboBox->currentIndex(), Qn::UuidRole).value<QnUuid>();
+        ui->userRoleComboBox->currentIndex(), UuidRole).value<QnUuid>();
 
     QnUserResourceList addedUsers;
     for (const auto& ldapUser: filteredUsers)

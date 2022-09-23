@@ -24,7 +24,6 @@ namespace
 
         return result;
     }
-
 }
 
 /** Initial test. Check if default list is empty. */

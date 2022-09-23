@@ -45,7 +45,9 @@ QnCameraBookmarkList mergeSortedBookmarks(
     if (nonEmptySources.size() == 1)
     {
         const QnCameraBookmarkList &result = *nonEmptySources.front();
-        return result.size() <= limit ? result : result.mid(0, limit);
+        return result.size() <= limit
+            ? result
+            : QnCameraBookmarkList(result.begin(), result.begin() + limit);
     }
     else if (nonEmptySources.size() == 2)
     {
@@ -54,12 +56,14 @@ QnCameraBookmarkList mergeSortedBookmarks(
 
         result.resize(source[0]->size() + source[1]->size());
         auto itr = std::set_union(
-            source[0]->constBegin(), source[0]->constEnd(),
-            source[1]->constBegin(), source[1]->constEnd(),
+            source[0]->cbegin(), source[0]->cend(),
+            source[1]->cbegin(), source[1]->cend(),
             result.begin(), pred);
         if (!result.empty())
             result.resize(itr - result.begin());
-        return result.size() <= limit ? result : result.mid(0, limit);
+        return result.size() <= limit
+            ? result
+            : QnCameraBookmarkList(result.begin(), result.begin() + limit);
     }
 
     typedef QPair<QnCameraBookmarkList::const_iterator,
@@ -78,23 +82,22 @@ QnCameraBookmarkList mergeSortedBookmarks(
     const int resultSize = std::min(totalSize, limit);
 
     QnCameraBookmarkList result;
-    result.reserve(resultSize);
     while(!mergeData.empty() && (result.size() < resultSize))
     {
         // Looking for bookmarks list with minimal value
         auto mergeDataIt = mergeData.begin();
-        const QnCameraBookmark *minBookmark = mergeDataIt->first;
+        auto minBookmarkIt = mergeDataIt->first;
         for (auto it = mergeDataIt + 1; it != mergeData.end(); ++it)
         {
-            const QnCameraBookmark *currentBookmark= it->first;
-            if (!pred(*currentBookmark, *minBookmark))
+            const auto currentBookmarkIt= it->first;
+            if (!pred(*currentBookmarkIt, *minBookmarkIt))
                 continue;
 
             mergeDataIt = it;
-            minBookmark = currentBookmark;
+            minBookmarkIt = currentBookmarkIt;
         }
 
-        result.append(*minBookmark);
+        result.push_back(*minBookmarkIt);
         if (++mergeDataIt->first == mergeDataIt->second)    // if list with min element is logically empty
             mergeData.erase(mergeDataIt);
 
@@ -613,7 +616,7 @@ QnCameraBookmarkList variantListToBookmarkList(const QVariantList& list)
 {
     QnCameraBookmarkList result;
     for  (const auto& v : list)
-        result << v.value<QnCameraBookmark>();
+        result.push_back(v.value<QnCameraBookmark>());
     return result;
 }
 

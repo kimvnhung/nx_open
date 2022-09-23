@@ -128,11 +128,11 @@ AnalyticsSearchWidget::AnalyticsSearchWidget(QnWorkbenchContext* context, QWidge
 {
     setRelevantControls(Control::defaults | Control::footersToggler);
     setPlaceholderPixmap(qnSkin->pixmap("left_panel/placeholders/objects.svg"));
-    commonSetup()->setCameraSelection(RightPanel::CameraSelection::layout);
+    commonSetup()->setCameraSelection(core::EventSearch::CameraSelection::layout);
 
     addSearchAction(action(ui::action::OpenAdvancedSearchDialog));
 
-    connect(model(), &AbstractSearchListModel::isOnlineChanged, this,
+    connect(model(), &core::AbstractSearchListModel::isOnlineChanged, this,
         &AnalyticsSearchWidget::updateAllowance);
     connect(accessController(), &QnWorkbenchAccessController::globalPermissionsChanged, this,
         &AnalyticsSearchWidget::updateAllowance);
@@ -140,7 +140,7 @@ AnalyticsSearchWidget::AnalyticsSearchWidget(QnWorkbenchContext* context, QWidge
     connect(action(action::ObjectSearchModeAction), &QAction::toggled, this,
         [this](bool on)
         {
-            if (!on && commonSetup()->cameraSelection() == RightPanel::CameraSelection::current)
+            if (!on && commonSetup()->cameraSelection() == core::EventSearch::CameraSelection::current)
                 resetFilters();
         });
 
@@ -155,7 +155,7 @@ AnalyticsSearchWidget::~AnalyticsSearchWidget()
 void AnalyticsSearchWidget::resetFilters()
 {
     base_type::resetFilters();
-    commonSetup()->setCameraSelection(RightPanel::CameraSelection::layout);
+    commonSetup()->setCameraSelection(core::EventSearch::CameraSelection::layout);
     d->resetFilters();
 }
 
@@ -237,7 +237,7 @@ AnalyticsSearchWidget::Private::Private(AnalyticsSearchWidget* q):
         q->view(), &EventRibbon::pluginActionRequested);
 
     connect(m_model, &AnalyticsSearchListModel::fetchFinished, this,
-        [this](RightPanel::FetchResult result)
+        [this](core::EventSearch::FetchResult result)
         {
             if (!m_ensureVisibleRequest)
                 return;
@@ -245,8 +245,8 @@ AnalyticsSearchWidget::Private::Private(AnalyticsSearchWidget* q):
             const auto request = *m_ensureVisibleRequest;
             m_ensureVisibleRequest = std::nullopt;
 
-            if (result != RightPanel::FetchResult::cancelled
-                && result != RightPanel::FetchResult::failed)
+            if (result != core::EventSearch::FetchResult::cancelled
+                && result != core::EventSearch::FetchResult::failed)
             {
                 ensureVisible(request.first, request.second);
             }
@@ -414,7 +414,7 @@ void AnalyticsSearchWidget::Private::setupAreaSelection()
     connect(m_areaSelectionButton, &SelectableTextButton::clicked, this,
         [this]()
         {
-            q->commonSetup()->setCameraSelection(RightPanel::CameraSelection::current);
+            q->commonSetup()->setCameraSelection(core::EventSearch::CameraSelection::current);
             m_analyticsSetup->setAreaSelectionActive(true);
         });
 

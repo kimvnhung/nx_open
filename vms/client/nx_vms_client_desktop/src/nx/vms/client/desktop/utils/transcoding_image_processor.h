@@ -8,7 +8,7 @@
 
 #include <nx/vms/client/desktop/utils/abstract_image_processor.h>
 
-namespace nx { namespace core { namespace transcoding {struct Settings; } } }
+namespace nx::core::transcoding { struct Settings; }
 
 namespace nx::vms::client::desktop {
 

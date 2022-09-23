@@ -407,8 +407,8 @@ bool QnAviArchiveDelegate::open(
     auto aviResource = m_resource.dynamicCast<QnAviResource>();
     auto storageFactoryInterface = dynamic_cast<nx::vms::common::StorageFactoryInterface*>(
         m_resource.data());
-    NX_ASSERT(storageFactoryInterface,
-        "Only storage-based resources must be open with this delegate");
+//    NX_ASSERT(storageFactoryInterface,
+//        "Only storage-based resources must be open with this delegate");
 
     if (m_formatContext == nullptr)
     {

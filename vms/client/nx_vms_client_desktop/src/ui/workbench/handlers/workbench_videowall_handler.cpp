@@ -92,6 +92,7 @@ using nx::vms::client::core::MotionSelection;
 
 using namespace std::chrono;
 using namespace nx;
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 using namespace nx::vms::client::desktop::ui;
 
@@ -1733,7 +1734,7 @@ void QnWorkbenchVideoWallHandler::at_renameAction_triggered()
     const auto parameters = menu()->currentParameters(sender());
 
     const auto nodeType = parameters.argument<NodeType>(Qn::NodeTypeRole, NodeType::resource);
-    QString name = parameters.argument<QString>(Qn::ResourceNameRole).trimmed();
+    QString name = parameters.argument<QString>(ResourceNameRole).trimmed();
 
     bool valid = false;
     switch (nodeType)

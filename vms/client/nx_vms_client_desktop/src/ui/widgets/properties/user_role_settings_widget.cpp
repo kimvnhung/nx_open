@@ -19,6 +19,7 @@
 #include <ui/models/resource_properties/user_roles_settings_model.h>
 #include <ui/models/user_roles_model.h>
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 
 class QnUserRoleSettingsWidgetPrivate:
@@ -106,7 +107,7 @@ public:
     {
         auto item = new QStandardItem(
             qnResIconCache->icon(QnResourceIconCache::User), user->getName());
-        item->setData(QVariant::fromValue<QnResourcePtr>(user), Qn::ResourceRole);
+        item->setData(QVariant::fromValue<QnResourcePtr>(user), ResourceRole);
         usersModel->appendRow(item);
     }
 
@@ -118,7 +119,7 @@ public:
         if (count > 1)
             return true;
 
-        return usersModel->data(usersModel->index(0, 0), Qn::ResourceRole).isValid();
+        return usersModel->data(usersModel->index(0, 0), ResourceRole).isValid();
     }
 
     void deleteCurrentUserRole()
@@ -168,7 +169,7 @@ public:
     QModelIndex userIndex(const QnUserResourcePtr& user)
     {
         auto existingUsers = usersModel->match(usersModel->index(0, 0),
-            Qn::ResourceRole,
+            ResourceRole,
             QVariant::fromValue<QnResourcePtr>(user),
             1, Qt::MatchExactly);
 
@@ -228,7 +229,7 @@ public:
         NX_ASSERT(index.isValid());
 
         replacement = QnUserRolesSettingsModel::UserRoleReplacement(
-            index.data(Qn::UuidRole).value<QnUuid>(),
+            index.data(UuidRole).value<QnUuid>(),
             index.data(Qn::GlobalPermissionsRole).value<GlobalPermissions>());
 
         return true;

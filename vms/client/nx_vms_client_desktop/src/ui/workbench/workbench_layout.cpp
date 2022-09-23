@@ -33,7 +33,7 @@
 #include <nx/utils/datetime.h>
 #include <nx/utils/log/log.h>
 
-using nx::vms::client::core::Geometry;
+using namespace nx::vms::client::core;
 
 namespace {
 
@@ -154,7 +154,7 @@ void QnWorkbenchLayout::setName(const QString& name)
     m_name = name;
 
     emit nameChanged();
-    emit dataChanged(Qn::ResourceNameRole);
+    emit dataChanged(nx::vms::client::core::ResourceNameRole);
 }
 
 bool QnWorkbenchLayout::update(const QnLayoutResourcePtr& resource)
@@ -895,7 +895,7 @@ QVariant QnWorkbenchLayout::data(int role) const
 {
     switch (role)
     {
-        case Qn::ResourceNameRole:
+        case ResourceNameRole:
             return m_name;
         case Qn::LayoutCellSpacingRole:
             return m_cellSpacing;
@@ -917,7 +917,7 @@ bool QnWorkbenchLayout::setData(int role, const QVariant& value)
 {
     switch (role)
     {
-        case Qn::ResourceNameRole:
+        case ResourceNameRole:
             if (value.canConvert<QString>())
             {
                 setName(value.toString());

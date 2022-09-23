@@ -285,7 +285,7 @@ void QnWorkbenchItemBookmarksWatcher::WidgetData::sendBookmarksToOverlay()
         if (!filter.checkBookmark(bookmark))
             continue;
 
-        bookmarksToDisplay << bookmark;
+        bookmarksToDisplay.push_back(bookmark);
         if (bookmarksToDisplay.size() >= kBookmarksDisplayLimit)
             break;
     }

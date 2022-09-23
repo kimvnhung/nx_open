@@ -43,7 +43,7 @@ TileBase
                 visible: !!text
                 font { pixelSize: 11; weight: Font.Normal }
 
-                text: (model && model.timestamp) || ""
+                text: (model && model.textTimestamp) || ""
             }
         }
 
@@ -71,7 +71,7 @@ TileBase
                 && tile.controller.videoPreviewMode == RightPanelGlobals.VideoPreviewMode.selection
                 && tile.controller.selectedRow === index
 
-            videoPreviewTimestampMs: (model && model.previewTimestampMs) || 0
+            videoPreviewTimestampMs: (model && model.timestampMs) || 0
 
             videoPreviewResourceId: (model && model.previewResource && model.previewResource.id)
                 || NxGlobals.uuid("")

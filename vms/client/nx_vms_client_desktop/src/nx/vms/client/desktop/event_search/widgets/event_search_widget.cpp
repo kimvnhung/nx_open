@@ -121,7 +121,7 @@ EventSearchWidget::Private::Private(EventSearchWidget* q):
                 updateAnalyticsMenu();
         };
 
-    connect(m_eventModel, &AbstractSearchListModel::isOnlineChanged,
+    connect(m_eventModel, &core::AbstractSearchListModel::isOnlineChanged,
         this,
         updateAnalyticsMenuIfEventModelIsOnline);
 
@@ -139,7 +139,7 @@ EventSearchWidget::Private::Private(EventSearchWidget* q):
             NX_ASSERT(m_serverEventsSubmenuAction);
 
             const bool serverEventsVisible =
-                this->q->commonSetup()->cameraSelection() == RightPanel::CameraSelection::all;
+                this->q->commonSetup()->cameraSelection() == core::EventSearch::CameraSelection::all;
 
             m_serverEventsSubmenuAction->setEnabled(serverEventsVisible);
 
@@ -153,7 +153,7 @@ EventSearchWidget::Private::Private(EventSearchWidget* q):
     connect(q->accessController(), &QnWorkbenchAccessController::globalPermissionsChanged,
         q, &EventSearchWidget::updateAllowance);
 
-    connect(q->model(), &AbstractSearchListModel::isOnlineChanged,
+    connect(q->model(), &core::AbstractSearchListModel::isOnlineChanged,
         q, &EventSearchWidget::updateAllowance);
 }
 

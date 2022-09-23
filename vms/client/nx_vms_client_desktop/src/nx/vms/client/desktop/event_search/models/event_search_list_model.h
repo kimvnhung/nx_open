@@ -4,15 +4,17 @@
 
 #include <vector>
 
-#include <nx/vms/client/desktop/event_search/models/abstract_async_search_list_model.h>
+#include <nx/vms/client/core/event_search/models/abstract_async_search_list_model.h>
 #include <nx/vms/event/event_fwd.h>
+
+class QnWorkbenchContext;
 
 namespace nx::vms::client::desktop {
 
-class EventSearchListModel: public AbstractAsyncSearchListModel
+class EventSearchListModel: public core::AbstractAsyncSearchListModel
 {
     Q_OBJECT
-    using base_type = AbstractAsyncSearchListModel;
+    using base_type = core::AbstractAsyncSearchListModel;
 
     Q_PROPERTY(nx::vms::api::EventType selectedEventType READ selectedEventType
         WRITE setSelectedEventType NOTIFY selectedEventTypeChanged)
@@ -21,7 +23,9 @@ class EventSearchListModel: public AbstractAsyncSearchListModel
         WRITE setSelectedSubType NOTIFY selectedSubTypeChanged)
 
 public:
-    explicit EventSearchListModel(QnWorkbenchContext* context, QObject* parent = nullptr);
+    explicit EventSearchListModel(
+        QnWorkbenchContext* context,
+        QObject* parent = nullptr);
     virtual ~EventSearchListModel() override = default;
 
     nx::vms::api::EventType selectedEventType() const;

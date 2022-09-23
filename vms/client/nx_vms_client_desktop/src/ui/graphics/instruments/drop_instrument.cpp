@@ -38,6 +38,7 @@
 #include <nx/vms/client/desktop/utils/mime_data.h>
 #include <nx/vms/client/core/utils/geometry.h>
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 using namespace nx::vms::client::desktop::ui;
 
@@ -187,7 +188,7 @@ bool DropInstrument::dropEvent(QGraphicsItem* /*item*/, QGraphicsSceneDragDropEv
     if (!layoutTours.empty())
     {
         for (const auto& tour : layoutTours)
-            delayedTriggerIfPossible(action::ReviewLayoutTourAction, {Qn::UuidRole, tour.id});
+            delayedTriggerIfPossible(action::ReviewLayoutTourAction, {UuidRole, tour.id});
 
         // If tour was opened, ignore other items.
         return true;

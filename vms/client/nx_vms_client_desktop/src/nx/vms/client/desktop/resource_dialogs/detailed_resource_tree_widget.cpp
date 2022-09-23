@@ -122,7 +122,7 @@ void DetailedResourceTreeWidget::updateDetailsPanel(const QModelIndex& index)
         const auto resourceIndex = index.siblingAtColumn(0);
         ui->detailsWidget->setCaptionText(resourceIndex.data(Qt::DisplayRole).toString());
         ui->detailsWidget->setThumbnailCameraResource(
-            resourceIndex.data(Qn::ResourceRole).value<QnResourcePtr>());
+            resourceIndex.data(core::ResourceRole).value<QnResourcePtr>());
     }
 }
 
@@ -138,7 +138,7 @@ int DetailedResourceTreeWidget::resourceCount()
     resourcesSet.reserve(leafIndexes.size());
     for (const auto& leafIndex: leafIndexes)
     {
-        const auto resourceData = leafIndex.data(Qn::ResourceRole);
+        const auto resourceData = leafIndex.data(core::ResourceRole);
         if (resourceData.isNull())
             continue;
 

@@ -31,7 +31,7 @@ QnTimePeriod extractItemTimeWindow(QnWorkbenchItem *item)
         window = QnTimePeriod::anytime();
 
     qint64 windowStartMs = window.startTimeMs;
-    qint64 windowEndMs = (window.isInfinite() ? QnTimePeriod::kMaxTimeValue : window.endTimeMs());
+    qint64 windowEndMs = (window.isInfinite() ? QnTimePeriod::kMaxTimeValueMs : window.endTimeMs());
     return QnTimePeriod::fromInterval(windowStartMs, windowEndMs);
 }
 

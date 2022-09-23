@@ -32,15 +32,15 @@
 #include <utils/common/event_processors.h>
 #include <utils/common/synctime.h>
 
+#include <nx/vms/client/core/common/models/concatenation_list_model.h>
+#include <nx/vms/client/core/utils/managed_camera_set.h>
 #include <nx/vms/client/core/watchers/server_time_watcher.h>
-#include <nx/vms/client/desktop/common/models/concatenation_list_model.h>
 #include <nx/vms/client/desktop/common/utils/custom_painted.h>
 #include <nx/vms/client/desktop/common/utils/widget_anchor.h>
 #include <nx/vms/client/desktop/common/widgets/search_line_edit.h>
 #include <nx/vms/client/desktop/event_search/models/private/busy_indicator_model_p.h>
 #include <nx/vms/client/desktop/event_search/utils/common_object_search_setup.h>
 #include <nx/vms/client/desktop/ui/common/color_theme.h>
-#include <nx/vms/client/desktop/utils/managed_camera_set.h>
 #include <nx/utils/log/assert.h>
 #include <nx/utils/log/log.h>
 #include <nx/utils/math/fuzzy.h>
@@ -60,7 +60,6 @@ static constexpr int kTextSearchTopMargin = 12;
 static constexpr int kHeaderSideMargin = 8;
 
 static constexpr milliseconds kQueuedFetchDataDelay = 50ms;
-static constexpr milliseconds kTimeSelectionDelay = 250ms;
 static constexpr milliseconds kTextFilterDelay = 250ms;
 
 static constexpr milliseconds kPlaceholderFadeDuration = 150ms;
@@ -127,7 +126,7 @@ QToolButton* createCheckableToolButton(QWidget* parent)
 
 AbstractSearchWidget::Private::Private(
     AbstractSearchWidget* q,
-    AbstractSearchListModel* model)
+    core::AbstractSearchListModel* model)
     :
     QnWorkbenchContextAware(q),
     q(q),
@@ -177,7 +176,7 @@ AbstractSearchWidget::Private::Private(
 
     if (auto textFilter = m_commonSetup->textFilter())
     {
-        connect(m_commonSetup->textFilter(), &TextFilterSetup::textChanged, this,
+        connect(m_commonSetup->textFilter(), &core::TextFilterSetup::textChanged, this,
             [this]()
             {
                 auto newText = m_commonSetup->textFilter()->text();
@@ -218,7 +217,7 @@ AbstractSearchWidget::Private::~Private()
 
 void AbstractSearchWidget::Private::setupModels()
 {
-    connect(m_mainModel.data(), &AbstractSearchListModel::dataNeeded,
+    connect(m_mainModel.data(), &core::AbstractSearchListModel::dataNeeded,
         this, &Private::requestFetchIfNeeded);
 
     connect(m_mainModel.data(), &QAbstractItemModel::modelReset,
@@ -230,10 +229,9 @@ void AbstractSearchWidget::Private::setupModels()
     connect(m_mainModel.data(), &QAbstractItemModel::rowsInserted,
         this, &Private::handleItemCountChanged);
 
-    connect(m_mainModel.data(), &AbstractSearchListModel::liveAboutToBeCommitted,
+    connect(m_mainModel.data(), &core::AbstractSearchListModel::liveAboutToBeCommitted,
         this, &Private::updateFetchDirection);
 
-    using FetchDirection = AbstractSearchListModel::FetchDirection;
     using UpdateMode = EventRibbon::UpdateMode;
 
     connect(m_mainModel.data(), &QAbstractItemModel::modelAboutToBeReset, this,
@@ -242,30 +240,31 @@ void AbstractSearchWidget::Private::setupModels()
     connect(m_mainModel.data(), &QAbstractItemModel::rowsAboutToBeRemoved,
         [this]() { ui->ribbon->setRemovalMode(UpdateMode::animated); });
 
-    connect(m_mainModel.data(), &AbstractSearchListModel::fetchCommitStarted, this,
-        [this](FetchDirection direction)
+    connect(m_mainModel.data(), &core::AbstractSearchListModel::fetchCommitStarted, this,
+        [this](core::EventSearch::FetchDirection direction)
         {
-            ui->ribbon->setInsertionMode(UpdateMode::instant, direction == FetchDirection::later);
+            ui->ribbon->setInsertionMode(UpdateMode::instant,
+                direction == core::EventSearch::FetchDirection::later);
         });
 
-    connect(m_mainModel.data(), &AbstractSearchListModel::fetchFinished, this,
+    connect(m_mainModel.data(), &core::AbstractSearchListModel::fetchFinished, this,
         [this]()
         {
             ui->ribbon->setInsertionMode(UpdateMode::animated, false);
             handleFetchFinished();
         });
 
-    connect(m_mainModel.data(), &AbstractSearchListModel::liveChanged, this,
+    connect(m_mainModel.data(), &core::AbstractSearchListModel::liveChanged, this,
         [this](bool isLive)
         {
             if (isLive)
                 m_headIndicatorModel->setVisible(false);
         });
 
-    connect(m_mainModel.data(), &AbstractSearchListModel::camerasChanged, this,
+    connect(m_mainModel.data(), &core::AbstractSearchListModel::camerasChanged, this,
         [this]() { emit q->cameraSetChanged(m_mainModel->cameras(), {}); });
 
-    connect(m_mainModel.data(), &AbstractSearchListModel::isOnlineChanged, this,
+    connect(m_mainModel.data(), &core::AbstractSearchListModel::isOnlineChanged, this,
         [this](bool isOnline)
         {
             m_mainModel->cameraSet()->invalidateFilter();
@@ -417,19 +416,19 @@ void AbstractSearchWidget::Private::setupTimeSelection()
             const auto selection = m_commonSetup->timeSelection();
             ui->timeSelectionButton->setText(m_timeSelectionActions[selection]->text());
 
-            ui->timeSelectionButton->setState(selection == RightPanel::TimeSelection::anytime
+            ui->timeSelectionButton->setState(selection == core::EventSearch::TimeSelection::anytime
                 ? SelectableTextButton::State::deactivated
                 : SelectableTextButton::State::unselected);
 
             ui->timeSelectionButton->setAccented(
-                selection == RightPanel::TimeSelection::selection);
+                selection == core::EventSearch::TimeSelection::selection);
         };
 
     connect(m_commonSetup, &CommonObjectSearchSetup::timeSelectionChanged, this, updateButton);
 
     auto timeMenu = q->createDropdownMenu();
     auto addMenuAction =
-        [this, timeMenu](const QString& title, RightPanel::TimeSelection period)
+        [this, timeMenu](const QString& title, core::EventSearch::TimeSelection period)
         {
             auto action = timeMenu->addAction(title);
             connect(action, &QAction::triggered, this,
@@ -439,25 +438,25 @@ void AbstractSearchWidget::Private::setupTimeSelection()
             return action;
         };
 
-    addMenuAction(tr("Last day"), RightPanel::TimeSelection::day);
-    addMenuAction(tr("Last 7 days"), RightPanel::TimeSelection::week);
-    addMenuAction(tr("Last 30 days"), RightPanel::TimeSelection::month);
-    addMenuAction(tr("Selected on Timeline"), RightPanel::TimeSelection::selection);
+    addMenuAction(tr("Last day"), core::EventSearch::TimeSelection::day);
+    addMenuAction(tr("Last 7 days"), core::EventSearch::TimeSelection::week);
+    addMenuAction(tr("Last 30 days"), core::EventSearch::TimeSelection::month);
+    addMenuAction(tr("Selected on Timeline"), core::EventSearch::TimeSelection::selection);
     timeMenu->addSeparator();
-    addMenuAction(tr("Any time"), RightPanel::TimeSelection::anytime);
+    addMenuAction(tr("Any time"), core::EventSearch::TimeSelection::anytime);
 
     connect(ui->timeSelectionButton, &SelectableTextButton::stateChanged, this,
         [this](SelectableTextButton::State state)
         {
             if (state == SelectableTextButton::State::deactivated)
-                m_timeSelectionActions[RightPanel::TimeSelection::anytime]->trigger();
+                m_timeSelectionActions[core::EventSearch::TimeSelection::anytime]->trigger();
         });
 
-    m_timeSelectionActions[RightPanel::TimeSelection::anytime]->trigger();
+    m_timeSelectionActions[core::EventSearch::TimeSelection::anytime]->trigger();
     ui->timeSelectionButton->setMenu(timeMenu);
     updateButton();
 
-    m_timeSelectionActions[RightPanel::TimeSelection::selection]->setVisible(false);
+    m_timeSelectionActions[core::EventSearch::TimeSelection::selection]->setVisible(false);
 }
 
 void AbstractSearchWidget::Private::setupCameraSelection()
@@ -468,7 +467,7 @@ void AbstractSearchWidget::Private::setupCameraSelection()
     ui->cameraSelectionButton->setFocusPolicy(Qt::NoFocus);
 
     const auto updateButtonText =
-        [this](RightPanel::CameraSelection cameras)
+        [this](core::EventSearch::CameraSelection cameras)
         {
             ui->cameraSelectionButton->setText(deviceButtonText(cameras));
         };
@@ -479,12 +478,12 @@ void AbstractSearchWidget::Private::setupCameraSelection()
             const auto selection = m_commonSetup->cameraSelection();
             updateButtonText(selection);
 
-            ui->cameraSelectionButton->setState(selection == RightPanel::CameraSelection::all
+            ui->cameraSelectionButton->setState(selection == core::EventSearch::CameraSelection::all
                 ? SelectableTextButton::State::deactivated
                 : SelectableTextButton::State::unselected);
 
             ui->cameraSelectionButton->setAccented(
-                selection == RightPanel::CameraSelection::current);
+                selection == core::EventSearch::CameraSelection::current);
         };
 
     connect(m_commonSetup, &CommonObjectSearchSetup::selectedCamerasChanged, this, updateButton);
@@ -492,13 +491,13 @@ void AbstractSearchWidget::Private::setupCameraSelection()
     auto cameraMenu = q->createDropdownMenu();
     const auto addMenuAction =
         [this, cameraMenu, updateButtonText](
-            const QString& title, RightPanel::CameraSelection cameras, bool dynamicTitle = false)
+            const QString& title, core::EventSearch::CameraSelection cameras, bool dynamicTitle = false)
         {
             auto action = cameraMenu->addAction(title);
             connect(action, &QAction::triggered, this,
                 [this, cameras]()
                 {
-                    if (cameras == RightPanel::CameraSelection::custom)
+                    if (cameras == core::EventSearch::CameraSelection::custom)
                         executeLater([this]() { m_commonSetup->chooseCustomCameras(); }, this);
                     else
                         m_commonSetup->setCameraSelection(cameras);
@@ -519,32 +518,32 @@ void AbstractSearchWidget::Private::setupCameraSelection()
         };
 
     addDeviceDependentAction(
-        addMenuAction("<cameras on layout>", RightPanel::CameraSelection::layout, true),
+        addMenuAction("<cameras on layout>", core::EventSearch::CameraSelection::layout, true),
         tr("Devices on layout"), tr("Cameras on layout"));
 
     addDeviceDependentAction(
-        addMenuAction("<current camera>", RightPanel::CameraSelection::current, true),
+        addMenuAction("<current camera>", core::EventSearch::CameraSelection::current, true),
         tr("Selected device"), tr("Selected camera"));
 
     cameraMenu->addSeparator();
 
     addDeviceDependentAction(
-        addMenuAction("<choose cameras...>", RightPanel::CameraSelection::custom, true),
+        addMenuAction("<choose cameras...>", core::EventSearch::CameraSelection::custom, true),
         tr("Choose devices..."), tr("Choose cameras..."));
 
     cameraMenu->addSeparator();
 
-    addDeviceDependentAction(addMenuAction("<any camera>", RightPanel::CameraSelection::all, true),
+    addDeviceDependentAction(addMenuAction("<any camera>", core::EventSearch::CameraSelection::all, true),
         tr("Any device"), tr("Any camera"));
 
     connect(ui->cameraSelectionButton, &SelectableTextButton::stateChanged, this,
         [this](SelectableTextButton::State state)
         {
             if (state == SelectableTextButton::State::deactivated)
-                m_cameraSelectionActions[RightPanel::CameraSelection::all]->trigger();
+                m_cameraSelectionActions[core::EventSearch::CameraSelection::all]->trigger();
         });
 
-    m_cameraSelectionActions[RightPanel::CameraSelection::all]->trigger();
+    m_cameraSelectionActions[core::EventSearch::CameraSelection::all]->trigger();
     ui->cameraSelectionButton->setMenu(cameraMenu);
     updateButton();
 
@@ -555,13 +554,13 @@ void AbstractSearchWidget::Private::setupCameraSelection()
         {
             disconnect(m_currentCameraConnection);
 
-            if (m_commonSetup->cameraSelection() != RightPanel::CameraSelection::current)
+            if (m_commonSetup->cameraSelection() != core::EventSearch::CameraSelection::current)
                 return;
 
             const auto updateCurrentCameraName =
                 [this]()
                 {
-                    m_cameraSelectionActions[RightPanel::CameraSelection::current]->trigger();
+                    m_cameraSelectionActions[core::EventSearch::CameraSelection::current]->trigger();
                 };
 
             updateCurrentCameraName();
@@ -594,14 +593,14 @@ QString AbstractSearchWidget::Private::singleDeviceText(
 };
 
 QString AbstractSearchWidget::Private::deviceButtonText(
-    RightPanel::CameraSelection selection) const
+    core::EventSearch::CameraSelection selection) const
 {
     switch (selection)
     {
-        case RightPanel::CameraSelection::current:
+        case core::EventSearch::CameraSelection::current:
             return currentDeviceText();
 
-        case RightPanel::CameraSelection::custom:
+        case core::EventSearch::CameraSelection::custom:
         {
             if (m_commonSetup->cameraCount() > 1)
             {
@@ -623,7 +622,7 @@ QString AbstractSearchWidget::Private::deviceButtonText(
     }
 }
 
-AbstractSearchListModel* AbstractSearchWidget::Private::model() const
+core::AbstractSearchListModel* AbstractSearchWidget::Private::model() const
 {
     return m_mainModel.data();
 }
@@ -721,12 +720,12 @@ bool AbstractSearchWidget::Private::updateFetchDirection()
     const auto scrollBar = ui->ribbon->scrollBar();
 
     if (m_mainModel->rowCount() == 0 || scrollBar->value() == scrollBar->maximum())
-        setFetchDirection(AbstractSearchListModel::FetchDirection::earlier);
+        setFetchDirection(core::EventSearch::FetchDirection::earlier);
     else if (scrollBar->value() == scrollBar->minimum())
-        setFetchDirection(AbstractSearchListModel::FetchDirection::later);
+        setFetchDirection(core::EventSearch::FetchDirection::later);
     else
     {
-        setFetchDirection(AbstractSearchListModel::FetchDirection::earlier);
+        setFetchDirection(core::EventSearch::FetchDirection::earlier);
         return false; //< Scroll bar is not at the beginning nor the end.
     }
 
@@ -785,7 +784,8 @@ void AbstractSearchWidget::Private::updateDeviceDependentActions()
     }
 }
 
-void AbstractSearchWidget::Private::setFetchDirection(AbstractSearchListModel::FetchDirection value)
+void AbstractSearchWidget::Private::setFetchDirection(
+    core::EventSearch::FetchDirection value)
 {
     if (value == m_mainModel->fetchDirection())
         return;
@@ -816,7 +816,7 @@ void AbstractSearchWidget::Private::tryFetchData()
 
 BusyIndicatorModel* AbstractSearchWidget::Private::relevantIndicatorModel() const
 {
-    return m_mainModel->fetchDirection() == AbstractSearchListModel::FetchDirection::earlier
+    return m_mainModel->fetchDirection() == core::EventSearch::FetchDirection::earlier
         ? m_tailIndicatorModel.data()
         : m_headIndicatorModel.data();
 }
@@ -891,7 +891,7 @@ void AbstractSearchWidget::Private::setCurrentDate(const QDateTime& value)
         return;
 
     emit model->dataChanged(
-        model->index(range.lower()), model->index(range.upper()), {Qn::TimestampTextRole});
+        model->index(range.lower()), model->index(range.upper()), {core::TimestampTextRole});
 }
 
 void AbstractSearchWidget::Private::addSearchAction(QAction* action)

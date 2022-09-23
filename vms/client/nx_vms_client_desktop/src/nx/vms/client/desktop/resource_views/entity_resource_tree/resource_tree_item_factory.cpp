@@ -198,7 +198,7 @@ AbstractItemPtr ResourceTreeItemFactory::createCurrentUserItem(const QnUserResou
 
     return GenericItemBuilder()
         .withRole(Qt::DisplayRole, nameProvider, nameInvalidator)
-        .withRole(Qn::ResourceRole, QVariant::fromValue(user.staticCast<QnResource>()))
+        .withRole(core::ResourceRole, QVariant::fromValue(user.staticCast<QnResource>()))
         .withRole(Qn::ResourceIconKeyRole, static_cast<int>(IconCache::User))
         .withRole(Qn::NodeTypeRole, QVariant::fromValue(NodeType::currentUser))
         .withRole(Qn::ExtraInfoRole, QnResourceDisplayInfo(user).extraInfo())
@@ -438,7 +438,7 @@ AbstractItemPtr ResourceTreeItemFactory::createUserRoleItem(const QnUuid& roleUu
         .withRole(Qt::DisplayRole, nameProvider, nameInvalidator)
         .withRole(Qn::ResourceIconKeyRole, static_cast<int>(IconCache::Users))
         .withRole(Qn::NodeTypeRole, QVariant::fromValue(NodeType::role))
-        .withRole(Qn::UuidRole, QVariant::fromValue(roleUuid))
+        .withRole(core::UuidRole, QVariant::fromValue(roleUuid))
         .withFlags({Qt::ItemIsEnabled, Qt::ItemIsSelectable, Qt::ItemIsDropEnabled});
 }
 

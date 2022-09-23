@@ -62,7 +62,7 @@ public: //< Overrides 'private:' in macro above.
             else
             {
                 period.setStartTime(duration_cast<milliseconds>(model->index(range.upper() - 1)
-                    .data(Qn::TimestampRole).value<microseconds>()));
+                    .data(core::TimestampRole).value<microseconds>()));
             }
 
             if (range.lower() == 0)
@@ -72,7 +72,7 @@ public: //< Overrides 'private:' in macro above.
             else
             {
                 const auto endTime = duration_cast<milliseconds>(model->index(range.lower())
-                    .data(Qn::TimestampRole).value<microseconds>());
+                    .data(core::TimestampRole).value<microseconds>());
 
                 if (endTime <= 0ms)
                     period.durationMs = QnTimePeriod::kInfiniteDuration;
@@ -91,7 +91,7 @@ public: //< Overrides 'private:' in macro above.
 };
 
 BookmarkSearchWidget::BookmarkSearchWidget(QnWorkbenchContext* context, QWidget* parent):
-    base_type(context, new BookmarkSearchListModel(context), parent),
+    base_type(context, new BookmarkSearchListModel(context->commonModule()), parent),
     d(new Private{qobject_cast<BookmarkSearchListModel*>(model())})
 {
     NX_CRITICAL(d->model);
@@ -119,7 +119,7 @@ BookmarkSearchWidget::BookmarkSearchWidget(QnWorkbenchContext* context, QWidget*
     // Signals that can potentially be emitted during this widget destruction must be
     // disconnected in ~Private, so store the connections in d->connections.
 
-    d->connections << connect(model(), &AbstractSearchListModel::isOnlineChanged,
+    d->connections << connect(model(), &core::AbstractSearchListModel::isOnlineChanged,
         this, &BookmarkSearchWidget::updateAllowance);
 
     d->connections << connect(view(), &EventRibbon::visibleRangeChanged, this,

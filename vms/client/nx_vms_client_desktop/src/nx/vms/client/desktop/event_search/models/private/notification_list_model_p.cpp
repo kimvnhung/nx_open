@@ -214,7 +214,7 @@ void NotificationListModel::Private::addNotification(const vms::event::AbstractA
             {
                 for (const auto& id: ids)
                 {
-                    if (q->indexOf(id).data(Qn::TimestampRole).value<microseconds>() == timestamp)
+                    if (q->indexOf(id).data(core::TimestampRole).value<microseconds>() == timestamp)
                         return;
                 }
             }

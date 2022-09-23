@@ -32,13 +32,13 @@
 #include <nx/vms/api/analytics/descriptors.h>
 #include <nx/vms/api/analytics/manifest_items.h>
 #include <nx/vms/client/core/resource/session_resources_signal_listener.h>
+#include <nx/vms/client/core/utils/managed_camera_set.h>
 #include <nx/vms/client/core/watchers/server_time_watcher.h>
 #include <nx/vms/client/desktop/analytics/analytics_attribute_helper.h>
 #include <nx/vms/client/desktop/analytics/analytics_icon_manager.h>
 #include <nx/vms/client/desktop/ini.h>
 #include <nx/vms/client/desktop/style/helper.h>
 #include <nx/vms/client/desktop/style/skin.h>
-#include <nx/vms/client/desktop/utils/managed_camera_set.h>
 #include <nx/vms/text/human_readable.h>
 #include <server/server_storage_manager.h>
 #include <ui/dialogs/common/message_box.h>
@@ -148,8 +148,12 @@ void AnalyticsSearchListModel::Private::Storage::clear()
     idToTimestamp.clear();
 }
 
-AnalyticsSearchListModel::Private::Private(AnalyticsSearchListModel* q):
+AnalyticsSearchListModel::Private::Private(
+    QnWorkbenchContext* context,
+    AnalyticsSearchListModel* q)
+    :
     base_type(q),
+    QnWorkbenchContextAware(context),
     q(q),
     m_emitDataChanged(new nx::utils::PendingOperation([this] { emitDataChangedIfNeeded(); },
         kDataChangedInterval.count(), this)),
@@ -161,7 +165,7 @@ AnalyticsSearchListModel::Private::Private(AnalyticsSearchListModel* q):
     connect(m_metadataProcessingTimer.data(), &QTimer::timeout, this, &Private::processMetadata);
     m_metadataProcessingTimer->start();
 
-    connect(textFilter.get(), &TextFilterSetup::textChanged, this,
+    connect(textFilter.get(), &core::TextFilterSetup::textChanged, this,
         [this]()
         {
             this->q->clear();
@@ -174,10 +178,13 @@ AnalyticsSearchListModel::Private::Private(AnalyticsSearchListModel* q):
     connect(q, &AbstractSearchListModel::camerasChanged, this, &Private::updateMetadataReceivers);
 
     connect(q, &AbstractSearchListModel::fetchFinished, this,
-        [this](FetchResult result, FetchDirection direction)
+        [this](core::EventSearch::FetchResult result, core::EventSearch::FetchDirection direction)
         {
-            if (result == FetchResult::complete && direction == FetchDirection::later)
+            if (result == core::EventSearch::FetchResult::complete
+                && direction == core::EventSearch::FetchDirection::later)
+            {
                 m_gapBeforeNewTracks = false;
+            }
         });
 
     auto cameraStatusListener =
@@ -222,8 +229,7 @@ AnalyticsSearchListModel::Private::Private(AnalyticsSearchListModel* q):
         [this](const QnMediaServerResourcePtr& server)
         {
             const auto relevantCameras = this->q->cameras();
-            const auto serverFootageCameras =
-                this->q->cameraHistoryPool()->getServerFootageCameras(server);
+            const auto serverFootageCameras = cameraHistoryPool()->getServerFootageCameras(server);
 
             for (const auto& camera: serverFootageCameras)
             {
@@ -235,7 +241,7 @@ AnalyticsSearchListModel::Private::Private(AnalyticsSearchListModel* q):
             }
         });
 
-    const auto watcher = q->commonModule()->analyticsTaxonomyStateWatcher();
+    const auto watcher = commonModule()->analyticsTaxonomyStateWatcher();
     if (NX_ASSERT(watcher))
     {
         connect(watcher, &nx::analytics::taxonomy::AbstractStateWatcher::stateChanged, this,
@@ -282,17 +288,23 @@ QVariant AnalyticsSearchListModel::Private::data(const QModelIndex& index, int r
         case Qn::DecorationPathRole:
             return iconPath(track.objectTypeId);
 
-        case Qn::DescriptionTextRole:
+        case Qt::DecorationRole:
+        {
+            const auto path = index.data(Qn::DecorationPathRole).toString();
+            return path.isEmpty() ? QPixmap() : qnSkin->pixmap(path);
+        }
+
+        case core::DescriptionTextRole:
             return description(track);
 
         case Qn::GroupedAttributesRole:
             return QVariant::fromValue(qnClientModule->analyticsAttributeHelper()->
                 preprocessAttributes(track.objectTypeId, track.attributes));
 
-        case Qn::TimestampRole:
+        case core::TimestampRole:
             return QVariant::fromValue(std::chrono::microseconds(track.firstAppearanceTimeUs));
 
-        case Qn::PreviewTimeRole:
+        case core::PreviewTimeRole:
             return QVariant::fromValue(previewParams(track).timestamp);
 
         case Qn::PreviewStreamSelectionRole:
@@ -311,25 +323,25 @@ QVariant AnalyticsSearchListModel::Private::data(const QModelIndex& index, int r
         case Qn::ObjectTrackIdRole:
             return QVariant::fromValue(track.id);
 
-        case Qn::DurationRole:
+        case core::DurationRole:
             return QVariant::fromValue(objectDuration(track));
 
         case Qn::HelpTopicIdRole:
             return Qn::Empty_Help;
 
-        case Qn::ResourceListRole:
-        case Qn::DisplayedResourceListRole:
+        case core::ResourceListRole:
+        case core::DisplayedResourceListRole:
         {
             if (const auto resource = camera(track))
                 return QVariant::fromValue(QnResourceList({resource}));
 
-            if (role == Qn::DisplayedResourceListRole)
+            if (role == core::DisplayedResourceListRole)
                 return QVariant::fromValue(QStringList({QString("<%1>").arg(tr("deleted camera"))}));
 
             return {};
         }
 
-        case Qn::ResourceRole:
+        case core::ResourceRole:
             return QVariant::fromValue<QnResourcePtr>(camera(track));
 
         case Qn::ItemZoomRectRole:
@@ -423,7 +435,7 @@ void AnalyticsSearchListModel::Private::updateRelevantObjectTypes()
     std::set<QString> relevantObjectTypes;
     if (!m_selectedObjectType.isEmpty())
     {
-        const auto watcher = q->commonModule()->analyticsTaxonomyStateWatcher();
+        const auto watcher = commonModule()->analyticsTaxonomyStateWatcher();
         if (NX_ASSERT(watcher))
         {
             relevantObjectTypes = std::move(nx::analytics::taxonomy::getAllDerivedTypeIds(
@@ -478,7 +490,7 @@ void AnalyticsSearchListModel::Private::truncateToMaximumCount()
     if (!q->truncateDataToMaximumCount(m_data.items, &startTime, itemCleanupFunction(m_data)))
         return;
 
-    if (q->fetchDirection() == FetchDirection::earlier)
+    if (q->fetchDirection() == core::EventSearch::FetchDirection::earlier)
     {
         m_gapBeforeNewTracks = true;
 
@@ -491,6 +503,11 @@ void AnalyticsSearchListModel::Private::truncateToRelevantTimePeriod()
 {
     q->truncateDataToTimePeriod(
         m_data.items, &startTime, q->relevantTimePeriod(), itemCleanupFunction(m_data));
+}
+
+bool AnalyticsSearchListModel::Private::hasAccessRights() const
+{
+    return accessController()->hasGlobalPermission(GlobalPermission::viewArchive);
 }
 
 AnalyticsSearchListModel::ItemCleanupFunction<nx::analytics::db::ObjectTrack>
@@ -623,10 +640,10 @@ bool AnalyticsSearchListModel::Private::commitPrefetch(const QnTimePeriod& perio
 {
     const auto clearPrefetch = nx::utils::makeScopeGuard([this]() { m_prefetch.clear(); });
 
-    if (currentRequest().direction == FetchDirection::earlier)
+    if (currentRequest().direction == core::EventSearch::FetchDirection::earlier)
         return commitInternal(periodToCommit, m_prefetch.begin(), m_prefetch.end(), count(), false);
 
-    NX_ASSERT(currentRequest().direction == FetchDirection::later);
+    NX_ASSERT(currentRequest().direction == core::EventSearch::FetchDirection::later);
     return commitInternal(
         periodToCommit, m_prefetch.rbegin(), m_prefetch.rend(), 0, q->effectiveLiveSupported());
 }
@@ -638,7 +655,7 @@ rest::Handle AnalyticsSearchListModel::Private::getObjects(const QnTimePeriod& p
         return {};
 
     Filter request;
-    if (q->cameraSet()->type() != ManagedCameraSet::Type::all)
+    if (q->cameraSet()->type() != core::ManagedCameraSet::Type::all)
     {
         for (const auto& camera: q->cameraSet()->cameras())
             request.deviceIds.insert(camera->getId());
@@ -653,10 +670,10 @@ rest::Handle AnalyticsSearchListModel::Private::getObjects(const QnTimePeriod& p
     if (!m_selectedObjectType.isEmpty())
         request.objectTypeId = {m_selectedObjectType};
 
-    if (q->cameraSet()->type() == ManagedCameraSet::Type::single && m_filterRect.isValid())
+    if (q->cameraSet()->type() == core::ManagedCameraSet::Type::single && m_filterRect.isValid())
         request.boundingBox = m_filterRect;
 
-    request.sortOrder = currentRequest().direction == FetchDirection::earlier
+    request.sortOrder = currentRequest().direction == core::EventSearch::FetchDirection::earlier
         ? Qt::DescendingOrder
         : Qt::AscendingOrder;
 
@@ -939,7 +956,7 @@ void AnalyticsSearchListModel::Private::processMetadata()
         filter.boundingBox = m_filterRect;
 
     const nx::analytics::taxonomy::ObjectTypeDictionary objectTypeDictionary(
-        q->commonModule()->analyticsTaxonomyStateWatcher());
+        commonModule()->analyticsTaxonomyStateWatcher());
 
     const int oldNewTrackCount = m_newTracks.size();
 
@@ -1103,7 +1120,7 @@ void AnalyticsSearchListModel::Private::commitNewTracks()
             });
 
         if (m_liveProcessingMode == LiveProcessingMode::manualAdd)
-            q->setFetchDirection(FetchDirection::later); //< To avoid truncation of added tracks.
+            q->setFetchDirection(core::EventSearch::FetchDirection::later); //< To avoid truncation of added tracks.
 
         NX_VERBOSE(q, "Truncating to maximum count");
         truncateToMaximumCount();
@@ -1173,7 +1190,7 @@ void AnalyticsSearchListModel::Private::advanceTrack(ObjectTrack& track,
 const nx::analytics::taxonomy::AbstractObjectType*
     AnalyticsSearchListModel::Private::objectTypeById(const QString& objectTypeId) const
 {
-    const auto watcher = q->commonModule()->analyticsTaxonomyStateWatcher();
+    const auto watcher = commonModule()->analyticsTaxonomyStateWatcher();
     if (!NX_ASSERT(watcher))
         return nullptr;
 
@@ -1197,7 +1214,7 @@ QString AnalyticsSearchListModel::Private::description(
     if (!ini().showDebugTimeInformationInRibbon)
         return QString();
 
-    const auto timeWatcher = q->context()->instance<nx::vms::client::core::ServerTimeWatcher>();
+    const auto timeWatcher = commonModule()->instance<nx::vms::client::core::ServerTimeWatcher>();
     const auto start = timeWatcher->displayTime(startTime(track).count());
     const auto duration = objectDuration(track);
 
@@ -1225,8 +1242,7 @@ QString AnalyticsSearchListModel::Private::engineName(
     if (track.analyticsEngineId.isNull())
         return {};
 
-    const std::shared_ptr<AbstractState> taxonomyState =
-        q->commonModule()->analyticsTaxonomyState();
+    const std::shared_ptr<AbstractState> taxonomyState = commonModule()->analyticsTaxonomyState();
 
     if (!taxonomyState)
         return QString();
@@ -1244,7 +1260,7 @@ QSharedPointer<QMenu> AnalyticsSearchListModel::Private::contextMenu(
     if (!camera)
         return {};
 
-    const nx::analytics::ActionTypeDescriptorManager descriptorManager(q->commonModule());
+    const nx::analytics::ActionTypeDescriptorManager descriptorManager(commonModule());
     const auto actionByEngine = descriptorManager.availableObjectActionTypeDescriptors(
         track.objectTypeId,
         camera);
@@ -1287,11 +1303,11 @@ QnVirtualCameraResourcePtr AnalyticsSearchListModel::Private::camera(
 {
     const auto& deviceId = track.deviceId;
     if (NX_ASSERT(!deviceId.isNull()))
-        return q->resourcePool()->getResourceById<QnVirtualCameraResource>(deviceId);
+        return resourcePool()->getResourceById<QnVirtualCameraResource>(deviceId);
 
     // Fallback mechanism, just in case.
 
-    return q->resourcePool()->getResourceById<QnVirtualCameraResource>(
+    return resourcePool()->getResourceById<QnVirtualCameraResource>(
         track.deviceId);
 }
 

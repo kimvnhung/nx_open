@@ -362,7 +362,7 @@ AbstractEntityPtr ResourceTreeEntityBuilder::createDialogAllCamerasEntity(
 
     auto camerasGroupingEntity = std::make_unique<GroupingEntity<QString, QnResourcePtr>>(
         simpleResourceItemCreator(m_itemFactory.get()),
-        Qn::ResourceRole,
+        core::ResourceRole,
         serverResourcesOrder(),
         groupingRuleStack);
 
@@ -401,7 +401,7 @@ AbstractEntityPtr ResourceTreeEntityBuilder::createDialogAllCamerasAndResourcesE
 
     auto camerasGroupingEntity = std::make_unique<GroupingEntity<QString, QnResourcePtr>>(
         simpleResourceItemCreator(m_itemFactory.get()),
-        Qn::ResourceRole,
+        core::ResourceRole,
         serverResourcesOrder(),
         groupingRuleStack);
 
@@ -444,7 +444,7 @@ AbstractEntityPtr ResourceTreeEntityBuilder::createDialogServerCamerasEntity(
 
     auto camerasGroupingEntity = std::make_unique<GroupingEntity<QString, QnResourcePtr>>(
         simpleResourceItemCreator(m_itemFactory.get()),
-        Qn::ResourceRole,
+        core::ResourceRole,
         serverResourcesOrder(),
         groupingRuleStack);
 
@@ -532,7 +532,7 @@ AbstractEntityPtr ResourceTreeEntityBuilder::createAllCamerasEntity() const
 
     auto camerasGroupingEntity = std::make_unique<GroupingEntity<QString, QnResourcePtr>>(
         resourceItemCreator(m_itemFactory.get(), userGlobalPermissions()),
-        Qn::ResourceRole,
+        core::ResourceRole,
         serverResourcesOrder(),
         GroupingRuleStack{recordersGroupingRule});
 
@@ -583,7 +583,7 @@ AbstractEntityPtr ResourceTreeEntityBuilder::createServerCamerasEntity(
 
     auto camerasGroupingEntity = std::make_unique<GroupingEntity<QString, QnResourcePtr>>(
         resourceItemCreator(m_itemFactory.get(), userGlobalPermissions()),
-        Qn::ResourceRole,
+        core::ResourceRole,
         serverResourcesOrder(),
         groupingRuleStack);
 
@@ -818,13 +818,13 @@ AbstractEntityPtr ResourceTreeEntityBuilder::createLocalOtherSystemsEntity() con
     const GroupingRule otherSystemsGroupingRule =
         {systemGetter,
         systemItemCreator,
-        Qn::UuidRole,
+        core::UuidRole,
         1, //< Dimension
         numericOrder()};
 
     auto otherSystemsGroupingEntity = std::make_unique<GroupingEntity<QString, QnResourcePtr>>(
         resourceItemCreator(m_itemFactory.get(), userGlobalPermissions()),
-        Qn::ResourceRole,
+        core::ResourceRole,
         numericOrder(),
         GroupingRuleStack{otherSystemsGroupingRule});
 
@@ -922,7 +922,7 @@ AbstractEntityPtr ResourceTreeEntityBuilder::createSubjectDevicesEntity(
 
     auto devicesList = std::make_unique<GroupingEntity<QString, QnResourcePtr>>(
         sharedResourceItemCreator(m_itemFactory.get(), userGlobalPermissions()),
-        Qn::ResourceRole,
+        core::ResourceRole,
         layoutItemsOrder(),
         GroupingRuleStack{recordersGroupingRule});
 

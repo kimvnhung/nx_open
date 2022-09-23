@@ -1,14 +1,18 @@
 // Copyright 2018-present Network Optix, Inc. Licensed under MPL 2.0: www.mozilla.org/MPL/2.0/
 
 #include "system_health_list_model.h"
+
 #include "private/system_health_list_model_p.h"
 
 #include <client/client_globals.h>
+#include <common/common_module.h>
 #include <core/resource/resource.h>
-#include <ui/common/notification_levels.h>
-#include <utils/common/delayed.h>
-
+#include <nx/vms/client/core/watchers/server_time_watcher.h>
+#include <nx/vms/client/desktop/style/skin.h>
 #include <nx/vms/client/desktop/ui/actions/action_manager.h>
+#include <ui/common/notification_levels.h>
+#include <ui/workbench/workbench_context.h>
+#include <utils/common/delayed.h>
 
 namespace nx::vms::client::desktop {
 
@@ -21,7 +25,8 @@ constexpr int kMaxInvalidScheduleTooltipWidth = 320;
 } // namespace
 
 SystemHealthListModel::SystemHealthListModel(QnWorkbenchContext* context, QObject* parent):
-    base_type(context, parent),
+    base_type(context->commonModule()->instance<core::ServerTimeWatcher>(), parent),
+    QnWorkbenchContextAware(parent),
     d(new Private(this))
 {
 }
@@ -48,7 +53,13 @@ QVariant SystemHealthListModel::data(const QModelIndex& index, int role) const
         case Qn::DecorationPathRole:
             return d->decorationPath(index.row());
 
-        case Qn::ResourceListRole:
+        case Qt::DecorationRole:
+        {
+            const auto path = index.data(Qn::DecorationPathRole).toString();
+            return path.isEmpty() ? QPixmap() : qnSkin->pixmap(path);
+        }
+
+        case core::ResourceListRole:
             return QVariant::fromValue(d->displayedResourceList(index.row()));
 
         case Qt::ToolTipRole:
@@ -88,7 +99,7 @@ QVariant SystemHealthListModel::data(const QModelIndex& index, int role) const
             }
             break;
 
-        case Qn::PreviewTimeRole:
+        case core::PreviewTimeRole:
             if (d->messageType(index.row()) == QnSystemHealth::cameraRecordingScheduleIsInvalid)
                 return QVariant(); //< No preview
 

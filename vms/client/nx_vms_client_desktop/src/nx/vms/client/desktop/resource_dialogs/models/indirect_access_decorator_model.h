@@ -12,7 +12,7 @@ namespace nx::core::access { class ResourceAccessProvider; }
 namespace nx::vms::client::desktop {
 
 /**
- * If source model provides resource by the <tt>Qn::ResourceRole</tt>, then for the given subject
+ * If source model provides resource by the <tt>core::ResourceRole</tt>, then for the given subject
  * <tt>IndirectAccessDecoratorModel</tt> will provide additional icon and tooltip describing why
  * that resource will be accessible by the subject despite resource neither accessible by global
  * permissions nor accessible by being shared directly.

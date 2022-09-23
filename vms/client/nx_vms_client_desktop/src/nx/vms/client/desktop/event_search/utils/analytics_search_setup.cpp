@@ -5,7 +5,7 @@
 #include <QtCore/QPointer>
 
 #include <nx/utils/log/assert.h>
-#include <nx/vms/client/desktop/utils/managed_camera_set.h>
+#include <nx/vms/client/core/utils/managed_camera_set.h>
 
 namespace nx::vms::client::desktop {
 
@@ -47,11 +47,11 @@ AnalyticsSearchSetup::AnalyticsSearchSetup(
     connect(model, &AnalyticsSearchListModel::selectedEngineChanged,
         this, &AnalyticsSearchSetup::engineChanged);
 
-    connect(model, &AbstractSearchListModel::camerasChanged, this,
+    connect(model, &core::AbstractSearchListModel::camerasChanged, this,
         [this]()
         {
             const bool areaEnabled =
-                d->model->cameraSet()->type() == ManagedCameraSet::Type::single;
+                d->model->cameraSet()->type() == core::ManagedCameraSet::Type::single;
 
             if (areaEnabled == d->areaEnabled)
                 return;

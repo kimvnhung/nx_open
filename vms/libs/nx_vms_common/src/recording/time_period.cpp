@@ -22,26 +22,26 @@ QN_FUSION_DEFINE_FUNCTIONS(QnTimePeriod, (json))
 
 } // namespace detail
 
-static_assert(QnTimePeriod::kMaxTimeValue == DATETIME_NOW);
+static_assert(QnTimePeriod::kMaxTimeValueMs == DATETIME_NOW);
 
 void QnTimePeriod::clear()
 {
-    startTimeMs = kMinTimeValue;
-    durationMs = kMinTimeValue;
+    startTimeMs = kMinTimeValueMs;
+    durationMs = kMinTimeValueMs;
 }
 
 qint64 QnTimePeriod::endTimeMs() const
 {
     if (isInfinite())
-        return kMaxTimeValue;
+        return kMaxTimeValueMs;
 
     return startTimeMs + durationMs;
 }
 
 void QnTimePeriod::setEndTimeMs(qint64 value)
 {
-    durationMs = value != kMaxTimeValue
-        ? std::max(kMinTimeValue, value - startTimeMs)
+    durationMs = value != kMaxTimeValueMs
+        ? std::max(kMinTimeValueMs, value - startTimeMs)
         : kInfiniteDuration;
 }
 
@@ -100,7 +100,7 @@ QnTimePeriod QnTimePeriod::intersected(const QnTimePeriod &other) const
     if (start > end)
         return QnTimePeriod();
 
-    if (end == kMaxTimeValue)
+    if (end == kMaxTimeValueMs)
         return QnTimePeriod(start, kInfiniteDuration);
 
     return QnTimePeriod(start, end - start);

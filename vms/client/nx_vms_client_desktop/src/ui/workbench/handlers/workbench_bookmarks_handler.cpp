@@ -51,6 +51,7 @@
 using std::chrono::microseconds;
 using std::chrono::milliseconds;
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 using namespace nx::vms::client::desktop::ui;
 
@@ -80,7 +81,7 @@ QnWorkbenchBookmarksHandler::QnWorkbenchBookmarksHandler(QObject *parent /* = nu
         [this](const QnCameraBookmark &bookmark) -> action::Parameters
         {
             return navigator()->currentParameters(action::TimelineScope)
-                .withArgument(Qn::CameraBookmarkRole, bookmark);
+                .withArgument(CameraBookmarkRole, bookmark);
         };
 
     const QPointer<QnBookmarksViewer> bookmarksViewer(navigator()->timeSlider()->bookmarksViewer());
@@ -149,7 +150,7 @@ QnWorkbenchBookmarksHandler::QnWorkbenchBookmarksHandler(QObject *parent /* = nu
         {
             context()->statisticsModule()->registerClick(lit("bookmark_tooltip_tag"));
             menu()->triggerIfPossible(action::OpenBookmarksSearchAction,
-                {Qn::BookmarkTagRole, tag});
+                {BookmarkTagRole, tag});
         });
 }
 
@@ -237,7 +238,7 @@ void QnWorkbenchBookmarksHandler::at_editCameraBookmarkAction_triggered()
     if (!camera)
         return;
 
-    QnCameraBookmark bookmark = parameters.argument<QnCameraBookmark>(Qn::CameraBookmarkRole);
+    QnCameraBookmark bookmark = parameters.argument<QnCameraBookmark>(CameraBookmarkRole);
 
     QnMediaServerResourcePtr server = cameraHistoryPool()->getMediaServerOnTime(camera,
         bookmark.startTimeMs.count());
@@ -267,7 +268,7 @@ void QnWorkbenchBookmarksHandler::at_removeCameraBookmarkAction_triggered()
     if (!camera)
         return;
 
-    QnCameraBookmark bookmark = parameters.argument<QnCameraBookmark>(Qn::CameraBookmarkRole);
+    QnCameraBookmark bookmark = parameters.argument<QnCameraBookmark>(CameraBookmarkRole);
 
     QnMessageBox dialog(QnMessageBoxIcon::Question,
         tr("Delete bookmark?"), bookmark.name.trimmed(),
@@ -287,7 +288,7 @@ void QnWorkbenchBookmarksHandler::at_removeBookmarksAction_triggered()
     const auto parameters = menu()->currentParameters(sender());
 
     QnCameraBookmarkList bookmarks = parameters.argument<QnCameraBookmarkList>(Qn::CameraBookmarkListRole);
-    if (bookmarks.isEmpty())
+    if (bookmarks.empty())
         return;
 
     const auto parent = utils::extractParentWidget(parameters, mainWindowWidget());

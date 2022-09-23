@@ -30,8 +30,11 @@
 #include <nx/utils/scoped_connections.h>
 #include <nx/utils/string.h>
 #include <nx/vms/api/types/event_rule_types.h>
+#include <nx/vms/client/core/event_search/event_search_globals.h>
+#include <nx/vms/client/core/event_search/utils/text_filter_setup.h>
 #include <nx/vms/client/core/thumbnails/abstract_caching_resource_thumbnail.h>
 #include <nx/vms/client/core/utils/geometry.h>
+#include <nx/vms/client/core/utils/managed_camera_set.h>
 #include <nx/vms/client/core/watchers/server_time_watcher.h>
 #include <nx/vms/client/desktop/common/utils/preview_rect_calculator.h>
 #include <nx/vms/client/desktop/event_search/models/analytics_search_list_model.h>
@@ -44,7 +47,6 @@
 #include <nx/vms/client/desktop/event_search/synchronizers/motion_search_synchronizer.h>
 #include <nx/vms/client/desktop/event_search/utils/analytics_search_setup.h>
 #include <nx/vms/client/desktop/event_search/utils/common_object_search_setup.h>
-#include <nx/vms/client/desktop/event_search/utils/text_filter_setup.h>
 #include <nx/vms/client/desktop/event_search/widgets/private/tile_interaction_handler_p.h>
 #include <nx/vms/client/desktop/image_providers/camera_thumbnail_provider.h>
 #include <nx/vms/client/desktop/image_providers/resource_thumbnail_provider.h>
@@ -52,7 +54,6 @@
 #include <nx/vms/client/desktop/resource_dialogs/camera_selection_dialog.h>
 #include <nx/vms/client/desktop/ui/actions/action_manager.h>
 #include <nx/vms/client/desktop/ui/common/color_theme.h>
-#include <nx/vms/client/desktop/utils/managed_camera_set.h>
 #include <nx/vms/client/desktop/workbench/extensions/local_notifications_manager.h>
 #include <nx/vms/common/html/html.h>
 #include <ui/workbench/workbench.h>
@@ -65,6 +66,7 @@
 #include <utils/common/synctime.h>
 
 #include "analytics_event_model.h"
+
 
 namespace nx::vms::client::desktop {
 
@@ -190,7 +192,7 @@ public:
     QString previewId(int row) const;
     qreal previewAspectRatio(int row) const;
     QRectF previewHighlightRect(int row) const;
-    RightPanel::PreviewState previewState(int row) const;
+    core::EventSearch::PreviewState previewState(int row) const;
 
     bool isVisible(const QModelIndex& index) const;
     bool setVisible(const QModelIndex& index, bool value);
@@ -199,8 +201,8 @@ public:
     bool isPlaceholderRequired() const { return m_isPlaceholderRequired; }
     int itemCount() const { return m_itemCount; }
 
-    AbstractSearchListModel* searchModel();
-    const AbstractSearchListModel* searchModel() const;
+    core::AbstractSearchListModel* searchModel();
+    const core::AbstractSearchListModel* searchModel() const;
 
     bool previewsEnabled() const { return m_previewsEnabled; }
     void setPreviewsEnabled(bool value);
@@ -398,17 +400,17 @@ QVariant RightPanelModelsAdapter::data(const QModelIndex& index, int role) const
 
     switch (role)
     {
-        case Qn::ResourceRole:
-        {
-            const auto resource = base_type::data(index, role).value<QnResourcePtr>();
-            if (!resource)
-                return {};
+            case core::ResourceRole:
+            {
+                const auto resource = base_type::data(index, role).value<QnResourcePtr>();
+                if (!resource)
+                    return {};
 
-            QQmlEngine::setObjectOwnership(resource.get(), QQmlEngine::CppOwnership);
-            return QVariant::fromValue(resource.get());
-        }
+                QQmlEngine::setObjectOwnership(resource.get(), QQmlEngine::CppOwnership);
+                return QVariant::fromValue(resource.get());
+            }
 
-        case Qn::DisplayedResourceListRole:
+        case core::DisplayedResourceListRole:
         {
             const auto data = base_type::data(index, role);
             QStringList result = data.value<QStringList>();
@@ -466,7 +468,7 @@ QVariant RightPanelModelsAdapter::data(const QModelIndex& index, int role) const
 
         case Private::PreviewTimeMsRole:
         {
-            const auto time = data(index, Qn::PreviewTimeRole).value<microseconds>();
+            const auto time = data(index, core::PreviewTimeRole).value<microseconds>();
             return QVariant::fromValue(duration_cast<milliseconds>(time).count());
         }
 
@@ -512,13 +514,11 @@ bool RightPanelModelsAdapter::setData(const QModelIndex& index, const QVariant& 
 QHash<int, QByteArray> RightPanelModelsAdapter::roleNames() const
 {
     auto roles = base_type::roleNames();
+    roles.insert(core::clientCoreRoleNames());
+
     roles[Qt::ForegroundRole] = "foregroundColor";
-    roles[Qn::ResourceRole] = "previewResource";
-    roles[Qn::DescriptionTextRole] = "description";
     roles[Qn::DecorationPathRole] = "decorationPath";
-    roles[Qn::TimestampTextRole] = "timestamp";
     roles[Qn::AdditionalTextRole] = "additionalText";
-    roles[Qn::DisplayedResourceListRole] = "resourceList";
     roles[Qn::RemovableRole] = "isCloseable";
     roles[Qn::AlternateColorRole] = "isInformer";
     roles[Qn::ProgressValueRole] = "progressValue";
@@ -546,7 +546,7 @@ void RightPanelModelsAdapter::setAutoClosePaused(int row, bool value)
     d->setAutoClosePaused(row, value);
 }
 
-void RightPanelModelsAdapter::setFetchDirection(RightPanel::FetchDirection value)
+void RightPanelModelsAdapter::setFetchDirection(core::EventSearch::FetchDirection value)
 {
     if (auto model = d->searchModel())
         model->setFetchDirection(value);
@@ -773,8 +773,8 @@ void RightPanelModelsAdapter::registerQmlTypes()
     qmlRegisterUncreatableType<CommonObjectSearchSetup>("nx.vms.client.desktop", 1, 0,
         "CommonObjectSearchSetup", "Cannot create instance of CommonObjectSearchSetup");
 
-    qmlRegisterUncreatableType<TextFilterSetup>("nx.vms.client.desktop", 1, 0, "TextFilterSetup",
-        "Cannot create instance of TextFilterSetup");
+    qmlRegisterUncreatableType<core::TextFilterSetup>("nx.vms.client.desktop", 1, 0,
+        "TextFilterSetup", "Cannot create instance of TextFilterSetup");
 
     qRegisterMetaType<QVector<RightPanel::EventCategory>>();
 }
@@ -1026,7 +1026,7 @@ void RightPanelModelsAdapter::Private::recreateSourceModel()
             break;
 
         case Type::bookmarks:
-            q->setSourceModel(new BookmarkSearchListModel(m_context, this));
+            q->setSourceModel(new BookmarkSearchListModel(m_context->commonModule(), this));
             break;
 
         case Type::events:
@@ -1099,7 +1099,7 @@ void RightPanelModelsAdapter::Private::recreateSourceModel()
     {
         m_commonSetup->setModel(model);
 
-        m_modelConnections << connect(model, &AbstractSearchListModel::dataNeeded, this,
+        m_modelConnections << connect(model, &core::AbstractSearchListModel::dataNeeded, this,
             [this]()
             {
                 updateIsConstrained();
@@ -1107,22 +1107,22 @@ void RightPanelModelsAdapter::Private::recreateSourceModel()
                 emit q->dataNeeded();
             });
 
-        m_modelConnections << connect(model, &AbstractSearchListModel::liveAboutToBeCommitted,
+        m_modelConnections << connect(model, &core::AbstractSearchListModel::liveAboutToBeCommitted,
             q, &RightPanelModelsAdapter::liveAboutToBeCommitted);
 
-        m_modelConnections << connect(model, &AbstractSearchListModel::fetchCommitStarted,
+        m_modelConnections << connect(model, &core::AbstractSearchListModel::fetchCommitStarted,
             q, &RightPanelModelsAdapter::fetchCommitStarted);
 
-        m_modelConnections << connect(model, &AbstractSearchListModel::fetchFinished,
+        m_modelConnections << connect(model, &core::AbstractSearchListModel::fetchFinished,
             q, &RightPanelModelsAdapter::fetchFinished);
 
-        m_modelConnections << connect(model, &AbstractSearchListModel::isOnlineChanged,
+        m_modelConnections << connect(model, &core::AbstractSearchListModel::isOnlineChanged,
             q, &RightPanelModelsAdapter::isOnlineChanged);
 
-        if (auto asyncModel = qobject_cast<AbstractAsyncSearchListModel*>(model))
+        if (auto asyncModel = qobject_cast<core::AbstractAsyncSearchListModel*>(model))
         {
             m_modelConnections
-                << connect(asyncModel, &AbstractAsyncSearchListModel::asyncFetchStarted,
+                << connect(asyncModel, &core::AbstractAsyncSearchListModel::asyncFetchStarted,
                     q, &RightPanelModelsAdapter::asyncFetchStarted);
         }
     }
@@ -1181,18 +1181,18 @@ bool RightPanelModelsAdapter::Private::isHighlighted(const QModelIndex& index) c
     if (m_highlightedTimestamp <= 0ms || m_highlightedResources.empty())
         return false;
 
-    const auto timestamp = index.data(Qn::TimestampRole).value<microseconds>();
+    const auto timestamp = index.data(core::TimestampRole).value<microseconds>();
     if (timestamp <= 0us)
         return false;
 
-    const auto duration = index.data(Qn::DurationRole).value<microseconds>();
+    const auto duration = index.data(core::DurationRole).value<microseconds>();
     if (duration <= 0us)
         return false;
 
     const auto isHighlightedResource =
         [this](const QnResourcePtr& res) { return m_highlightedResources.contains(res); };
 
-    const auto resources = index.data(Qn::ResourceListRole).value<QnResourceList>();
+    const auto resources = index.data(core::ResourceListRole).value<QnResourceList>();
     if (std::none_of(resources.cbegin(), resources.cend(), isHighlightedResource))
         return false;
 
@@ -1331,7 +1331,7 @@ void RightPanelModelsAdapter::Private::updatePreviewProvider(int row)
         return;
 
     const auto index = q->index(row, 0);
-    const auto previewResource = index.data(Qn::ResourceRole).value<QnResource*>();
+    const auto previewResource = index.data(core::ResourceRole).value<QnResource*>();
     const auto mediaResource = dynamic_cast<QnMediaResource*>(previewResource);
 
     if (!mediaResource || !previewResource->hasFlags(Qn::video))
@@ -1340,7 +1340,7 @@ void RightPanelModelsAdapter::Private::updatePreviewProvider(int row)
         return;
     }
 
-    const auto previewTime = index.data(Qn::PreviewTimeRole).value<microseconds>();
+    const auto previewTime = index.data(core::PreviewTimeRole).value<microseconds>();
 
     const auto rotation = mediaResource->forcedRotation().value_or(0);
     const auto highlightRect = nx::vms::client::core::Geometry::rotatedRelativeRectangle(
@@ -1452,31 +1452,31 @@ QRectF RightPanelModelsAdapter::Private::previewHighlightRect(int row) const
     return m_previews[row].highlightRect;
 }
 
-RightPanel::PreviewState RightPanelModelsAdapter::Private::previewState(int row) const
+core::EventSearch::PreviewState RightPanelModelsAdapter::Private::previewState(int row) const
 {
     if (const auto& provider = m_previews[row].provider)
     {
         if (!provider->image().isNull())
-            return RightPanel::PreviewState::ready;
+            return core::EventSearch::PreviewState::ready;
 
         switch (provider->status())
         {
             case Qn::ThumbnailStatus::Invalid:
-                return RightPanel::PreviewState::initial;
+                return core::EventSearch::PreviewState::initial;
 
             case Qn::ThumbnailStatus::Loading:
             case Qn::ThumbnailStatus::Refreshing:
-                return RightPanel::PreviewState::busy;
+                return core::EventSearch::PreviewState::busy;
 
             case Qn::ThumbnailStatus::Loaded:
-                return RightPanel::PreviewState::ready;
+                return core::EventSearch::PreviewState::ready;
 
             case Qn::ThumbnailStatus::NoData:
-                return RightPanel::PreviewState::missing;
+                return core::EventSearch::PreviewState::missing;
         }
     }
 
-    return RightPanel::PreviewState::missing;
+    return core::EventSearch::PreviewState::missing;
 }
 
 void RightPanelModelsAdapter::Private::setAutoClosePaused(int row, bool value)
@@ -1684,14 +1684,14 @@ bool RightPanelModelsAdapter::Private::canFetch() const
     return model && model->canFetchData();
 }
 
-AbstractSearchListModel* RightPanelModelsAdapter::Private::searchModel()
+core::AbstractSearchListModel* RightPanelModelsAdapter::Private::searchModel()
 {
-    return qobject_cast<AbstractSearchListModel*>(q->sourceModel());
+    return qobject_cast<core::AbstractSearchListModel*>(q->sourceModel());
 }
 
-const AbstractSearchListModel* RightPanelModelsAdapter::Private::searchModel() const
+const core::AbstractSearchListModel* RightPanelModelsAdapter::Private::searchModel() const
 {
-    return qobject_cast<const AbstractSearchListModel*>(q->sourceModel());
+    return qobject_cast<const core::AbstractSearchListModel*>(q->sourceModel());
 }
 
 QString RightPanelModelsAdapter::Private::valuesText(const QStringList& values)
@@ -1738,7 +1738,7 @@ void RightPanelModelsAdapter::Private::ensureAnalyticsRowVisible(int row)
     if (!NX_ASSERT(synchronizer && m_analyticsSetup && index.isValid()))
         return;
 
-    const auto timestamp = index.data(Qn::TimestampRole).value<microseconds>();
+    const auto timestamp = index.data(core::TimestampRole).value<microseconds>();
     const auto trackId = index.data(Qn::ObjectTrackIdRole).value<QnUuid>();
     synchronizer->ensureVisible(duration_cast<milliseconds>(timestamp), trackId,
         m_analyticsSetup->model()->fetchedTimeWindow());

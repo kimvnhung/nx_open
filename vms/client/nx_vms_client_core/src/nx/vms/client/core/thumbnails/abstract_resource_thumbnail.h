@@ -30,6 +30,10 @@ class AbstractResourceThumbnail: public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QnResource* resource READ rawResource WRITE setRawResource NOTIFY resourceChanged)
+    Q_PROPERTY(qint64 timestampMs
+        READ timestampMs
+        WRITE setTimestampMs
+        NOTIFY timestampMsChanged)
     Q_PROPERTY(int maximumSize READ maximumSize WRITE setMaximumSize NOTIFY maximumSizeChanged)
     Q_PROPERTY(bool active READ active WRITE setActive NOTIFY activeChanged)
     Q_PROPERTY(qreal aspectRatio READ aspectRatio NOTIFY aspectRatioChanged)
@@ -63,6 +67,9 @@ public:
      */
     QnResourcePtr resource() const;
     void setResource(const QnResourcePtr& value);
+
+    qint64 timestampMs() const;
+    void setTimestampMs(qint64 value);
 
     /**
      * Resource to load thumbnails for.
@@ -136,6 +143,7 @@ public:
 
 signals:
     void resourceChanged();
+    void timestampMsChanged();
     void maximumSizeChanged();
     void activeChanged();
     void aspectRatioChanged();

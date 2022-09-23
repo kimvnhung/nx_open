@@ -10,6 +10,7 @@
 #include <core/resource/resource_fwd.h>
 
 #include <nx/utils/impl_ptr.h>
+#include <nx/vms/client/core/event_search/event_search_globals.h>
 #include <nx/vms/client/desktop/event_search/right_panel_globals.h>
 
 class QnWorkbenchContext;
@@ -110,7 +111,7 @@ public:
     virtual bool setData(const QModelIndex& index, const QVariant& value, int role) override;
     virtual QHash<int, QByteArray> roleNames() const override;
 
-    Q_INVOKABLE void setFetchDirection(nx::vms::client::desktop::RightPanel::FetchDirection value);
+    Q_INVOKABLE void setFetchDirection(core::EventSearch::FetchDirection value);
     Q_INVOKABLE void requestFetch(bool immediately = false);
     Q_INVOKABLE bool canFetch() const;
     Q_INVOKABLE bool fetchInProgress() const;
@@ -145,8 +146,8 @@ signals:
     void typeChanged();
     void dataNeeded();
     void liveAboutToBeCommitted();
-    void asyncFetchStarted(nx::vms::client::desktop::RightPanel::FetchDirection direction);
-    void fetchCommitStarted(nx::vms::client::desktop::RightPanel::FetchDirection direction);
+    void asyncFetchStarted(nx::vms::client::core::EventSearch::FetchDirection direction);
+    void fetchCommitStarted(nx::vms::client::core::EventSearch::FetchDirection direction);
     void fetchFinished();
     void analyticsSetupChanged();
     void itemCountChanged();

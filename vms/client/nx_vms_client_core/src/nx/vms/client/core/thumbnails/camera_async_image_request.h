@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <chrono>
+
 #include <core/resource/resource_fwd.h>
 #include <nx/utils/impl_ptr.h>
 #include <nx/vms/client/core/network/remote_connection_aware.h>
@@ -35,6 +37,7 @@ public:
         const QnVirtualCameraResourcePtr& camera,
         int maximumSize, //< Zero or negative for no limit.
         CameraStream stream = CameraStream::undefined,
+        std::chrono::microseconds timestamp = std::chrono::microseconds(-1),
         QObject* parent = nullptr);
 
     virtual ~CameraAsyncImageRequest() override;

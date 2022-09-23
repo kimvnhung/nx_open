@@ -241,7 +241,7 @@ void LayoutsHandler::at_openLayoutAction_triggered(
 
             using namespace ui::action;
             menu()->triggerIfPossible(JumpToTimeAction,
-                Parameters().withArgument(Qn::TimestampRole, navigationTime));
+                Parameters().withArgument(core::TimestampRole, navigationTime));
         }
     }
 }
@@ -361,7 +361,7 @@ void LayoutsHandler::saveLayoutAs(const QnLayoutResourcePtr &layout, const QnUse
     const QnResourcePtr layoutOwnerUser = layout->getParentResource();
     bool hasSavePermission = accessController()->hasPermissions(layout, Qn::SavePermission);
 
-    QString name = menu()->currentParameters(sender()).argument<QString>(Qn::ResourceNameRole).trimmed();
+    QString name = menu()->currentParameters(sender()).argument<QString>(core::ResourceNameRole).trimmed();
     if (name.isEmpty())
     {
         QScopedPointer<QnLayoutNameDialog> dialog(new QnLayoutNameDialog(QDialogButtonBox::Save | QDialogButtonBox::Cancel, mainWindowWidget()));

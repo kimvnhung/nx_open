@@ -68,6 +68,9 @@ Rectangle
         {
             id: intervalPreview
 
+            delayMs: ClientSettings.iniConfigValue("intervalPreviewDelayMs")
+            durationMs: ClientSettings.iniConfigValue("intervalPreviewDurationMs")
+
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
@@ -228,7 +231,7 @@ Rectangle
                 color: ColorTheme.colors.light16
                 anchors.right: parent.right
                 font.pointSize: 17
-                text: previewPanel.selectedItem ? previewPanel.selectedItem.timestamp.split(" ", 2).pop() : ""
+                text: previewPanel.selectedItem ? previewPanel.selectedItem.textTimestamp.split(" ", 2).pop() : ""
             }
 
             Text

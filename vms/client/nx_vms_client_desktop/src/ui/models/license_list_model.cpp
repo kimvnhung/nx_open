@@ -25,6 +25,7 @@ const qint64 kExpirationWarningTimeMs = 15ll * 1000ll * 60ll * 60ll * 24ll;
 
 } // namespace
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 using namespace nx::vms::license;
 
@@ -86,7 +87,7 @@ QVariant QnLicenseListModel::data(const QModelIndex& index, int role) const
         case LicenseRole:
             return QVariant::fromValue(license(index));
 
-        case Qn::ResourceRole:
+        case ResourceRole:
             if (index.column() == ServerColumn)
                 return QVariant::fromValue<QnResourcePtr>(serverByLicense(license(index)));
             break;

@@ -78,6 +78,7 @@ extern "C"
 #include "workbench_item.h"
 #include "workbench_layout.h"
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 using namespace nx::vms::client::desktop::ui;
 using namespace std::literals::chrono_literals;
@@ -2303,8 +2304,8 @@ void QnWorkbenchNavigator::at_timeSlider_customContextMenuRequested(const QPoint
 
     const auto watcher = context()->instance<QnTimelineBookmarksWatcher>();
     QnCameraBookmarkList bookmarks = watcher->bookmarksAtPosition(position);
-    if (!bookmarks.isEmpty())
-        parameters.setArgument(Qn::CameraBookmarkRole, bookmarks.first()); // TODO: #dklychkov Implement sub-menus for the case when there're more than 1 bookmark at the position
+    if (!bookmarks.empty())
+        parameters.setArgument(CameraBookmarkRole, bookmarks.front()); // TODO: #dklychkov Implement sub-menus for the case when there're more than 1 bookmark at the position
 
     QScopedPointer<QMenu> menu(manager->newMenu(
         action::TimelineScope, mainWindowWidget(), parameters));

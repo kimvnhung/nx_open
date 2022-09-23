@@ -99,6 +99,7 @@ BubbleToolTip::~BubbleToolTip()
 
 void BubbleToolTip::show()
 {
+    return; // FIX ME
     d->widget->setParent(context()->mainWindowWidget());
 
     invokeQmlMethod<void>(d->widget->rootObject(), "show");
@@ -114,7 +115,8 @@ void BubbleToolTip::hide(bool immediately)
 
 void BubbleToolTip::suppress(bool immediately)
 {
-    invokeQmlMethod<void>(d->widget->rootObject(), "hide", immediately);
+    // RESTORE ME
+//    invokeQmlMethod<void>(d->widget->rootObject(), "hide", immediately);
     if (d->state == State::shown)
         d->setState(State::suppressed);
 }
@@ -193,6 +195,8 @@ QQuickWidget* BubbleToolTip::widget() const
 
 void BubbleToolTip::Private::updatePosition()
 {
+    return; //<< FIX MEEE
+
     if (targetRect.width() < 0 || targetRect.height() < 0)
     {
         widget->move(-widget->width(), -widget->height());

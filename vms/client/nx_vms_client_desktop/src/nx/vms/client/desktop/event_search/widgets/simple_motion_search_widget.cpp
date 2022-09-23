@@ -123,7 +123,7 @@ SimpleMotionSearchWidget::SimpleMotionSearchWidget(QnWorkbenchContext* context, 
     setRelevantControls(Control::timeSelector | Control::previewsToggler);
     setPlaceholderPixmap(qnSkin->pixmap("left_panel/placeholders/motion.svg"));
 
-    connect(model(), &AbstractSearchListModel::isOnlineChanged, this,
+    connect(model(), &core::AbstractSearchListModel::isOnlineChanged, this,
         &SimpleMotionSearchWidget::updateAllowance);
     connect(accessController(), &QnWorkbenchAccessController::globalPermissionsChanged, this,
         &SimpleMotionSearchWidget::updateAllowance);

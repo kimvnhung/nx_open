@@ -22,10 +22,10 @@
 
 #include <nx/api/mediaserver/image_request.h>
 #include <nx/vms/text/human_readable.h>
+#include <nx/vms/client/core/utils/managed_camera_set.h>
 #include <nx/vms/client/desktop/ui/actions/actions.h>
 #include <nx/vms/client/desktop/ui/actions/action_manager.h>
 #include <nx/vms/client/desktop/ui/actions/action_parameters.h>
-#include <nx/vms/client/desktop/utils/managed_camera_set.h>
 #include <nx/fusion/model_functions.h>
 #include <nx/utils/algorithm/merge_sorted_lists.h>
 #include <nx/utils/datetime.h>
@@ -105,28 +105,28 @@ QVariant MotionSearchListModel::Private::data(const QModelIndex& index, int role
         case Qn::HelpTopicIdRole:
             return QnBusiness::eventHelpId(vms::api::EventType::cameraMotionEvent);
 
-        case Qn::TimestampRole:
+        case core::TimestampRole:
             return QVariant::fromValue(chunk.period.startTime());
 
-        case Qn::DurationRole:
+        case core::DurationRole:
             return QVariant::fromValue(chunk.period.duration());
 
-        case Qn::ResourceRole:
+        case core::ResourceRole:
             return QVariant::fromValue<QnResourcePtr>(camera(chunk));
 
-        case Qn::ResourceListRole:
-        case Qn::DisplayedResourceListRole:
+        case core::ResourceListRole:
+        case core::DisplayedResourceListRole:
         {
             if (const auto resource = camera(chunk))
                 return QVariant::fromValue(QnResourceList({resource}));
 
-            if (role == Qn::DisplayedResourceListRole)
+            if (role == core::DisplayedResourceListRole)
                 return QVariant::fromValue(QStringList({QString("<%1>").arg(tr("deleted camera"))}));
 
             return {};
         }
 
-        case Qn::DescriptionTextRole:
+        case core::DescriptionTextRole:
         {
             if (!ini().showDebugTimeInformationInRibbon)
                 return QString();
@@ -138,7 +138,7 @@ QVariant MotionSearchListModel::Private::data(const QModelIndex& index, int role
                 text::HumanReadable::timeSpan(chunk.period.duration())).toQString();
         }
 
-        case Qn::PreviewTimeRole:
+        case core::PreviewTimeRole:
             return QVariant::fromValue(midTime(chunk.period));
 
         case Qn::ForcePrecisePreviewRole:
@@ -198,7 +198,7 @@ void MotionSearchListModel::Private::truncateToRelevantTimePeriod()
 
 rest::Handle MotionSearchListModel::Private::requestPrefetch(const QnTimePeriod& period)
 {
-    const auto sortOrder = currentRequest().direction == FetchDirection::earlier
+    const auto sortOrder = currentRequest().direction == core::EventSearch::FetchDirection::earlier
         ? Qt::DescendingOrder
         : Qt::AscendingOrder;
 
@@ -256,10 +256,10 @@ bool MotionSearchListModel::Private::commitPrefetch(const QnTimePeriod& periodTo
 {
     const auto clearPrefetch = nx::utils::makeScopeGuard([this]() { m_prefetch.clear(); });
 
-    if (currentRequest().direction == FetchDirection::earlier)
+    if (currentRequest().direction == core::EventSearch::FetchDirection::earlier)
         return commitInternal(periodToCommit, m_prefetch.begin(), m_prefetch.end(), count(), false);
 
-    NX_ASSERT(currentRequest().direction == FetchDirection::later);
+    NX_ASSERT(currentRequest().direction == core::EventSearch::FetchDirection::later);
     return commitInternal(
         periodToCommit, m_prefetch.rbegin(), m_prefetch.rend(), 0, q->effectiveLiveSupported());
 }
@@ -274,7 +274,7 @@ void MotionSearchListModel::Private::fetchLive()
 
     const milliseconds from = (m_data.empty() ? 0ms : m_data.front().period.startTime());
     m_liveFetch.period = QnTimePeriod(from.count(), QnTimePeriod::kInfiniteDuration);
-    m_liveFetch.direction = FetchDirection::later;
+    m_liveFetch.direction = core::EventSearch::FetchDirection::later;
     m_liveFetch.batchSize = q->fetchBatchSize();
 
     NX_VERBOSE(q, "Live update request");
@@ -296,7 +296,7 @@ rest::Handle MotionSearchListModel::Private::getMotion(
     request.sortOrder = order;
     request.limit = limit;
 
-    request.filter = q->cameraSet()->type() != ManagedCameraSet::Type::single || q->isFilterEmpty()
+    request.filter = q->cameraSet()->type() != core::ManagedCameraSet::Type::single || q->isFilterEmpty()
         ? QString()
         : QJson::serialized(m_filterRegions);
 
@@ -342,7 +342,7 @@ void MotionSearchListModel::Private::processReceivedTimePeriods(bool success, in
     {
         // Archive fetch.
 
-        const auto sortOrder = currentRequest().direction == FetchDirection::earlier
+        const auto sortOrder = currentRequest().direction == core::EventSearch::FetchDirection::earlier
             ? Qt::DescendingOrder
             : Qt::AscendingOrder;
 

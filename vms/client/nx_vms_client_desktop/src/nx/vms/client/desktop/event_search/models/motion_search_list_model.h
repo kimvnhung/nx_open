@@ -5,17 +5,24 @@
 #include <QtCore/QList>
 #include <QtGui/QRegion>
 
-#include <nx/vms/client/desktop/event_search/models/abstract_async_search_list_model.h>
+#include <nx/vms/client/core/event_search/models/abstract_async_search_list_model.h>
+
+#include <ui/workbench/workbench_context_aware.h>
+
+class QnWorkbenchContext;
 
 namespace nx::vms::client::desktop {
 
-class MotionSearchListModel: public AbstractAsyncSearchListModel
+class MotionSearchListModel: public core::AbstractAsyncSearchListModel,
+    public QnWorkbenchContextAware
 {
     Q_OBJECT
-    using base_type = AbstractAsyncSearchListModel;
+    using base_type = core::AbstractAsyncSearchListModel;
 
 public:
-    explicit MotionSearchListModel(QnWorkbenchContext* context, QObject* parent = nullptr);
+    explicit MotionSearchListModel(
+        QnWorkbenchContext* context,
+        QObject* parent = nullptr);
     virtual ~MotionSearchListModel() override = default;
 
     QList<QRegion> filterRegions() const; //< One region per channel.

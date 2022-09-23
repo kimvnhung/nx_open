@@ -238,7 +238,7 @@ TEST_F(ResourceTreeModelTest, layoutProvidesResource)
     const auto layoutIndex = uniqueMatchingIndex(kUniqueLayoutNameCondition);
 
     // And that node provides pointer to the layout resource.
-    ASSERT_TRUE(dataMatch(Qn::ResourceRole, QVariant::fromValue<QnResourcePtr>(layout))(
+    ASSERT_TRUE(dataMatch(core::ResourceRole, QVariant::fromValue<QnResourcePtr>(layout))(
         layoutIndex));
 }
 

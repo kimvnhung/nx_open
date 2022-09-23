@@ -449,7 +449,7 @@ void ActionHandler::addToLayout(
     }
 
     if (!menu()->canTrigger(action::OpenInLayoutAction, action::Parameters(resource)
-        .withArgument(Qn::LayoutResourceRole, layout)))
+        .withArgument(core::LayoutResourceRole, layout)))
     {
         return;
     }
@@ -825,7 +825,7 @@ void ActionHandler::at_openInLayoutAction_triggered()
 {
     const auto parameters = menu()->currentParameters(sender());
 
-    QnLayoutResourcePtr layout = parameters.argument<QnLayoutResourcePtr>(Qn::LayoutResourceRole);
+    QnLayoutResourcePtr layout = parameters.argument<QnLayoutResourcePtr>(core::LayoutResourceRole);
     NX_ASSERT(layout, "No layout provided.");
     if (!layout)
         return;
@@ -1024,7 +1024,7 @@ void ActionHandler::at_openInCurrentLayoutAction_triggered()
             context()->instance<QnWorkbenchStreamSynchronizer>()->state());
     }
 
-    parameters.setArgument(Qn::LayoutResourceRole, currentLayout->resource());
+    parameters.setArgument(core::LayoutResourceRole, currentLayout->resource());
     menu()->trigger(action::OpenInLayoutAction, parameters);
 }
 
@@ -1165,7 +1165,7 @@ void ActionHandler::at_reviewLayoutTourInNewWindowAction_triggered()
 
     // For now place method here until openNewWindow code would be shared.
     const auto parameters = menu()->currentParameters(sender());
-    auto id = parameters.argument<QnUuid>(Qn::UuidRole);
+    auto id = parameters.argument<QnUuid>(core::UuidRole);
 
     MimeData data;
     data.setEntities({id});
@@ -1488,7 +1488,7 @@ void ActionHandler::at_moveCameraAction_triggered() {
 
     QnResourceList resources = parameters.resources();
     QnMediaServerResourcePtr server =
-        parameters.argument<QnMediaServerResourcePtr>(Qn::MediaServerResourceRole);
+        parameters.argument<QnMediaServerResourcePtr>(core::MediaServerResourceRole);
 
     if (!server)
         return;
@@ -1633,7 +1633,7 @@ void ActionHandler::at_jumpToTimeAction_triggered()
         return;
 
     const auto parameters = menu()->currentParameters(sender());
-    if (!parameters.hasArgument(Qn::TimestampRole))
+    if (!parameters.hasArgument(core::TimestampRole))
     {
         NX_ASSERT(false, "Timestamp must be specified");
         return;
@@ -1641,7 +1641,7 @@ void ActionHandler::at_jumpToTimeAction_triggered()
 
     using namespace std::chrono;
 
-    const auto value = parameters.argument(Qn::TimestampRole);
+    const auto value = parameters.argument(core::TimestampRole);
     if (!value.canConvert<microseconds>())
     {
         NX_ASSERT(false, "Unsupported timestamp value type");
@@ -1893,8 +1893,8 @@ void ActionHandler::at_openBookmarksSearchAction_triggered()
     // If time window is specified then set it
     const auto nowMs = qnSyncTime->currentMSecsSinceEpoch();
 
-    const auto filterText = (parameters.hasArgument(Qn::BookmarkTagRole)
-        ? parameters.argument(Qn::BookmarkTagRole).toString() : QString());
+    const auto filterText = (parameters.hasArgument(core::BookmarkTagRole)
+        ? parameters.argument(core::BookmarkTagRole).toString() : QString());
 
     const auto endTimeMs = nowMs;
     const auto startTimeMs = nowMs - kOneWeekOffsetMs;
@@ -2396,7 +2396,7 @@ void ActionHandler::at_renameAction_triggered()
             return;
     }
 
-    QString name = parameters.argument<QString>(Qn::ResourceNameRole).trimmed();
+    QString name = parameters.argument<QString>(core::ResourceNameRole).trimmed();
     QString oldName = nodeType == NodeType::recorder
         ? camera->getUserDefinedGroupName()
         : resource->getName();

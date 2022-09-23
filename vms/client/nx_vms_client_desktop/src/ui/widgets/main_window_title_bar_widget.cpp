@@ -41,6 +41,7 @@
 #include <nx/vms/client/desktop/utils/mime_data.h>
 #include <nx/utils/app_info.h>
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 using namespace nx::vms::client::desktop::ui;
 
@@ -362,7 +363,7 @@ void QnMainWindowTitleBarWidget::dropEvent(QDropEvent* event)
 
     const auto layoutTours = layoutTourManager()->tours(d->mimeData->entities());
     for (const auto& tour: layoutTours)
-        menu()->trigger(action::ReviewLayoutTourAction, {Qn::UuidRole, tour.id});
+        menu()->trigger(action::ReviewLayoutTourAction, {UuidRole, tour.id});
 
     resourcePool()->addNewResources(d->mimeData->resources());
 

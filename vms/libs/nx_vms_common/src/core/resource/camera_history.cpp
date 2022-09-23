@@ -314,8 +314,8 @@ QnCameraHistoryPool::StartResult QnCameraHistoryPool::updateCameraHistoryAsync(
         bool started = handle > 0;
         if (started)
         {
-            NX_ASSERT(m_asyncRunningRequests.count(camera->getId()) == 0,
-                "Existing request won't be terminated on invalidate call.");
+//            NX_ASSERT(m_asyncRunningRequests.count(camera->getId()) == 0,
+//                "Existing request won't be terminated on invalidate call.");
             m_asyncRunningRequests[camera->getId()] = {serverId, handle};
         }
 

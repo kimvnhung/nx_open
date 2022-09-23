@@ -53,8 +53,12 @@ milliseconds startTime(const QnTimePeriod& period)
 
 } // namespace
 
-SimpleMotionSearchListModel::SimpleMotionSearchListModel(QnWorkbenchContext* context, QObject* parent):
-    base_type(context, parent)
+SimpleMotionSearchListModel::SimpleMotionSearchListModel(
+    QnWorkbenchContext* context,
+    QObject* parent)
+    :
+    base_type(context->commonModule(), parent),
+    QnWorkbenchContextAware(context)
 {
     setOfflineAllowed(true);
 
@@ -127,21 +131,21 @@ QVariant SimpleMotionSearchListModel::data(const QModelIndex& index, int role) c
         case Qn::HelpTopicIdRole:
             return QnBusiness::eventHelpId(vms::api::EventType::cameraMotionEvent);
 
-        case Qn::TimestampRole:
+        case core::TimestampRole:
             return QVariant::fromValue(chunk.startTime());
 
-        case Qn::DurationRole:
+        case core::DurationRole:
             return QVariant::fromValue(chunk.duration());
 
-        case Qn::ResourceRole:
+        case core::ResourceRole:
             return QVariant::fromValue(navigator()->currentResource());
 
-        case Qn::ResourceListRole:
+        case core::ResourceListRole:
             if (auto resource = navigator()->currentResource())
                 return QVariant::fromValue(QnResourceList({resource}));
             return {};
 
-        case Qn::DescriptionTextRole:
+        case core::DescriptionTextRole:
         {
             if (!ini().showDebugTimeInformationInRibbon)
                 return QString();
@@ -153,7 +157,7 @@ QVariant SimpleMotionSearchListModel::data(const QModelIndex& index, int role) c
                 text::HumanReadable::timeSpan(chunk.duration())).toQString();
         }
 
-        case Qn::PreviewTimeRole:
+        case core::PreviewTimeRole:
             return QVariant::fromValue(midTime(chunk));
 
         case Qn::ForcePrecisePreviewRole:
@@ -211,7 +215,7 @@ void SimpleMotionSearchListModel::requestFetch()
 
     const auto periods = this->periods();
     const int oldCount = int(m_data.size());
-    FetchResult result = FetchResult::complete;
+    core::EventSearch::FetchResult result = core::EventSearch::FetchResult::complete;
 
     ScopedFetchCommit scopedFetch(this, fetchDirection(), &result);
 
@@ -228,7 +232,7 @@ void SimpleMotionSearchListModel::requestFetch()
             nx::utils::timestampToDebugString(periods.back().startTime()));
     }
 
-    if (fetchDirection() == FetchDirection::earlier)
+    if (fetchDirection() == core::EventSearch::FetchDirection::earlier)
     {
         const auto begin = m_data.empty()
             ? periods.crbegin()
@@ -245,13 +249,13 @@ void SimpleMotionSearchListModel::requestFetch()
         const int delta = qMin(remaining, fetchBatchSize());
         if (delta < remaining)
         {
-            result = FetchResult::incomplete;
+            result = core::EventSearch::FetchResult::incomplete;
             fetchedPeriod.truncateFront(begin->startTimeMs);
         }
 
         NX_VERBOSE(this, "Fetched %1 chunks", delta);
 
-        addToFetchedTimeWindow(fetchedPeriod);
+        addToFetchedTimeWindow(fetchedPeriod); ///sss2
         if (delta > 0)
         {
             ScopedInsertRows insertRows(this, oldCount, oldCount + delta - 1);
@@ -260,7 +264,7 @@ void SimpleMotionSearchListModel::requestFetch()
     }
     else
     {
-        NX_ASSERT(fetchDirection() == FetchDirection::later);
+        NX_ASSERT(fetchDirection() == core::EventSearch::FetchDirection::later);
 
         const auto end = m_data.empty()
             ? periods.crend()
@@ -280,13 +284,13 @@ void SimpleMotionSearchListModel::requestFetch()
         const int delta = qMin(remaining, fetchBatchSize());
         if (delta < remaining)
         {
-            result = FetchResult::incomplete;
+            result = core::EventSearch::FetchResult::incomplete;
             fetchedPeriod.truncate((end - 1)->startTimeMs + 1);
         }
 
         NX_VERBOSE(this, "Fetched %1 chunks", delta);
 
-        addToFetchedTimeWindow(fetchedPeriod);
+        addToFetchedTimeWindow(fetchedPeriod); ///sss2
         if (delta > 0)
         {
             ScopedInsertRows insertRows(this, 0, delta - 1);

@@ -55,6 +55,7 @@ using namespace nx;
 
 using nx::vms::api::EventType;
 using nx::vms::api::ActionType;
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 
 namespace {
@@ -310,7 +311,7 @@ QVariant QnBusinessRuleViewModel::data(Column column, const int role) const
                     break;
             }
             return QVariant();
-        case Qn::UuidRole:
+        case UuidRole:
             return QVariant::fromValue(m_id);
         case Qn::ModifiedRole:
             return m_modified;

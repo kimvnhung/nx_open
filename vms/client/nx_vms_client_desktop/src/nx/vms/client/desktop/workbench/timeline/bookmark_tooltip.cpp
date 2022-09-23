@@ -70,7 +70,7 @@ BookmarkTooltip::BookmarkTooltip(
         addSeparator = true;
     }
 
-    for (int i = 0; i < std::min(bookmarks.size(), kMaxBookmarksNumber); ++i)
+    for (int i = 0; i < std::min(int(bookmarks.size()), kMaxBookmarksNumber); ++i)
     {
         const auto& bookmark = bookmarks[i];
 

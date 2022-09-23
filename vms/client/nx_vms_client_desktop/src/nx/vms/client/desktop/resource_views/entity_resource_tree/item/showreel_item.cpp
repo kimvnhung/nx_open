@@ -38,7 +38,7 @@ QVariant ShowreelItem::data(int role) const
         case Qn::NodeTypeRole:
             return QVariant::fromValue(ResourceTree::NodeType::layoutTour);
 
-        case Qn::UuidRole:
+        case core::UuidRole:
             return QVariant::fromValue(m_tourData.id);
 
         case Qn::HelpTopicIdRole:

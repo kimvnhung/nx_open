@@ -32,13 +32,13 @@ QVariant LayoutIntermidiateModel::data(const QModelIndex& index, int role) const
         case LogicalIdRole:
         {
              const auto resourcePtr = qvariant_cast<QnResourcePtr>(
-                 sourceModel()->data(sourceIndex, Qn::ResourceRole));
+                 sourceModel()->data(sourceIndex, core::ResourceRole));
              return resourcePtr->logicalId();
         }
         case Qn::ItemUuidRole:
         {
              const auto resourcePtr = qvariant_cast<QnResourcePtr>(
-                 sourceModel()->data(sourceIndex, Qn::ResourceRole));
+                 sourceModel()->data(sourceIndex, core::ResourceRole));
              return resourcePtr->getId().toString();
         }
         default:

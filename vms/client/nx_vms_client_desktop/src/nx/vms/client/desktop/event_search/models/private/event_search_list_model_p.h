@@ -12,12 +12,13 @@
 #include <api/server_rest_connection_fwd.h>
 #include <core/resource/resource_fwd.h>
 #include <nx/vms/client/core/network/remote_connection_aware.h>
-#include <nx/vms/client/desktop/event_search/models/private/abstract_async_search_list_model_p.h>
+#include <nx/vms/client/core/event_search/models/private/abstract_async_search_list_model_p.h>
 #include <nx/vms/event/actions/abstract_action.h>
 #include <nx/vms/event/event_fwd.h>
 
 class QTimer;
 class QnUuid;
+class QnWorkbenchContext;
 
 namespace nx::vms::event { class StringsHelper; }
 
@@ -37,7 +38,9 @@ class EventSearchListModel::Private:
     using ActionDataList = nx::vms::event::ActionDataList;
 
 public:
-    explicit Private(EventSearchListModel* q);
+    explicit Private(
+        QnWorkbenchContext* context,
+        EventSearchListModel* q);
     virtual ~Private() override;
 
     EventType selectedEventType() const;
@@ -55,6 +58,8 @@ public:
     virtual void clearData() override;
     virtual void truncateToMaximumCount() override;
     virtual void truncateToRelevantTimePeriod() override;
+
+    bool hasAccessRights() const;
 
 protected:
     virtual rest::Handle requestPrefetch(const QnTimePeriod& period) override;
@@ -79,6 +84,7 @@ private:
 
 private:
     EventSearchListModel* const q;
+    QnWorkbenchContext* m_context;
     const QScopedPointer<nx::vms::event::StringsHelper> m_helper;
 
     EventType m_selectedEventType = EventType::undefinedEvent;

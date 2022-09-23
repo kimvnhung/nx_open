@@ -43,6 +43,10 @@ Control
         {
             id: intervalPreview
 
+            loopDelayMs: ClientSettings.iniConfigValue("intervalPreviewLoopDelayMs")
+            durationMs: ClientSettings.iniConfigValue("intervalPreviewDurationMs")
+            speedFactor: ClientSettings.iniConfigValue("intervalPreviewSpeedFactor")
+
             anchors.fill: parent
             active: true
             aspectRatio: preview.previewAspectRatio

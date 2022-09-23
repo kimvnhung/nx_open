@@ -16,6 +16,7 @@
 #include <nx/vms/client/desktop/common/utils/command_action.h>
 #include <nx/vms/client/desktop/ui/actions/action_fwd.h>
 #include <nx/vms/client/desktop/ui/actions/action_parameters.h>
+#include <ui/workbench/workbench_context_aware.h>
 
 namespace nx::vms::client::desktop {
 

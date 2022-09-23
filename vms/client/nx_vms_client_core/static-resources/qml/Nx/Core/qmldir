@@ -1,0 +1,4 @@
+module Nx.Core
+
+NxObject 1.0 NxObject.qml
+ViewUpdateWatcher 1.0 ViewUpdateWatcher.qml

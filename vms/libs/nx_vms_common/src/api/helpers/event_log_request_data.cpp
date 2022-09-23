@@ -45,7 +45,7 @@ void QnEventLogFilterData::loadFromParams(
 
     const auto startTimeUs = params.value(kStartPeriodParam);
     period.startTimeMs = startTimeUs.isEmpty()
-        ? QnTimePeriod::kMinTimeValue
+        ? QnTimePeriod::kMinTimeValueMs
         : nx::utils::parseDateTimeMsec(startTimeUs);
 
     const auto endTimeUs = params.value(kEndPeriodParam);

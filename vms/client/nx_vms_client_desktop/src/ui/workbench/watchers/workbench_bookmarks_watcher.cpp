@@ -54,7 +54,7 @@ QnWorkbenchBookmarksWatcher::QnWorkbenchBookmarksWatcher(QObject *parent):
             // Bookmarks are sorted by its start time (due to Qn::EarliestFirst filter value).
             tryUpdateFirstBookmarkTime(bookmarks.empty()
                 ? kUndefinedTime
-                : bookmarks.first().startTimeMs);
+                : bookmarks.front().startTimeMs);
         });
 }
 

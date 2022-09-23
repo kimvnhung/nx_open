@@ -19,6 +19,7 @@
 
 #include <nx/utils/string.h>
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 
 QnUserRolesSettingsModel::UserRoleReplacement::UserRoleReplacement():
@@ -224,7 +225,7 @@ QVariant QnUserRolesSettingsModel::data(const QModelIndex& index, int role) cons
             ? qnResIconCache->icon(QnResourceIconCache::Users)
             : qnSkin->icon("tree/users_error.png");
 
-    case Qn::UuidRole:
+    case UuidRole:
         return QVariant::fromValue(userRole.id);
 
     default:

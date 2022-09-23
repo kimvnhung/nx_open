@@ -92,29 +92,29 @@ struct ThumbnailTooltip::Private
         thumbnailHighlightRect = forceNoHighlight ? QRectF() : desiredHighlightRect;
     }
 
-    RightPanel::PreviewState calculatePreviewState() const
+    EventSearch::PreviewState calculatePreviewState() const
     {
         if (!imageProvider)
-            return RightPanel::PreviewState::initial;
+            return EventSearch::PreviewState::initial;
 
         switch (imageProvider->status())
         {
             case Qn::ThumbnailStatus::Invalid:
-                return RightPanel::PreviewState::initial;
+                return EventSearch::PreviewState::initial;
 
             case Qn::ThumbnailStatus::Loading:
             case Qn::ThumbnailStatus::Refreshing:
-                return RightPanel::PreviewState::busy;
+                return EventSearch::PreviewState::busy;
 
             case Qn::ThumbnailStatus::Loaded:
-                return RightPanel::PreviewState::ready;
+                return EventSearch::PreviewState::ready;
 
             case Qn::ThumbnailStatus::NoData:
-                return RightPanel::PreviewState::missing;
+                return EventSearch::PreviewState::missing;
         }
 
         NX_ASSERT(false, "Should never get here");
-        return RightPanel::PreviewState::initial;
+        return EventSearch::PreviewState::initial;
     }
 
     GenericImageStore* imageStore()

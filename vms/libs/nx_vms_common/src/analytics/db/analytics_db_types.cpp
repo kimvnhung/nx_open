@@ -139,7 +139,7 @@ QN_FUSION_ADAPT_STRUCT_FUNCTIONS(TimePeriodsLookupOptions, (json), (detailLevel)
 Filter::Filter()
 {
     // NOTE: The default time period constructor provides an empty time period.
-    timePeriod.setEndTimeMs(QnTimePeriod::kMaxTimeValue);
+    timePeriod.setEndTimeMs(QnTimePeriod::kMaxTimeValueMs);
 }
 
 bool Filter::empty() const

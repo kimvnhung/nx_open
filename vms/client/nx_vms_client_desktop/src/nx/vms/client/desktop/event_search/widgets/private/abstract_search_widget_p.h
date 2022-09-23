@@ -16,7 +16,7 @@
 #include <recording/time_period.h>
 #include <ui/workbench/workbench_context_aware.h>
 
-#include <nx/vms/client/desktop/event_search/models/abstract_search_list_model.h>
+#include <nx/vms/client/core/event_search/models/abstract_search_list_model.h>
 
 class QMenu;
 class QLabel;
@@ -44,10 +44,10 @@ class AbstractSearchWidget::Private:
     nx::utils::ImplPtr<Ui::AbstractSearchWidget> ui;
 
 public:
-    Private(AbstractSearchWidget* q, AbstractSearchListModel* model);
+    Private(AbstractSearchWidget* q, core::AbstractSearchListModel* model);
     virtual ~Private() override;
 
-    AbstractSearchListModel* model() const;
+    core::AbstractSearchListModel* model() const;
     EventRibbon* view() const;
 
     bool isAllowed() const;
@@ -88,7 +88,7 @@ private:
     void setupTimeSelection();
     void setupCameraSelection();
 
-    void setFetchDirection(AbstractSearchListModel::FetchDirection value);
+    void setFetchDirection(core::EventSearch::FetchDirection value);
     void tryFetchData();
 
     BusyIndicatorModel* relevantIndicatorModel() const;
@@ -101,12 +101,12 @@ private:
     QString currentDeviceText() const;
     QString singleDeviceText(
         const QString& baseText, const QnVirtualCameraResourcePtr& device) const;
-    QString deviceButtonText(RightPanel::CameraSelection selection) const;
+    QString deviceButtonText(core::EventSearch::CameraSelection selection) const;
 
     void setCurrentDate(const QDateTime& value);
 
 private:
-    const QScopedPointer<AbstractSearchListModel> m_mainModel;
+    const QScopedPointer<core::AbstractSearchListModel> m_mainModel;
     const QScopedPointer<BusyIndicatorModel> m_headIndicatorModel;
     const QScopedPointer<BusyIndicatorModel> m_tailIndicatorModel;
     const QScopedPointer<ConcatenationListModel> m_visualModel;
@@ -121,10 +121,10 @@ private:
 
     const QScopedPointer<nx::utils::PendingOperation> m_fetchDataOperation;
 
-    QHash<RightPanel::TimeSelection, QAction*> m_timeSelectionActions;
+    QHash<core::EventSearch::TimeSelection, QAction*> m_timeSelectionActions;
 
     QMetaObject::Connection m_currentCameraConnection;
-    QHash<RightPanel::CameraSelection, QAction*> m_cameraSelectionActions;
+    QHash<core::EventSearch::CameraSelection, QAction*> m_cameraSelectionActions;
 
     bool m_placeholderVisible = false;
     QPointer<QPropertyAnimation> m_placeholderOpacityAnimation;

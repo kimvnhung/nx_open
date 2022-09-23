@@ -119,13 +119,13 @@ QnTimePeriod helpers::extendTimeWindow(qint64 startTimeMs,
     qint64 startTimeShiftMs,
     qint64 endTimeShiftMs)
 {
-    startTimeMs = startTimeMs - startTimeShiftMs > QnTimePeriod::kMinTimeValue
+    startTimeMs = startTimeMs - startTimeShiftMs > QnTimePeriod::kMinTimeValueMs
         ? startTimeMs - startTimeShiftMs
-        : QnTimePeriod::kMinTimeValue;
+        : QnTimePeriod::kMinTimeValueMs;
 
-    endTimeMs = QnTimePeriod::kMaxTimeValue - endTimeShiftMs < endTimeMs
+    endTimeMs = QnTimePeriod::kMaxTimeValueMs - endTimeShiftMs < endTimeMs
         ? endTimeMs + endTimeShiftMs
-        : QnTimePeriod::kMaxTimeValue;
+        : QnTimePeriod::kMaxTimeValueMs;
 
     return QnTimePeriod::fromInterval(startTimeMs, endTimeMs);
 }

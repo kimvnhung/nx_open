@@ -21,11 +21,12 @@
 #include <core/resource/resource_fwd.h>
 #include <nx/analytics/taxonomy/abstract_object_type.h>
 #include <nx/utils/scope_guard.h>
+#include <nx/vms/client/core/event_search/models/private/abstract_async_search_list_model_p.h>
+#include <nx/vms/client/core/event_search/utils/text_filter_setup.h>
 #include <nx/vms/client/core/network/remote_connection_aware.h>
 #include <nx/vms/client/desktop/camera/camera_fwd.h>
-#include <nx/vms/client/desktop/event_search/models/private/abstract_async_search_list_model_p.h>
 #include <nx/vms/client/desktop/event_search/utils/live_analytics_receiver.h>
-#include <nx/vms/client/desktop/event_search/utils/text_filter_setup.h>
+#include <ui/workbench/workbench_context_aware.h>
 
 class QnUuid;
 class QnMediaResourceWidget;
@@ -37,19 +38,22 @@ namespace nx::utils { class PendingOperation; }
 namespace nx::vms::client::desktop {
 
 class AnalyticsSearchListModel::Private:
-    public AbstractAsyncSearchListModel::Private,
-    public core::RemoteConnectionAware
+    public core::AbstractAsyncSearchListModel::Private,
+//    public core::RemoteConnectionAware,
+    public QnWorkbenchContextAware
 {
     Q_OBJECT
-    using base_type = AbstractAsyncSearchListModel::Private;
+    using base_type = core::AbstractAsyncSearchListModel::Private;
 
     AnalyticsSearchListModel* const q;
 
 public:
-    const std::unique_ptr<TextFilterSetup> textFilter{new TextFilterSetup()};
+    const std::unique_ptr<core::TextFilterSetup> textFilter{new core::TextFilterSetup()};
 
 public:
-    explicit Private(AnalyticsSearchListModel* q);
+    explicit Private(
+        QnWorkbenchContext* context,
+        AnalyticsSearchListModel* q);
     virtual ~Private() override;
 
     virtual int count() const override;
@@ -79,6 +83,8 @@ public:
     virtual void clearData() override;
     virtual void truncateToMaximumCount() override;
     virtual void truncateToRelevantTimePeriod() override;
+
+    bool hasAccessRights() const;
 
 protected:
     virtual rest::Handle requestPrefetch(const QnTimePeriod& period) override;

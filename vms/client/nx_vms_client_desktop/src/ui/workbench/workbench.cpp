@@ -41,6 +41,7 @@
 
 #include "workbench_layout_synchronizer.h"
 
+using namespace nx::vms::client::core;
 using namespace nx::vms::client::desktop;
 using namespace ui;
 using namespace ui::workbench;
@@ -523,7 +524,7 @@ void QnWorkbench::update(const QnWorkbenchState& state)
         const auto tour = layoutTourManager()->tour(id);
         if (tour.isValid())
         {
-            menu()->trigger(action::ReviewLayoutTourAction, {Qn::UuidRole, id});
+            menu()->trigger(action::ReviewLayoutTourAction, {UuidRole, id});
             continue;
         }
     }
@@ -548,7 +549,7 @@ void QnWorkbench::update(const QnWorkbenchState& state)
 
     if (!state.runningTourId.isNull())
     {
-        menu()->trigger(action::ToggleLayoutTourModeAction, {Qn::UuidRole, state.runningTourId});
+        menu()->trigger(action::ToggleLayoutTourModeAction, {UuidRole, state.runningTourId});
     }
 }
 

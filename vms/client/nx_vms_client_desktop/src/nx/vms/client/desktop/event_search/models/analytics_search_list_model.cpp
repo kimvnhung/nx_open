@@ -4,11 +4,13 @@
 #include "private/analytics_search_list_model_p.h"
 
 #include <ui/workbench/workbench_access_controller.h>
+#include <ui/workbench/workbench_context.h>
 
 namespace nx::vms::client::desktop {
 
 AnalyticsSearchListModel::AnalyticsSearchListModel(QnWorkbenchContext* context, QObject* parent):
-    base_type(context, [this]() { return new Private(this); }, parent),
+    base_type(context->commonModule(),
+        [this, context]() { return new Private(context, this); }, parent),
     d(qobject_cast<Private*>(base_type::d.data()))
 {
     setLiveSupported(true);
@@ -24,7 +26,7 @@ void AnalyticsSearchListModel::setFilterRect(const QRectF& relativeRect)
     d->setFilterRect(relativeRect);
 }
 
-TextFilterSetup* AnalyticsSearchListModel::textFilter() const
+core::TextFilterSetup* AnalyticsSearchListModel::textFilter() const
 {
     return d->textFilter.get();
 }
@@ -116,7 +118,7 @@ void AnalyticsSearchListModel::setLiveTimestampGetter(LiveTimestampGetter value)
 
 bool AnalyticsSearchListModel::hasAccessRights() const
 {
-    return accessController()->hasGlobalPermission(GlobalPermission::viewArchive);
+    return d->hasAccessRights();
 }
 
 } // namespace nx::vms::client::desktop

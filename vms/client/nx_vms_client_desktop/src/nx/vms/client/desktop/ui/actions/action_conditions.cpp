@@ -641,7 +641,7 @@ ActionVisibility StopSharingCondition::check(const Parameters& parameters, QnWor
         return InvisibleAction;
 
     auto user = parameters.argument<QnUserResourcePtr>(Qn::UserResourceRole);
-    auto roleId = parameters.argument<QnUuid>(Qn::UuidRole);
+    auto roleId = parameters.argument<QnUuid>(core::UuidRole);
     NX_ASSERT(user || !roleId.isNull());
     if (!user && roleId.isNull())
         return InvisibleAction;
@@ -894,7 +894,7 @@ ActionVisibility AddBookmarkCondition::check(const Parameters& parameters, QnWor
 
 ActionVisibility ModifyBookmarkCondition::check(const Parameters& parameters, QnWorkbenchContext* /*context*/)
 {
-    if (!parameters.hasArgument(Qn::CameraBookmarkRole))
+    if (!parameters.hasArgument(core::CameraBookmarkRole))
         return InvisibleAction;
     return EnabledAction;
 }
@@ -904,7 +904,7 @@ ActionVisibility RemoveBookmarksCondition::check(const Parameters& parameters, Q
     if (!parameters.hasArgument(Qn::CameraBookmarkListRole))
         return InvisibleAction;
 
-    if (parameters.argument(Qn::CameraBookmarkListRole).value<QnCameraBookmarkList>().isEmpty())
+    if (parameters.argument(Qn::CameraBookmarkListRole).value<QnCameraBookmarkList>().empty())
         return InvisibleAction;
 
     return EnabledAction;
@@ -1112,7 +1112,7 @@ ActionVisibility NewUserLayoutCondition::check(const Parameters& parameters, QnW
 
 ActionVisibility OpenInLayoutCondition::check(const Parameters& parameters, QnWorkbenchContext* context)
 {
-    auto layout = parameters.argument<QnLayoutResourcePtr>(Qn::LayoutResourceRole);
+    auto layout = parameters.argument<QnLayoutResourcePtr>(core::LayoutResourceRole);
     if (!layout)
         return InvisibleAction;
 
@@ -2053,10 +2053,10 @@ ConditionWrapper canExportBookmark()
     return new CustomBoolCondition(
         [](const Parameters& parameters, QnWorkbenchContext* context)
         {
-            if (!parameters.hasArgument(Qn::CameraBookmarkRole))
+            if (!parameters.hasArgument(core::CameraBookmarkRole))
                 return false;
 
-            const auto bookmark = parameters.argument<QnCameraBookmark>(Qn::CameraBookmarkRole);
+            const auto bookmark = parameters.argument<QnCameraBookmark>(core::CameraBookmarkRole);
             return canExportBookmarkInternal(bookmark, context);
         });
 }

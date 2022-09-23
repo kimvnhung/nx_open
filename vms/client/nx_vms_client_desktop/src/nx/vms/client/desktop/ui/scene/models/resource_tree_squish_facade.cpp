@@ -30,7 +30,7 @@ QString ResourceTreeModelSquishFacade::jsonModel()
             jsonItem["icon"] = toString(index.data(Qn::ResourceIconKeyRole));
             if (jsonItem["node_type"] == toString(ResourceTree::NodeType::resource))
             {
-                const auto resource = index.data(Qn::ResourceRole).value<QnResourcePtr>();
+                const auto resource = index.data(core::ResourceRole).value<QnResourcePtr>();
                 const auto flags = toString(resource->flags());
                 jsonItem["resource_flags"] = flags.mid(flags.indexOf('(') + 1).chopped(1);
             }
