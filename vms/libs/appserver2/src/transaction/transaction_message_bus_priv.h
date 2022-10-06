@@ -79,18 +79,31 @@ bool handleTransaction2(
     const Function& function,
     FastFunctionType fastFunction)
 {
+    const int rawCommand = (int) transaction.command;
+
     static const int kGetKnownPeersSystemTime = 2005;
-    if ((int) transaction.command == kGetKnownPeersSystemTime)
+    if (rawCommand == kGetKnownPeersSystemTime)
     {
         NX_VERBOSE(bus, "Ignore deprecated unused transaction %1", transaction.command);
         return true;
     }
 
+    // These transactions supported in 5.0_patch (via API only).
+    // Ignore these transactions without an error for 5.0_patch -> 5.0 transaction log compatibility.
+    static const int kAddHardwareIdMapping = 315;
+    static const int kRemoveHardwareIdMapping = 316;
+
     switch (transaction.command)
     {
         TRANSACTION_DESCRIPTOR_LIST(HANDLE_TRANSACTION_PARAMS_APPLY)
-    default:
-        NX_ASSERT(0, "Unknown transaction command %1", (int) transaction.command);
+
+        case kAddHardwareIdMapping:
+        case kRemoveHardwareIdMapping:
+            NX_DEBUG(bus, "Ignore unsupported transaction %1", rawCommand);
+            return true;
+
+        default:
+            NX_ASSERT(0, "Unknown transaction command %1", rawCommand);
     }
     return false;
 }
