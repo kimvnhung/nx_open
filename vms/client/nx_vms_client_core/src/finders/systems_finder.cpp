@@ -13,6 +13,8 @@
 
 #include "search_address_manager.h"
 
+using namespace nx::vms::client::core;
+
 template<> QnSystemsFinder* Singleton<QnSystemsFinder>::s_instance = nullptr;
 
 enum class SystemHideFlag
@@ -38,7 +40,7 @@ QnSystemsFinder::QnSystemsFinder(QObject* parent)
         kScopeFinder,
     };
 
-    auto cloudSystemsFinder = new QnCloudSystemsFinder(this);
+    auto cloudSystemsFinder = new CloudSystemsFinder(this);
     addSystemsFinder(cloudSystemsFinder, kCloudPriority);
 
     SearchAddressManager* searchUrlManager = new SearchAddressManager(this);

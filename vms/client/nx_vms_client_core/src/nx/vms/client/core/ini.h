@@ -18,6 +18,9 @@ struct Ini: nx::kit::IniConfig
     NX_INI_INT(8, maxLastConnectedTilesStored,
         "[Support] Maximum last connected systems tiles stored on the Welcome Screen");
 
+    NX_INI_FLAG(false, doNotPingCloudSystems,
+        "[Dev] Disable cloud system pings, so desktop client will rely on cloud status only");
+
     NX_INI_INT(0, systemsHideOptions,
         "[Dev] Hide systems, bitwise combination of flags:\n"
         " * 1 - Incompatible systems.\n"

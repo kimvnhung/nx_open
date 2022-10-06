@@ -78,6 +78,14 @@ bool ClientPool::Context::isCanceled() const
     return state == State::canceled;
 }
 
+bool ClientPool::Context::hasSuccessfulResponse() const
+{
+    const auto statusCode = getStatusCode();
+    return hasResponse()
+        && systemError == SystemError::noError
+        && nx::network::http::StatusCode::isSuccessCode(response.statusLine.statusCode);
+}
+
 void ClientPool::Context::setCanceled()
 {
     NX_MUTEX_LOCKER lock(&mutex);
@@ -235,6 +243,8 @@ struct ClientPool::Private
 
     /** A sequence of requests to be passed to connection pool to process. */
     std::map<int, ContextPtr> awaitingRequests;
+
+    bool stopped = false;
 
     std::unique_ptr<AsyncClient> createHttpConnection()
     {
@@ -401,16 +411,7 @@ ClientPool::ClientPool(QObject *parent):
 
 ClientPool::~ClientPool()
 {
-    decltype(d->connectionPool) dataCopy;
-    {
-        NX_MUTEX_LOCKER lock(&d->mutex);
-        std::swap(dataCopy, d->connectionPool);
-        d->awaitingRequests.clear(); //< We must not create new connections.
-    }
-
-    for (auto itr = dataCopy.begin(); itr != dataCopy.end(); ++itr)
-        itr->second->client->pleaseStopSync();
-
+    stop(/*invokeCallbacks*/ false);
     SocketGlobals::instance().allocationAnalyzer().recordObjectDestruction(this);
 }
 
@@ -419,11 +420,48 @@ void ClientPool::setPoolSize(int value)
     d->maxPoolSize = value;
 }
 
+void ClientPool::stop(bool invokeCallbacks)
+{
+    std::vector<ContextPtr> requests;
+
+    decltype(d->connectionPool) dataCopy;
+    {
+        NX_MUTEX_LOCKER lock(&d->mutex);
+        d->stopped = true;
+
+        requests.reserve(dataCopy.size() + d->awaitingRequests.size());
+        std::swap(dataCopy, d->connectionPool);
+
+        for (const auto&[_, connection]: dataCopy)
+            requests.push_back(connection->context);
+        for (const auto&[_, context]: d->awaitingRequests)
+            requests.push_back(context);
+
+        d->awaitingRequests.clear(); //< We must not create new connections.
+    }
+
+    if (invokeCallbacks)
+    {
+        for (const auto& [_, connection]: dataCopy)
+            connection->client->pleaseStopSync();
+
+        for (const auto& context: requests)
+        {
+            if (context && !context->targetThreadIsDead() && context->completionFunc)
+                context->completionFunc(context);
+        }
+    }
+}
+
 int ClientPool::sendRequest(ContextPtr context)
 {
     int requestId = 0;
     {
         NX_MUTEX_LOCKER lock(&d->mutex);
+
+        if (d->stopped)
+            return 0;
+
         requestId = ++d->requestId;
         // Access to d->awaitingRequests is blocked, so no other thread can touch context as well.
         context->handle = requestId;

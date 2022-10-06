@@ -6,10 +6,17 @@
 
 #include "logon_data.h"
 
+class QnBaseSystemDescription;
+using QnSystemDescriptionPtr = QSharedPointer<QnBaseSystemDescription>;
+
 namespace nx::vms::client::core {
 
 /** Parameters for a connection to the system with the specified cloud system id. */
 std::optional<LogonData> cloudLogonData(const QString& systemId);
+
+/** Parameters for a connection to the system with the specified cloud system. */
+std::optional<LogonData> cloudLogonData(
+    const QnSystemDescriptionPtr& system);
 
 /** Parameters for a connection to the local system with specified url and credentials. */
 LogonData localLogonData(

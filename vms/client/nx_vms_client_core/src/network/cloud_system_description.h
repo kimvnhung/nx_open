@@ -12,15 +12,14 @@ class QnCloudSystemDescription: public QnSystemDescription
     using base_type = QnSystemDescription;
 
 public:
-    typedef QSharedPointer<QnCloudSystemDescription> PointerType;
-
-    static PointerType create(
+    static QSharedPointer<QnCloudSystemDescription> create(
         const QString& systemId,
         const QnUuid& localSystemId,
         const QString& systemName,
         const QString& ownerEmail,
         const QString& ownerFullName,
-        bool running);
+        bool running,
+        bool system2faEnabled);
 
     virtual ~QnCloudSystemDescription() = default;
 
@@ -48,7 +47,8 @@ private:
         const QString& systemName,
         const QString& ownerEmail,
         const QString& ownerFullName,
-        bool online);
+        bool online,
+        bool system2faEnabled);
 
 private:
     const QString m_ownerEmail;
@@ -56,4 +56,7 @@ private:
     nx::utils::SoftwareVersion m_lastKnownVersion;
 
     bool m_online;
+    bool m_system2faEnabled = false;
 };
+
+using QnCloudSystemDescriptionPtr = QSharedPointer<QnCloudSystemDescription>;
