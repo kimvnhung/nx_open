@@ -90,7 +90,7 @@ bool handleTransaction2(
     {
         TRANSACTION_DESCRIPTOR_LIST(HANDLE_TRANSACTION_PARAMS_APPLY)
     default:
-        NX_ASSERT(0, "Unknown transaction command");
+        NX_ASSERT(0, "Unknown transaction command %1", (int) transaction.command);
     }
     return false;
 }
