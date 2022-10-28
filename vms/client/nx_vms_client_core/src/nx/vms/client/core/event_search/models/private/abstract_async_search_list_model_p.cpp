@@ -47,8 +47,6 @@ bool AbstractAsyncSearchListModel::Private::fetchWindow(const QnTimePeriod& wind
 void AbstractAsyncSearchListModel::Private::defaultPrefetchHandler(
     const QnTimePeriod& fetchedPeriod, EventSearch::FetchResult result)
 {
-    ScopedFetchCommit scopedFetch(q, m_fetchData.info.direction, result);
-
     q->setFetchedTimeWindow(fetchedPeriod);
 
     if (result == EventSearch::FetchResult::complete || result == EventSearch::FetchResult::incomplete)
@@ -164,11 +162,15 @@ void AbstractAsyncSearchListModel::Private::completePrefetch(
         ? (fetchedAll ? EventSearch::FetchResult::complete : EventSearch::FetchResult::incomplete)
         : EventSearch::FetchResult::failed;
 
-    NX_VERBOSE(q, "Fetch result: %1", QVariant::fromValue(result).toString());
+    {
+        ScopedFetchCommit scopedFetch(q, m_fetchData.info.direction, result);
 
-    if (NX_ASSERT(m_fetchData.handler))
-        m_fetchData.handler(actuallyFetched, result);
-    m_fetchData = {};
+        NX_VERBOSE(q, "Fetch result: %1", QVariant::fromValue(result).toString());
+
+        if (NX_ASSERT(m_fetchData.handler))
+            m_fetchData.handler(actuallyFetched, result);
+        m_fetchData = {};
+    }
 
     // If top is reached, go to live mode.
     if (mayGoLive)

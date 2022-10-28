@@ -73,11 +73,12 @@ NxObject
             }
             else if (d.requestType !== ViewUpdateWatcher.RequestType.None)
             {
-                if (d.requestType !== ViewUpdateWatcher.RequestType.None && !d.pressed)
-                    watcher.updateRequested(d.requestType)
-
+                const currentRequestType = d.requestType
                 watcher.refreshProgress = 0
                 d.requestType = ViewUpdateWatcher.RequestType.None
+
+                if (currentRequestType !== ViewUpdateWatcher.RequestType.None && !d.pressed)
+                    watcher.updateRequested(currentRequestType)
             }
         }
     }
