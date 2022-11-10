@@ -200,6 +200,13 @@
     </message>
   </context>
   <context>
+    <name>nx::vms::client::core::BookmarkSearchListModel::Private</name>
+    <message>
+      <source>deleted camera</source>
+      <translation>slettet kamera</translation>
+    </message>
+  </context>
+  <context>
     <name>nx::vms::client::core::CertificateWarning</name>
     <message>
       <source>Cannot verify the identity of %1</source>
