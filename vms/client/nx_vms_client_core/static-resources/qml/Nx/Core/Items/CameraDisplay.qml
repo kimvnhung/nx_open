@@ -32,7 +32,7 @@ Rectangle
     property alias tag: player.tag
 
     property real forcedAspectRatio: 0 //< Zero if no aspect ratio is forced.
-
+    property real defaultAspectRatio: videoPositioner.customAspectRatio
     property alias defaultRotation: mediaResourceHelper.customRotation
     property int videoRotation: defaultRotation
 
