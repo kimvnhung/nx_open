@@ -1604,6 +1604,11 @@ namespace ApiCommand
         #define TRANSACTION_ENUM_APPLY(value, name, ...) name = value,
         TRANSACTION_DESCRIPTOR_LIST(TRANSACTION_ENUM_APPLY)
         #undef TRANSACTION_ENUM_APPLY
+        // These transactions supported in 5.0_patch (via API only).
+        // Ignore these transactions without an error for 5.0_patch -> 5.0 transaction log compatibility.
+        addHardwareIdMapping = 315,
+        removeHardwareIdMapping = 316,
+        getHarwareIdMapping = 317,
     };
 
     template<typename Visitor>
@@ -1611,6 +1616,9 @@ namespace ApiCommand
     {
         using Item = nx::reflect::enumeration::Item<Value>;
         return visitor(
+            Item{addHardwareIdMapping, "addHardwareIdMapping"},
+            Item{removeHardwareIdMapping, "removeHardwareIdMapping"},
+            Item{getHarwareIdMapping, "getHarwareIdMapping"},
             Item{CompositeSave, "CompositeSave"},
             Item{NotDefined, "NotDefined"}
             #define TRANSACTION_ENUM_APPLY(VALUE, NAME, ...) , Item{NAME, #NAME}

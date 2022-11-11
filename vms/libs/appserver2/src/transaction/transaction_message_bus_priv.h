@@ -88,19 +88,13 @@ bool handleTransaction2(
         return true;
     }
 
-    // These transactions supported in 5.0_patch (via API only).
-    // Ignore these transactions without an error for 5.0_patch -> 5.0 transaction log compatibility.
-    static const int kAddHardwareIdMapping = 315;
-    static const int kRemoveHardwareIdMapping = 316;
-    static const int kGetHarwareIdMapping = 317;
-
     switch (transaction.command)
     {
         TRANSACTION_DESCRIPTOR_LIST(HANDLE_TRANSACTION_PARAMS_APPLY)
 
-        case kAddHardwareIdMapping:
-        case kRemoveHardwareIdMapping:
-        case kGetHarwareIdMapping:
+        case ApiCommand::addHardwareIdMapping:
+        case ApiCommand::removeHardwareIdMapping:
+        case ApiCommand::getHarwareIdMapping:
             NX_DEBUG(bus, "Ignore unsupported transaction %1", rawCommand);
             return true;
 
