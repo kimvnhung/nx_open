@@ -7,6 +7,7 @@ import Nx.Items 1.0
 import Nx.Core.Items 1.0
 import Nx.Core.Controls 1.0
 
+import nx.vms.api 1.0
 import nx.vms.client.core 1.0
 
 Item
@@ -45,15 +46,15 @@ Item
         ? loader.item.content.mediaPlayer.playbackState == MediaPlayer.Playing
         : false
     readonly property var position: loader.item ? loader.item.content.mediaPlayer.position : 0
-    readonly property bool atEnd:
-    {
-        return loader.item
-            ? loader.item.content.mediaPlayer.mediaStatus == MediaPlayer.EndOfMedia
-            : false
-    }
+    readonly property bool atEnd: loader.item
+        ? loader.item.content.mediaPlayer.mediaStatus == MediaPlayer.EndOfMedia
+        : false
 
     property bool scalable: false
     property bool forcePaused: false //< when pause() is called/pressed by the user.
+    property bool noVideo: loader.item
+        ? loader.item.content.mediaPlayer.failed || loader.item.content.mediaPlayer.noVideoStreams
+        : true
 
     readonly property bool audioSupported: loader.item && loader.item.content.audioSupported
 
@@ -200,7 +201,7 @@ Item
         anchors.centerIn: parent
         visible:
         {
-            if (!hasPreloader)
+            if (!hasPreloader || control.noVideo)
                 return false
 
            if (loader.item && loader.item.content.mediaPlayer.loading)
