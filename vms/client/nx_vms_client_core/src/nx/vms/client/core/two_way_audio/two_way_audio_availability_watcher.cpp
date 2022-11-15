@@ -13,14 +13,119 @@
 
 namespace nx::vms::client::core {
 
+struct TwoWayAudioAvailabilityWatcher::Private: public Connective<QObject>
+{
+    Private(TwoWayAudioAvailabilityWatcher* q);
+    void updateTargetDevice();
+    void updateAvailability();
+    void setAvailable(bool value);
+
+    TwoWayAudioAvailabilityWatcher* const q;
+    bool available = false;
+    QnVirtualCameraResourcePtr sourceCamera;
+    QnVirtualCameraResourcePtr targetCamera;
+    QScopedPointer<nx::vms::license::SingleCamLicenseStatusHelper> helper;
+};
+
+TwoWayAudioAvailabilityWatcher::Private::Private(TwoWayAudioAvailabilityWatcher* q):
+    q(q)
+{
+}
+
+void TwoWayAudioAvailabilityWatcher::Private::updateTargetDevice()
+{
+    using namespace nx::vms::license;
+
+    const auto camera =
+        [this]() -> QnVirtualCameraResourcePtr
+        {
+            if (!sourceCamera)
+                return {};
+
+            const auto id = sourceCamera->audioOutputDeviceId();
+            const auto result = q->resourcePool()->getResourceById<QnVirtualCameraResource>(id);
+            return result && result->hasTwoWayAudio()
+                ? result
+                : sourceCamera;
+        }();
+
+    if (camera == targetCamera)
+        return;
+
+    if (targetCamera)
+        targetCamera->disconnect(this);
+
+    targetCamera = camera;
+    helper.reset(targetCamera && targetCamera->isIOModule()
+        ? new SingleCamLicenseStatusHelper(targetCamera)
+        : nullptr);
+
+    if (targetCamera)
+    {
+        const auto update = [this]() { updateAvailability(); };
+        connect(targetCamera, &QnVirtualCameraResource::statusChanged, this, update);
+        connect(targetCamera, &QnSecurityCamResource::twoWayAudioEnabledChanged, this, update);
+        connect(targetCamera, &QnSecurityCamResource::audioOutputDeviceIdChanged, this, update);
+
+        if (helper)
+            connect(helper, &SingleCamLicenseStatusHelper::licenseStatusChanged, this, update);
+    }
+
+    updateAvailability();
+    emit q->targetResourceChanged();
+}
+
+void TwoWayAudioAvailabilityWatcher::Private::updateAvailability()
+{
+    const bool isAvailable =
+        [this]()
+    {
+        if (!targetCamera)
+            return false;
+
+        if (!targetCamera->isTwoWayAudioEnabled() || !targetCamera->hasTwoWayAudio())
+            return false;
+
+        const auto user = q->commonModule()->instance<UserWatcher>()->user();
+        if (!user)
+            return false;
+
+        const auto manager = q->globalPermissionsManager();
+        if (!manager->hasGlobalPermission(user, GlobalPermission::userInput))
+            return false;
+
+        if (!targetCamera->isOnline())
+            return false;
+
+        if (helper)
+            return helper->status() == nx::vms::license::UsageStatus::used;
+
+        return true;
+    }();
+
+    setAvailable(isAvailable);
+}
+
+void TwoWayAudioAvailabilityWatcher::Private::setAvailable(bool value)
+{
+    if (available == value)
+        return;
+
+    available = value;
+    emit q->availabilityChanged();
+}
+
+//-------------------------------------------------------------------------------------------------
+
 TwoWayAudioAvailabilityWatcher::TwoWayAudioAvailabilityWatcher(QObject* parent):
-    base_type(parent)
+    base_type(parent),
+    d(new Private(this))
 {
     const auto manager = globalPermissionsManager();
     const auto userWatcher = commonModule()->instance<UserWatcher>();
 
     connect(userWatcher, &UserWatcher::userChanged,
-        this, &TwoWayAudioAvailabilityWatcher::updateAvailability);
+        d.get(), &TwoWayAudioAvailabilityWatcher::Private::updateAvailability);
     connect(manager, &QnGlobalPermissionsManager::globalPermissionsChanged, this,
         [this, userWatcher]
             (const QnResourceAccessSubject& subject, GlobalPermissions /*permissions*/)
@@ -29,7 +134,7 @@ TwoWayAudioAvailabilityWatcher::TwoWayAudioAvailabilityWatcher(QObject* parent):
             if (subject != user)
                 return;
 
-            updateAvailability();
+            d->updateAvailability();
         });
 }
 
@@ -37,88 +142,40 @@ TwoWayAudioAvailabilityWatcher::~TwoWayAudioAvailabilityWatcher()
 {
 }
 
-void TwoWayAudioAvailabilityWatcher::setResourceId(const QnUuid& uuid)
-{
-    using namespace nx::vms::license;
-
-    if (m_camera && m_camera->getId() == uuid)
-        return;
-
-    if (m_camera)
-        m_camera->disconnect(this);
-
-    const auto camera = resourcePool()->getResourceById<QnVirtualCameraResource>(uuid);
-    m_camera = camera && camera->hasTwoWayAudio() ? camera : QnVirtualCameraResourcePtr();
-    m_licenseHelper.reset(m_camera && m_camera->isIOModule()
-        ? new SingleCamLicenseStatusHelper(m_camera)
-        : nullptr);
-
-    if (m_camera)
-    {
-        connect(m_camera, &QnVirtualCameraResource::statusChanged,
-            this, &TwoWayAudioAvailabilityWatcher::updateAvailability);
-        connect(m_camera, &QnSecurityCamResource::twoWayAudioEnabledChanged,
-            this, &TwoWayAudioAvailabilityWatcher::updateAvailability);
-        connect(m_camera, &QnSecurityCamResource::audioOutputDeviceIdChanged,
-            this, &TwoWayAudioAvailabilityWatcher::updateAvailability);
-
-        if (m_licenseHelper)
-        {
-            connect(m_licenseHelper, &SingleCamLicenseStatusHelper::licenseStatusChanged,
-                this, &TwoWayAudioAvailabilityWatcher::updateAvailability);
-        }
-    }
-
-    updateAvailability();
-}
-
 bool TwoWayAudioAvailabilityWatcher::available() const
 {
-    return m_available;
+    return d->available;
 }
 
-void TwoWayAudioAvailabilityWatcher::updateAvailability()
+QnUuid TwoWayAudioAvailabilityWatcher::resourceId() const
 {
-    const bool isAvailable =
-        [this]()
-        {
-            if (!m_camera )
-                return false;
-
-            if (!m_camera->isTwoWayAudioEnabled())
-                return false;
-
-            const auto audioOutput = m_camera->audioOutputDevice();
-            if (!audioOutput->hasTwoWayAudio())
-                return false;
-
-            const auto user = commonModule()->instance<UserWatcher>()->user();
-            if (!user)
-                return false;
-
-            const auto manager = globalPermissionsManager();
-            if (!manager->hasGlobalPermission(user, GlobalPermission::userInput))
-                return false;
-
-            if (!m_camera->isOnline())
-                return false;
-
-            if (m_licenseHelper)
-                return m_licenseHelper->status() == nx::vms::license::UsageStatus::used;
-
-            return true;
-        }();
-
-    setAvailable(isAvailable);
+    return d->sourceCamera ? d->sourceCamera->getId() : QnUuid();
 }
 
-void TwoWayAudioAvailabilityWatcher::setAvailable(bool value)
+void TwoWayAudioAvailabilityWatcher::setResourceId(const QnUuid& id)
 {
-    if (m_available == value)
+    if (d->sourceCamera && d->sourceCamera->getId() == id)
         return;
 
-    m_available = value;
-    emit availabilityChanged();
+    if (d->sourceCamera)
+        d->sourceCamera->disconnect(this);
+
+    const auto camera = resourcePool()->getResourceById<QnVirtualCameraResource>(id);
+    d->sourceCamera = camera && camera->hasTwoWayAudio() ? camera : QnVirtualCameraResourcePtr();
+
+    if (d->sourceCamera)
+    {
+        connect(d->sourceCamera.get(), &QnVirtualCameraResource::audioOutputDeviceIdChanged,
+            d.get(), &Private::updateTargetDevice);
+    }
+
+    d->updateTargetDevice();
+    emit resourceIdChanged();
+}
+
+QnVirtualCameraResourcePtr TwoWayAudioAvailabilityWatcher::targetResource()
+{
+    return d->targetCamera;
 }
 
 } // namespace nx::vms::client::core

@@ -28,7 +28,6 @@ struct TwoWayAudioController::Private: RemoteConnectionAware
     TwoWayAudioController* const q;
     OrderedRequestsHelper orderedRequestsHelper;
     QScopedPointer<TwoWayAudioAvailabilityWatcher> availabilityWatcher;
-    QnVirtualCameraResourcePtr camera;
     QString sourceId;
     bool started = false;
     bool available = false;
@@ -40,6 +39,14 @@ TwoWayAudioController::Private::Private(TwoWayAudioController* q):
 {
     connect(availabilityWatcher, &TwoWayAudioAvailabilityWatcher::availabilityChanged,
         q, &TwoWayAudioController::availabilityChanged);
+    connect(availabilityWatcher, &TwoWayAudioAvailabilityWatcher::targetResourceChanged, q,
+        [q]() { q->stop(); });
+    connect(availabilityWatcher, &TwoWayAudioAvailabilityWatcher::resourceIdChanged, q,
+        [q]()
+        {
+            q->stop();
+            emit q->resourceIdChanged();
+        });
 }
 
 void TwoWayAudioController::Private::setStarted(bool value)
@@ -58,9 +65,13 @@ bool TwoWayAudioController::Private::setActive(bool active, OperationCallback&& 
     if (!available)
         return false;
 
+    const auto targetResource = availabilityWatcher->targetResource();
+    if (!NX_ASSERT(targetResource))
+        return false;
+
     nx::network::rest::Params params;
     params.insert("clientId", sourceId);
-    params.insert("resourceId", camera->getId().toString());
+    params.insert("resourceId", targetResource->getId().toString());
     params.insert("action", active ? "start" : "stop");
 
     const auto requestCallback = nx::utils::guarded(q,
@@ -129,20 +140,12 @@ void TwoWayAudioController::setSourceId(const QString& value)
 
 QnUuid TwoWayAudioController::resourceId() const
 {
-    return d->camera ? d->camera->getId() : QnUuid();
+    return d->availabilityWatcher->resourceId();
 }
 
 void TwoWayAudioController::setResourceId(const QnUuid& id)
 {
-    if (d->camera && d->camera->getId() == id)
-        return;
-
-    stop();
-
-    const auto pool = commonModule()->resourcePool();
-    d->camera = pool->getResourceById<QnVirtualCameraResource>(id);
     d->availabilityWatcher->setResourceId(id);
-    emit resourceIdChanged();
 }
 
 bool TwoWayAudioController::available() const

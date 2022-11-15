@@ -106,7 +106,7 @@ void CameraButtonController::createTwoAudioButton()
             commonModule()->peerId(), context()->user()->getId());
         m_twoWayAudioWidget =
             new QnTwoWayAudioWidget(desktopResourceUniqueId, m_parentWidget);
-        m_twoWayAudioWidget->setCamera(m_camera->audioOutputDevice());
+        m_twoWayAudioWidget->setCamera(m_camera);
         m_twoWayAudioWidget->setFixedHeight(kTriggerButtonHeight);
         context()->statisticsModule()->registerButton("two_way_audio", m_twoWayAudioWidget);
 
@@ -125,7 +125,7 @@ void CameraButtonController::createTwoAudioButton()
     }
     else
     {
-        m_twoWayAudioWidget->setCamera(m_camera->audioOutputDevice());
+        m_twoWayAudioWidget->setCamera(m_camera);
     }
 }
 
