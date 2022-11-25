@@ -124,6 +124,22 @@ std::string publicKey(const nx::network::ssl::CertificateChain& chain)
     return NX_ASSERT(!chain.empty()) ? chain[0].publicKey() : "";
 }
 
+nx::network::ssl::AdapterFunc makeStoreCertificateFunc(
+    nx::network::ssl::CertificateChain& storage)
+{
+    auto storeCertificateFunction =
+        [&storage](const nx::network::ssl::CertificateChainView& chain)
+        {
+            for (const auto& view: chain)
+                storage.emplace_back(view);
+            return true;
+        };
+
+    return nx::network::ini().verifyVmsSslCertificates
+        ? nx::network::ssl::makeAdapterFunc(storeCertificateFunction)
+        : nx::network::ssl::kAcceptAnyCertificate;
+}
+
 } // namespace
 
 namespace detail {
@@ -185,6 +201,9 @@ struct RemoteConnectionFactoryRequestsManager::Private
                         }
                         else
                         {
+                            NX_VERBOSE(NX_SCOPE_TAG, "Status code is %1",
+                                response.statusLine.statusCode);
+
                             if (externalErrorHandler)
                                 context->error = externalErrorHandler(response);
 
@@ -226,7 +245,10 @@ struct RemoteConnectionFactoryRequestsManager::Private
         ExternalErrorHandler externalErrorHandler = {})
     {
         if (!request)
-            request = makeRequestWithCertificateValidation(publicKey(context->certificateChain));
+        {
+            request = makeRequestWithCertificateValidation(
+                publicKey(context->handshakeCertificate));
+        }
 
         std::promise<ResultType> promise;
         auto future = promise.get_future();
@@ -247,7 +269,7 @@ struct RemoteConnectionFactoryRequestsManager::Private
         ExternalErrorHandler externalErrorHandler = {})
     {
         Request request =
-            makeRequestWithCertificateValidation(publicKey(context->certificateChain));
+            makeRequestWithCertificateValidation(publicKey(context->handshakeCertificate));
         auto messageBody = std::make_unique<BufferSource>(
             Qn::serializationFormatToHttpContentType(Qn::JsonFormat),
             std::move(data));
@@ -279,30 +301,64 @@ RemoteConnectionFactoryRequestsManager::~RemoteConnectionFactoryRequestsManager(
     d->networkManager->pleaseStopSync();
 }
 
-void RemoteConnectionFactoryRequestsManager::fillModuleInformationAndCertificate(
-    ContextPtr context)
+RemoteConnectionFactoryRequestsManager::ModuleInformationReply
+    RemoteConnectionFactoryRequestsManager::getModuleInformation(ContextPtr context)
 {
-    auto storeCertificateFunction =
-        [context](const nx::network::ssl::CertificateChainView& chain)
-        {
-            context->certificateChain.clear();
-            for (const auto& view: chain)
-                context->certificateChain.emplace_back(view);
-            return true;
-        };
-
     NX_DEBUG(this, "Requesting module information and certificate from %1", context);
     const auto url = makeUrl(context->address(), "/api/moduleInformation");
 
+    const bool certificatePresent = (context->handshakeCertificate.size() > 0);
+
     // Create a custom client that accepts any certificate and stores its data.
-    auto request = std::make_unique<AsyncClient>(nx::network::ini().verifyVmsSslCertificates
-        ? nx::network::ssl::makeAdapterFunc(storeCertificateFunction)
-        : nx::network::ssl::kAcceptAnyCertificate);
+    ModuleInformationReply reply{.handshakeCertificate = context->handshakeCertificate};
+    auto request = certificatePresent
+        ? d->makeRequestWithCertificateValidation(publicKey(context->handshakeCertificate))
+        : std::make_unique<AsyncClient>(makeStoreCertificateFunc(reply.handshakeCertificate));
     NetworkManager::setDefaultTimeouts(request.get());
 
-    context->moduleInformation = d->doGet<ModuleInformationWrapper>(
-        url, context, std::move(request)).reply;
-    NX_DEBUG(this, "Received certificate chain length: %1", context->certificateChain.size());
+    reply.moduleInformation =
+        d->doGet<ModuleInformationWrapper>(url, context, std::move(request)).reply;
+
+    if (!context->failed())
+    {
+        NX_DEBUG(this, "Received module information for server %1", reply.moduleInformation.id);
+        if (reply.moduleInformation.id.isNull())
+        {
+            NX_WARNING(this, "Received module information is invalid");
+            context->error = RemoteConnectionErrorCode::networkContentError;
+        }
+    }
+
+    NX_DEBUG(this, "Stored certificate chain length: %1", reply.handshakeCertificate.size());
+
+    return reply;
+}
+
+RemoteConnectionFactoryRequestsManager::ServersInfoReply
+    RemoteConnectionFactoryRequestsManager::getServersInfo(ContextPtr context)
+{
+    NX_DEBUG(this, "Retrieving target server certificates from %1", context);
+
+    const auto url = makeUrl(context->address(), "/rest/v1/servers/*/info");
+
+    const bool certificatePresent = (context->handshakeCertificate.size() > 0);
+
+    // Create a custom client that accepts any certificate and stores its data.
+    ServersInfoReply reply{.handshakeCertificate = context->handshakeCertificate};
+    auto request = certificatePresent
+        ? d->makeRequestWithCertificateValidation(publicKey(context->handshakeCertificate))
+        : std::make_unique<AsyncClient>(makeStoreCertificateFunc(reply.handshakeCertificate));
+    NetworkManager::setDefaultTimeouts(request.get());
+
+    reply.serversInfo =
+        d->doGet<std::vector<nx::vms::api::ServerInformation>>(url, context, std::move(request));
+
+    if (!context->failed())
+        NX_DEBUG(this, "Received list of %1 servers", reply.serversInfo.size());
+
+    NX_DEBUG(this, "Stored certificate chain length: %1", reply.handshakeCertificate.size());
+
+    return reply;
 }
 
 nx::vms::api::LoginUser RemoteConnectionFactoryRequestsManager::getUserType(
@@ -381,7 +437,8 @@ nx::vms::api::LoginSession RemoteConnectionFactoryRequestsManager::getCurrentSes
 {
     NX_DEBUG(this, "Requesting username from %1", context);
     const auto url = makeUrl(context->address(), "/rest/v1/login/sessions/current");
-    auto request = d->makeRequestWithCertificateValidation(publicKey(context->certificateChain));
+    auto request = d->makeRequestWithCertificateValidation(
+        publicKey(context->handshakeCertificate));
     request->setCredentials(context->credentials());
     return d->doGet<nx::vms::api::LoginSession>(
         url,
@@ -405,107 +462,53 @@ void RemoteConnectionFactoryRequestsManager::checkDigestAuthentication(ContextPt
     }
 
     const auto url = makeUrl(context->address(), "/api/moduleInformationAuthenticated");
-    auto request = d->makeRequestWithCertificateValidation(publicKey(context->certificateChain));
+    auto request =
+        d->makeRequestWithCertificateValidation(publicKey(context->handshakeCertificate));
     request->setCredentials(context->credentials());
     d->doGet<ModuleInformationWrapper>(url, context, std::move(request));
 }
 
-nx::cloud::db::api::IssueTokenResponse RemoteConnectionFactoryRequestsManager::issueCloudToken(
-    ContextPtr context,
-    nx::cloud::db::api::Connection* cloudConnection)
+std::future<RemoteConnectionFactoryRequestsManager::CloudTokenInfo>
+    RemoteConnectionFactoryRequestsManager::issueCloudToken(
+        ContextPtr context,
+        nx::cloud::db::api::Connection* cloudConnection,
+        const QString& cloudSystemId)
 {
     NX_DEBUG(this, "Issue cloud token for %1 in %2", context->credentials().username, context);
     using namespace nx::cloud::db::api;
 
-    if (!NX_ASSERT(cloudConnection))
+    if (!cloudConnection)
     {
         context->error = RemoteConnectionErrorCode::cloudUnavailableOnClient;
+        return {};
+    }
+
+    if (!NX_ASSERT(!cloudSystemId.isEmpty()))
+    {
+        context->error = RemoteConnectionErrorCode::internalError;
         return {};
     }
 
     IssueTokenRequest request;
     request.grant_type = GrantType::refreshToken;
     request.scope =
-        nx::format("cloudSystemId=%1", context->moduleInformation.cloudSystemId).toStdString();
+        nx::format("cloudSystemId=%1", cloudSystemId).toStdString();
     request.refresh_token = context->credentials().authToken.value;
 
-    std::promise<IssueTokenResponse> promise;
-    auto future = promise.get_future();
+    auto promise = std::make_shared<std::promise<CloudTokenInfo>>();
+    auto future = promise->get_future();
     cloudConnection->oauthManager()->issueToken(
         request,
-        [&promise, context](ResultCode resultCode, IssueTokenResponse response)
+        [promise, context](ResultCode resultCode, IssueTokenResponse response)
         {
             NX_DEBUG(NX_SCOPE_TAG, "Issue token result: %1", resultCode);
+            CloudTokenInfo tokenInfo{.response = response};
             if (resultCode != ResultCode::ok)
-                context->error = toConnectionErrorCode(resultCode);
-            promise.set_value(response);
+                tokenInfo.error = toConnectionErrorCode(resultCode);
+            promise->set_value(tokenInfo);
         });
 
-    return future.get();
-}
-
-RemoteConnectionFactoryRequestsManager::ServerCertificatesInfo
-    RemoteConnectionFactoryRequestsManager::targetServerCertificates(ContextPtr context)
-{
-    NX_DEBUG(this, "Retrieving target server certificates from %1", context);
-
-    const auto url = makeUrl(context->address(), "/rest/v1/servers/this/info");
-    auto request = d->makeRequestWithCertificateValidation(publicKey(context->certificateChain));
-    auto info = d->doGet<nx::vms::api::ServerInformation>(
-        url,
-        context,
-        std::move(request));
-
-    ServerCertificatesInfo result;
-    result.serverId = info.id;
-    if (!info.certificatePem.empty())
-        result.certificate = info.certificatePem;
-    if (!info.userProvidedCertificatePem.empty())
-        result.userProvidedCertificate = info.userProvidedCertificatePem;
-    return result;
-}
-
-std::vector<RemoteConnectionFactoryRequestsManager::ServerCertificatesInfo>
-    RemoteConnectionFactoryRequestsManager::pullRestCertificates(ContextPtr context)
-{
-    NX_DEBUG(this, "Pulling server certificates from %1", context);
-
-    // Request full servers data, since /servers/*/info returns only online servers information.
-    const auto url = makeUrl(context->address(), "/rest/v1/servers");
-    auto request = d->makeRequestWithCertificateValidation(publicKey(context->certificateChain));
-    request->setCredentials(context->credentials());
-    auto list = d->doGet<std::vector<nx::vms::api::ServerModel>>(
-        url,
-        context,
-        std::move(request));
-
-    std::vector<ServerCertificatesInfo> result;
-
-    for (const auto& serverModel: list)
-    {
-        ServerCertificatesInfo info;
-        info.serverId = serverModel.id;
-
-        // These fields are used by the current certificate warning dialog.
-        info.serverInfo.id = serverModel.id;
-        info.serverInfo.name = serverModel.name;
-        info.serverUrl = serverModel.url;
-
-        if (auto v = serverModel.parameter(ResourcePropertyKey::Server::kCertificate))
-            info.certificate = v->toString().toStdString();
-
-        NX_ASSERT(
-            info.certificate || !serverModel.status
-                || serverModel.status != nx::vms::api::ResourceStatus::online,
-            "Server certificate is missing, server status: %1", serverModel.status);
-
-        if (auto v = serverModel.parameter(ResourcePropertyKey::Server::kUserProvidedCertificate))
-            info.userProvidedCertificate = v->toString().toStdString();
-
-        result.push_back(std::move(info));
-    }
-
-    return result;
+    return future;
 }
 
 } // namespace detail

@@ -28,7 +28,7 @@ struct RemoteConnectionFactoryContext: public QObject
     LogonData logonData;
     std::optional<std::chrono::microseconds> sessionTokenExpirationTime;
     nx::vms::api::ModuleInformation moduleInformation;
-    nx::network::ssl::CertificateChain certificateChain;
+    nx::network::ssl::CertificateChain handshakeCertificate;
     bool targetHasUserProvidedCertificate = false;
     std::shared_ptr<CertificateCache> certificateCache;
 

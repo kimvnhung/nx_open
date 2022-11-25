@@ -338,7 +338,7 @@ QnUserSettingsDialog::QnUserSettingsDialog(QWidget* parent):
             newUser->setRawPermissions(m_user->getRawPermissions());
             m_user = newUser;
             m_model->setUser(m_user);
-            if (!isCloud && nx::vms::client::core::ini().bearerAuthentication)
+            if (!isCloud)
                 m_model->setDigestAuthorizationEnabled(false);
         });
 
@@ -537,12 +537,8 @@ void QnUserSettingsDialog::setUser(const QnUserResourcePtr &user)
     m_user = user;
     m_model->setUser(user);
 
-    // We can't use token authentication for a new user if the client supports digest only.
-    if (m_model->mode() == QnUserSettingsModel::NewUser
-        && nx::vms::client::core::ini().bearerAuthentication)
-    {
+    if (m_model->mode() == QnUserSettingsModel::NewUser)
         m_model->setDigestAuthorizationEnabled(false);
-    }
 
     if (m_user)
     {
@@ -769,12 +765,13 @@ void QnUserSettingsDialog::updateControlsVisibility()
     const bool canChangeDigestMode =
         m_user && accessController()->hasPermissions(m_user, Qn::WriteDigestPermission);
 
-    // We can't use token authentication for a new user if the client supports digest only.
-    const bool tokenAuthEnabled = nx::vms::client::core::ini().bearerAuthentication;
-    ui->warningBanner->setVisible(tokenAuthEnabled && digestEnabled);
+    const bool canEnableDigest = canChangeDigestMode
+        && accessController()->hasPermissions(m_user, Qn::WritePasswordPermission);
+
+    ui->warningBanner->setVisible(digestEnabled);
 
     ui->forceSecureAuthButton->setVisible(canChangeDigestMode);
-    m_digestMenuButton->setVisible(canChangeDigestMode && !digestEnabled);
+    m_digestMenuButton->setVisible(canEnableDigest && !digestEnabled);
 
     // Buttons state takes into account pages visibility, so we must recalculate it.
     updateButtonBox();

@@ -30,36 +30,41 @@ class RemoteConnectionFactoryRequestsManager
     using ContextPtr = std::shared_ptr<Context>;
 
 public:
-    struct ServerCertificatesInfo
-    {
-        QnUuid serverId;
-
-        // A stub struct used to show certificate warning dialog. Will be removed later.
-        nx::vms::api::ModuleInformation serverInfo;
-        nx::utils::Url serverUrl;
-
-        std::optional<std::string> certificate;
-        std::optional<std::string> userProvidedCertificate;
-    };
-
-public:
     /**
      * Certificate validator ownership is not taken. It's lifetime must be controlled by the caller.
      */
     RemoteConnectionFactoryRequestsManager(CertificateVerifier* certificateVerifier);
     virtual ~RemoteConnectionFactoryRequestsManager();
 
-    void fillModuleInformationAndCertificate(ContextPtr context);
+    struct ModuleInformationReply
+    {
+        nx::vms::api::ModuleInformation moduleInformation;
+        nx::network::ssl::CertificateChain handshakeCertificate;
+    };
+    ModuleInformationReply getModuleInformation(ContextPtr context);
+
+    struct ServersInfoReply
+    {
+        std::vector<nx::vms::api::ServerInformation> serversInfo;
+        nx::network::ssl::CertificateChain handshakeCertificate;
+    };
+    ServersInfoReply getServersInfo(ContextPtr context);
+
     nx::vms::api::LoginUser getUserType(ContextPtr context);
     nx::vms::api::LoginSession createLocalSession(ContextPtr context);
     nx::vms::api::LoginSession getCurrentSession(ContextPtr context);
     void checkDigestAuthentication(ContextPtr context);
-    nx::cloud::db::api::IssueTokenResponse issueCloudToken(
-        ContextPtr context,
-        nx::cloud::db::api::Connection* cloudConnection);
 
-    ServerCertificatesInfo targetServerCertificates(ContextPtr context);
-    std::vector<ServerCertificatesInfo> pullRestCertificates(ContextPtr context);
+    struct CloudTokenInfo
+    {
+        nx::cloud::db::api::IssueTokenResponse response;
+        std::optional<RemoteConnectionError> error;
+    };
+    std::future<CloudTokenInfo> issueCloudToken(
+        ContextPtr context,
+        nx::cloud::db::api::Connection* cloudConnection,
+        const QString& cloudSystemId);
+
 
 private:
     struct Private;

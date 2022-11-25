@@ -61,6 +61,13 @@ public:
     void setUserInteractionDelegate(
         std::unique_ptr<AbstractRemoteConnectionUserInteractionDelegate> delegate);
 
+    /**
+     * Access to user interaction delegate to re-use it in the separate server cetificate watcher
+     * class. When server certificate changes, we should display totally the same dialogs as when
+     * connecting to the system.
+     */
+    AbstractRemoteConnectionUserInteractionDelegate* userInteractionDelegate() const;
+
     using ConnectionOrError = std::variant<RemoteConnectionPtr, RemoteConnectionError>;
     using Callback = std::function<void(ConnectionOrError)>;
 

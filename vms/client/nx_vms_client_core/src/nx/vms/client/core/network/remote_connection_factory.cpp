@@ -1,7 +1,6 @@
 // Copyright 2018-present Network Optix, Inc. Licensed under MPL 2.0: www.mozilla.org/MPL/2.0/
 
 #include "remote_connection_factory.h"
-#include "private/remote_connection_factory_requests.h"
 
 #include <memory>
 
@@ -11,14 +10,16 @@
 #include <common/common_module_aware.h>
 #include <network/system_helpers.h>
 #include <nx/network/address_resolver.h>
+#include <nx/network/http/auth_tools.h>
 #include <nx/network/nx_network_ini.h>
 #include <nx/network/socket_global.h>
-#include <nx/network/http/auth_tools.h>
+#include <nx/network/url/url_builder.h>
 #include <nx/utils/guarded_callback.h>
 #include <nx/utils/thread/thread_util.h>
 #include <nx/vms/client/core/ini.h>
 #include <nx/vms/client/core/settings/client_core_settings.h>
 #include <nx/vms/common/network/server_compatibility_validator.h>
+#include <nx/vms/common/resource/server_host_priority.h>
 #include <nx_ec/ec_api_fwd.h>
 #include <utils/common/delayed.h>
 #include <utils/common/synctime.h>
@@ -28,6 +29,7 @@
 #include "certificate_verifier.h"
 #include "cloud_connection_factory.h"
 #include "network_manager.h"
+#include "private/remote_connection_factory_requests.h"
 #include "remote_connection.h"
 #include "remote_connection_user_interaction_delegate.h"
 
@@ -38,7 +40,8 @@ namespace nx::vms::client::core {
 
 namespace {
 
-static const nx::vms::api::SoftwareVersion kRestApiSupportVersion(5, 0);
+static const nx::utils::SoftwareVersion kRestApiSupportVersion(5, 0);
+static const nx::utils::SoftwareVersion kSimplifiedLoginSupportVersion(5, 1);
 
 /**
  * Digest authentication requires username to be in lowercase.
@@ -85,6 +88,48 @@ std::optional<std::string> publicKey(const std::optional<std::string>& pem)
     return chain[0].publicKey();
 };
 
+std::optional<QnUuid> deductServerId(const std::vector<nx::vms::api::ServerInformation>& info)
+{
+    if (info.size() == 1)
+        return info.begin()->id;
+
+    for (const auto& server: info)
+    {
+        if (server.collectedByThisServer)
+            return server.id;
+    }
+
+    return std::nullopt;
+}
+
+nx::utils::Url mainServerUrl(const QSet<QString>& remoteAddresses, int port)
+{
+    std::vector<nx::utils::Url> addresses;
+    for (const auto& addressString: remoteAddresses)
+    {
+        nx::network::SocketAddress sockAddr(addressString.toStdString());
+
+        nx::utils::Url url = nx::network::url::Builder()
+            .setScheme(nx::network::http::kSecureUrlSchemeName)
+            .setEndpoint(sockAddr)
+            .toUrl();
+        if (url.port() == 0)
+            url.setPort(port);
+
+        addresses.push_back(url);
+    }
+
+    if (addresses.empty())
+        return {};
+
+    return *std::min_element(addresses.cbegin(), addresses.cend(),
+        [](const auto& l, const auto& r)
+        {
+            using namespace nx::vms::common;
+            return serverHostPriority(l.host()) < serverHostPriority(r.host());
+        });
+}
+
 } // namespace
 
 using WeakContextPtr = std::weak_ptr<RemoteConnectionFactory::Context>;
@@ -99,6 +144,7 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
     QPointer<CertificateVerifier> certificateVerifier;
     std::unique_ptr<AbstractRemoteConnectionUserInteractionDelegate> userInteractionDelegate;
     std::unique_ptr<CloudConnectionFactory> cloudConnectionFactory;
+    std::unique_ptr<nx::cloud::db::api::Connection> cloudConnection;
 
     std::unique_ptr<RequestsManager> requestsManager;
 
@@ -150,16 +196,27 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
         return isAccepted.get_future().get();
     }
 
-    void fillModuleInformationAndCertificate(ContextPtr context)
+    RequestsManager::ModuleInformationReply getModuleInformation(ContextPtr context)
     {
         if (context)
-            requestsManager->fillModuleInformationAndCertificate(context);
+            return requestsManager->getModuleInformation(context);
+
+        return {};
     }
 
-    void checkCompatibility(ContextPtr context)
+    RequestsManager::ServersInfoReply getServersInfo(ContextPtr context)
+    {
+        if (context)
+            return requestsManager->getServersInfo(context);
+
+        return {};
+    }
+
+    bool checkCompatibility(ContextPtr context)
     {
         if (context)
         {
+            NX_VERBOSE(this, "Checking compatibility");
             if (context->moduleInformation.isNewSystem())
             {
                 context->error = RemoteConnectionErrorCode::factoryServer;
@@ -170,6 +227,7 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
                 context->error = toErrorCode(*incompatibilityReason);
             }
         }
+        return context && !context->failed();
     }
 
     void verifyExpectedServerId(ContextPtr context)
@@ -181,35 +239,12 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
         }
     }
 
-    void checkServerCertificateEquality(ContextPtr context)
+    void verifyTargetCertificate(ContextPtr context)
     {
         if (!context || !nx::network::ini().verifyVmsSslCertificates)
             return;
 
-        const auto provided = requestsManager->targetServerCertificates(context);
-        if (NX_ASSERT(!context->certificateChain.empty()))
-        {
-            const auto handshakeKey = context->certificateChain[0].publicKey();
-
-            if (handshakeKey == publicKey(provided.userProvidedCertificate))
-            {
-                context->targetHasUserProvidedCertificate = true;
-                return;
-            }
-
-            if (handshakeKey == publicKey(provided.certificate))
-                return;
-        }
-
-        // Handshake certificate doesn't match target server certificates.
-        context->error = RemoteConnectionErrorCode::certificateRejected;
-    }
-
-    void verifyCertificate(ContextPtr context)
-    {
-        if (!context || !nx::network::ini().verifyVmsSslCertificates)
-            return;
-
+        NX_VERBOSE(this, "Verify certificate");
         // Make sure factory is setup correctly.
         if (!NX_ASSERT(certificateVerifier) || !NX_ASSERT(userInteractionDelegate))
         {
@@ -219,7 +254,7 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
 
         const CertificateVerifier::Status status = certificateVerifier->verifyCertificate(
             context->moduleInformation.id,
-            context->certificateChain);
+            context->handshakeCertificate);
 
         if (status == CertificateVerifier::Status::ok)
             return;
@@ -227,7 +262,7 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
         auto pinTargetServerCertificate =
             [this, context]
             {
-                if (!NX_ASSERT(!context->certificateChain.empty()))
+                if (!NX_ASSERT(!context->handshakeCertificate.empty()))
                     return;
 
                 // Server certificates are checked in checkServerCertificateEquality() using
@@ -236,7 +271,7 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
                 // is stored as auto-generated.
                 certificateVerifier->pinCertificate(
                     context->moduleInformation.id,
-                    context->certificateChain[0].publicKey(),
+                    context->handshakeCertificate[0].publicKey(),
                     context->targetHasUserProvidedCertificate
                         ? CertificateVerifier::CertificateType::connection
                         : CertificateVerifier::CertificateType::autogenerated);
@@ -250,9 +285,9 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
             serverName);
 
         std::string errorMessage;
-        if (NX_ASSERT(!context->certificateChain.empty())
+        if (NX_ASSERT(!context->handshakeCertificate.empty())
             && nx::network::ssl::verifyBySystemCertificates(
-                context->certificateChain, serverName, &errorMessage))
+                context->handshakeCertificate, serverName, &errorMessage))
         {
             NX_VERBOSE(this, "Certificate verification for %1 is successful.", serverName);
             pinTargetServerCertificate();
@@ -269,14 +304,14 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
                     return userInteractionDelegate->acceptNewCertificate(
                         context->moduleInformation,
                         context->address(),
-                        context->certificateChain);
+                        context->handshakeCertificate);
                 }
                 else if (status == CertificateVerifier::Status::mismatch)
                 {
                     return userInteractionDelegate->acceptCertificateAfterMismatch(
                         context->moduleInformation,
                         context->address(),
-                        context->certificateChain);
+                        context->handshakeCertificate);
                 }
                 return false;
             };
@@ -290,6 +325,38 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
         {
             // User rejected the certificate.
             context->error = RemoteConnectionErrorCode::certificateRejected;
+        }
+    }
+
+    void fillCloudConnectionCredentials(ContextPtr context,
+        const nx::utils::SoftwareVersion& serverVersion)
+    {
+        if (!NX_ASSERT(context))
+            return;
+
+        if (!NX_ASSERT(context->userType() == nx::vms::api::UserType::cloud))
+            return;
+
+        auto& credentials = context->logonData.credentials;
+
+        // Use refresh token to issue new session token if server supports OAuth cloud
+        // authorization through the REST API.
+        if (serverVersion >= kRestApiSupportVersion)
+        {
+            credentials = qnCloudStatusWatcher->remoteConnectionCredentials();
+        }
+        // Current or stored credentials will be passed to compatibility mode client.
+        else if (credentials.authToken.empty())
+        {
+            // Developer mode code.
+            context->logonData.credentials.username =
+                qnCloudStatusWatcher->cloudLogin().toStdString();
+            if (!context->logonData.credentials.authToken.isPassword()
+                || context->logonData.credentials.authToken.value.empty())
+            {
+                context->logonData.credentials.authToken =
+                    nx::network::http::PasswordAuthToken(settings()->digestCloudPassword());
+            }
         }
     }
 
@@ -311,31 +378,6 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
             context->logonData.address.address = fullHostname;
             NX_DEBUG(this, "Fixed connection address: %1", fullHostname);
         }
-
-        if (context->userType() == nx::vms::api::UserType::cloud)
-        {
-            auto& credentials = context->logonData.credentials;
-
-            // Use refresh token to issue new session token if server supports OAuth cloud
-            // authorization through the REST API.
-            if (isRestApiSupported(context))
-            {
-                credentials = qnCloudStatusWatcher->remoteConnectionCredentials();
-            }
-            // Current or stored credentials will be passed to compatibility mode client.
-            else if (credentials.authToken.empty())
-            {
-                // Developer mode code.
-                context->logonData.credentials.username =
-                    qnCloudStatusWatcher->cloudLogin().toStdString();
-                if (!context->logonData.credentials.authToken.isPassword()
-                    || context->logonData.credentials.authToken.value.empty())
-                {
-                    context->logonData.credentials.authToken =
-                        nx::network::http::PasswordAuthToken(settings()->digestCloudPassword());
-                }
-            }
-        }
     }
 
     void checkServerCloudConnection(ContextPtr context)
@@ -352,13 +394,23 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
 
     bool isRestApiSupported(ContextPtr context)
     {
-        return context && context->moduleInformation.version >= kRestApiSupportVersion;
+        if (!context)
+            return false;
+
+        if (!context->moduleInformation.version.isNull())
+            return context->moduleInformation.version >= kRestApiSupportVersion;
+
+        return context->logonData.expectedServerVersion
+            && *context->logonData.expectedServerVersion >= kRestApiSupportVersion;
     }
 
     void loginWithDigest(ContextPtr context)
     {
         if (context)
+        {
+            ensureUserNameIsLowercaseIfDigest(context->logonData.credentials);
             requestsManager->checkDigestAuthentication(context);
+        }
     }
 
     bool loginWithToken(ContextPtr context)
@@ -381,10 +433,16 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
         return false;
     }
 
-    nx::vms::api::LoginUser verifyUserType(ContextPtr context)
+    nx::vms::api::LoginUser verifyLocalUserType(ContextPtr context)
     {
         if (context)
         {
+            if (!NX_ASSERT(context->userType() == nx::vms::api::UserType::local))
+            {
+                context->error = RemoteConnectionErrorCode::internalError;
+                return {};
+            }
+
             nx::vms::api::LoginUser loginUserData = requestsManager->getUserType(context);
             if (context->failed())
                 return {};
@@ -392,30 +450,44 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
             // Check if expected user type does not match actual. Possible scenarios:
             // * Receive cloud user using the local tile - forbidden, throw error.
             // * Receive ldap user using the local tile - OK, updating actual user type.
-            // * Other cases such as receive local user using cloud tile - internal error.
-            if (context->userType() != loginUserData.type)
+            switch (loginUserData.type)
             {
-                if (!NX_ASSERT(context->userType() == nx::vms::api::UserType::local))
-                    context->error = RemoteConnectionErrorCode::internalError;
-                else if (loginUserData.type == nx::vms::api::UserType::cloud)
+                case nx::vms::api::UserType::cloud:
                     context->error = RemoteConnectionErrorCode::loginAsCloudUserForbidden;
-                else if (NX_ASSERT(loginUserData.type == nx::vms::api::UserType::ldap))
-                    context->logonData.userType = loginUserData.type;
+                    break;
+                case nx::vms::api::UserType::ldap:
+                    context->logonData.userType = nx::vms::api::UserType::ldap;
+                    break;
+                default:
+                    break;
             }
             return loginUserData;
         }
         return {};
     }
 
-    void issueCloudToken(ContextPtr context)
+    std::future<RequestsManager::CloudTokenInfo> issueCloudToken(
+        ContextPtr context,
+        const nx::utils::SoftwareVersion& serverVersion,
+        const QString& cloudSystemId)
     {
         if (!context)
+            return {};
+
+        fillCloudConnectionCredentials(context, serverVersion);
+        cloudConnection = cloudConnectionFactory->createConnection();
+        return requestsManager->issueCloudToken(context, cloudConnection.get(), cloudSystemId);
+    }
+
+    void processCloudToken(ContextPtr context, RequestsManager::CloudTokenInfo cloudTokenInfo)
+    {
+        if (!context || context->failed())
             return;
 
-        auto cloudConnection = cloudConnectionFactory->createConnection();
-        nx::cloud::db::api::IssueTokenResponse response = requestsManager->issueCloudToken(
-            context, cloudConnection.get());
+        if (cloudTokenInfo.error)
+            context->error = *cloudTokenInfo.error;
 
+        const auto& response = cloudTokenInfo.response;
         if (!context->failed())
         {
             NX_DEBUG(this, "Token response error: %1", response.error);
@@ -470,21 +542,21 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
         }
     }
 
-    void pullRestCertificates(ContextPtr context)
+    void processCertificates(ContextPtr context,
+        const std::vector<nx::vms::api::ServerInformation>& servers)
     {
         using CertificateType = CertificateVerifier::CertificateType;
 
         if (!context)
             return;
 
+        NX_VERBOSE(this, "Process received certificates list.");
         context->certificateCache = std::make_shared<CertificateCache>();
 
-        const auto certificatesInfo = requestsManager->pullRestCertificates(context);
-        for (const auto& info: certificatesInfo)
+        for (const auto& server: servers)
         {
-            const auto& serverId = info.serverId;
-            const auto& serverInfo = info.serverInfo;
-            const auto& serverUrl = info.serverUrl;
+            const auto& serverId = server.id;
+            const auto serverUrl = mainServerUrl(server.remoteAddresses, server.port);
 
             auto storeCertificate =
                 [&](const nx::network::ssl::CertificateChain& chain, CertificateType type)
@@ -506,10 +578,10 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
                     }
 
                     auto accept =
-                        [this, serverInfo, serverUrl, chain]
+                        [this, server, serverUrl, chain]()
                         {
                             return userInteractionDelegate->acceptCertificateOfServerInTargetSystem(
-                                serverInfo,
+                                server,
                                 nx::network::SocketAddress::fromUrl(serverUrl),
                                 chain);
                         };
@@ -524,12 +596,12 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
                 };
 
             auto processCertificate =
-                [&](const std::optional<std::string>& pem, CertificateType type)
+                [&](const std::string& pem, CertificateType type)
                 {
-                    if (!pem)
+                    if (pem.empty())
                         return true; //< There is no certificate to process.
 
-                    const auto chain = nx::network::ssl::Certificate::parse(*pem);
+                    const auto chain = nx::network::ssl::Certificate::parse(pem);
 
                     if (!storeCertificate(chain, type))
                     {
@@ -538,14 +610,24 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
                     }
 
                     // Certificate has been stored successfully. Add it into the cache.
-                    context->certificateCache->addCertificate(serverId, chain[0].publicKey(), type);
+                    context->certificateCache->addCertificate(
+                        serverId,
+                        chain[0].publicKey(),
+                        type);
                     return true;
                 };
 
-            if (!processCertificate(info.certificate, CertificateType::autogenerated))
+            if (!processCertificate(server.certificatePem, CertificateType::autogenerated))
+            {
                 return;
-            if (!processCertificate(info.userProvidedCertificate, CertificateType::connection))
+            }
+
+            if (!processCertificate(
+                server.userProvidedCertificatePem,
+                CertificateType::connection))
+            {
                 return;
+            }
         }
     }
 
@@ -554,12 +636,14 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
         if (!context)
             return;
 
+        NX_VERBOSE(this, "Emulate certificate cache for System without REST API support.");
         context->certificateCache = std::make_shared<CertificateCache>();
-        if (NX_ASSERT(!context->certificateChain.empty()))
+        if (nx::network::ini().verifyVmsSslCertificates
+            && NX_ASSERT(!context->handshakeCertificate.empty()))
         {
             context->certificateCache->addCertificate(
                 context->moduleInformation.id,
-                context->certificateChain[0].publicKey(),
+                context->handshakeCertificate[0].publicKey(),
                 CertificateVerifier::CertificateType::autogenerated);
         }
     }
@@ -577,55 +661,262 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
                 return {};
             };
 
-        fillModuleInformationAndCertificate(context());
-        verifyExpectedServerId(context());
+        std::optional<QnUuid> expectedServerId;
+        std::optional<nx::utils::SoftwareVersion> expectedServerVersion;
+        std::optional<QString> expectedCloudSystemId;
+        bool isCloudConnection = false;
+        std::future<RequestsManager::CloudTokenInfo> cloudToken;
+
+        auto requestCloudTokenIfPossible =
+            [&](const QString& logMessage)
+            {
+                if (isCloudConnection
+                    && !cloudToken.valid()
+                    && expectedServerVersion
+                    && expectedCloudSystemId)
+                {
+                    NX_DEBUG(this, "Requesting Cloud access token (%1).", logMessage);
+                    // GET /cdb/oauth2/token.
+                    cloudToken = issueCloudToken(
+                        context(),
+                        *expectedServerVersion,
+                        *expectedCloudSystemId);
+                }
+            };
+
+        if (auto ctx = context())
+        {
+            expectedServerId = ctx->logonData.expectedServerId;
+            expectedServerVersion = ctx->logonData.expectedServerVersion;
+            expectedCloudSystemId = ctx->logonData.expectedCloudSystemId;
+            isCloudConnection = ctx->userType() == nx::vms::api::UserType::cloud;
+        }
+
+        if (expectedServerId)
+            NX_DEBUG(this, "Expecting Server ID %1.", *expectedServerId);
+        else
+            NX_DEBUG(this, "Server ID is not known.");
+
+        if (expectedServerVersion)
+            NX_DEBUG(this, "Expecting Server version %1.", *expectedServerVersion);
+        else
+            NX_DEBUG(this, "Server version is not known.");
+
+        if (isCloudConnection)
+        {
+            if (expectedCloudSystemId)
+                NX_DEBUG(this, "Expecting Cloud connect to %1.", *expectedCloudSystemId);
+            else
+                NX_DEBUG(this, "Expection Cloud connect but the System ID is not known yet.");
+        }
+
+        // Request cloud token asyncronously, as this request may go in parallel with Server api.
+        requestCloudTokenIfPossible("all data present");
+        if (!context())
+            return;
+
+        // If server version is not known, we should call api/moduleInformation first. Also send
+        // this request for 4.2 and older systems as there is no other way to identify them.
+        if (!expectedServerVersion || *expectedServerVersion < kRestApiSupportVersion)
+        {
+            // GET /api/moduleInformation.
+            RequestsManager::ModuleInformationReply reply = getModuleInformation(context());
+            if (auto ctx = context())
+            {
+                ctx->handshakeCertificate = reply.handshakeCertificate;
+                ctx->moduleInformation = reply.moduleInformation;
+                expectedServerVersion = reply.moduleInformation.version;
+
+                // Check whether actual server id matches the one we expected to get (if any).
+                if (expectedServerId)
+                    verifyExpectedServerId(context());
+                else
+                    expectedServerId = reply.moduleInformation.id;
+
+                NX_DEBUG(this, "Fill Cloud System ID from module information");
+                expectedCloudSystemId = reply.moduleInformation.cloudSystemId;
+            }
+            requestCloudTokenIfPossible("module information received");
+        }
+
+        if (!expectedServerVersion || !context())
+            return;
+
+        // For Systems 5.0 and newer we may use /rest/v1/servers/*/info and receive all Servers'
+        // certificates in one call. Offline Servers will not be listed if the System is 5.0, so
+        // their certificates will be processed in the ServerCertificateWatcher class.
+        if (*expectedServerVersion >= kRestApiSupportVersion)
+        {
+            // GET /rest/v1/servers/*/info.
+            RequestsManager::ServersInfoReply reply = getServersInfo(context());
+            if (auto ctx = context())
+            {
+                ctx->handshakeCertificate = reply.handshakeCertificate;
+
+                if (expectedServerId)
+                {
+                    verifyExpectedServerId(ctx);
+                }
+                else
+                {
+                    // Try to deduct server id for the 5.1 Systems or Systems with one server.
+                    expectedServerId = deductServerId(reply.serversInfo);
+                }
+
+                if (!expectedCloudSystemId && !reply.serversInfo.empty())
+                {
+                    NX_DEBUG(this, "Fill Cloud System ID from servers info");
+                    expectedCloudSystemId = reply.serversInfo[0].cloudSystemId;
+                    requestCloudTokenIfPossible("servers info received");
+                }
+            }
+
+            // We can connect to 5.0 System without knowing actual server id, so we need to get
+            // it somehow anyway.
+            if (!expectedServerId)
+            {
+                NX_DEBUG(this, "Cannot deduct Server ID, requesting it additionally.");
+
+                // GET /api/moduleInformation.
+                RequestsManager::ModuleInformationReply reply = getModuleInformation(context());
+                if (auto ctx = context())
+                    expectedServerId = reply.moduleInformation.id;
+            }
+
+            if (!expectedServerId)
+                return;
+
+            if (auto ctx = context())
+            {
+                auto currentServer = std::find_if(
+                    reply.serversInfo.cbegin(),
+                    reply.serversInfo.cend(),
+                    [id = *expectedServerId](const auto& server) { return server.id == id; });
+                if (currentServer == reply.serversInfo.cend())
+                {
+                    NX_WARNING(
+                        this, "Server info list does not contain Server %1.", *expectedServerId);
+                    ctx->error = RemoteConnectionErrorCode::networkContentError;
+                    return;
+                }
+
+                ctx->moduleInformation = *currentServer;
+
+                // Check that the handshake certificate matches one of the targets's.
+                [this, ctx, currentServer]
+                {
+                    if (!nx::network::ini().verifyVmsSslCertificates)
+                        return;
+
+                    if (NX_ASSERT(!ctx->handshakeCertificate.empty(),
+                        "Handshake certificate chain is empty."))
+                    {
+                        const auto handshakeKey = ctx->handshakeCertificate[0].publicKey();
+
+                        if (handshakeKey == publicKey(currentServer->userProvidedCertificatePem))
+                        {
+                            ctx->targetHasUserProvidedCertificate = true;
+                            return;
+                        }
+
+                        if (handshakeKey == publicKey(currentServer->certificatePem))
+                            return;
+
+                        // Handshake certificate doesn't match target server certificates.
+                        ctx->error = RemoteConnectionErrorCode::certificateRejected;
+
+                        NX_WARNING(this,
+                            "The handshake certificate doesn't match any certificate provided by server.\n"
+                            "Handshake key: %1", handshakeKey);
+
+                        if (const auto& pem = currentServer->certificatePem;
+                            !pem.empty())
+                        {
+                            NX_VERBOSE(this,
+                                "Server's certificate key: %1\nServer's certificate: %2",
+                                publicKey(pem), pem);
+                        }
+
+                        if (const auto& pem = currentServer->userProvidedCertificatePem;
+                            !pem.empty())
+                        {
+                            NX_VERBOSE(this,
+                                "User provided certificate key: %1\nServer's certificate: %2",
+                                publicKey(pem), pem);
+                        }
+                    }
+                }();
+
+            }
+
+            verifyTargetCertificate(context()); //< User interaction.
+            processCertificates(context(), reply.serversInfo);
+        }
+        else //< 4.2 and older servers.
+        {
+            verifyTargetCertificate(context()); //< User interaction.
+            fixupCertificateCache(context());
+        }
+
         fixCloudConnectionInfoIfNeeded(context());
-        if (isRestApiSupported(context()))
-            checkServerCertificateEquality(context());
-        verifyCertificate(context());
-        checkCompatibility(context());
+
+        if (!checkCompatibility(context()))
+            return;
 
         if (!isRestApiSupported(context()))
         {
+            NX_DEBUG(this, "Login with Digest to the System with no REST API support.");
+            // GET /api/moduleInformationAuthenticated.
             loginWithDigest(context());
-            fixupCertificateCache(context());
-            return;
-        }
-
-        if (!nx::vms::client::core::ini().bearerAuthentication)
-        {
-            loginWithDigest(context());
-            pullRestCertificates(context());
             return;
         }
 
         if (peerType == nx::vms::api::PeerType::videowallClient)
         {
+            NX_DEBUG(this, "Login as Video Wall.");
+            // GET /rest/v1/login/sessions/current.
             loginWithToken(context());
-            pullRestCertificates(context());
             return;
         }
 
-        nx::vms::api::LoginUser userType = verifyUserType(context());
+        if (isCloudConnection)
+        {
+            NX_DEBUG(this, "Connecting as Cloud User, waiting for the access token.");
+            if (!NX_ASSERT(cloudToken.valid(), "Cloud token request must be sent already."))
+            {
+                if (auto ctx = context())
+                    ctx->error = RemoteConnectionErrorCode::internalError;
+                return;
+            }
+            processCloudToken(context(), cloudToken.get()); // User Interaction.
 
-        if (userType.type == nx::vms::api::UserType::cloud)
-        {
-            issueCloudToken(context());
+            NX_DEBUG(this, "Check whether Server is connected to the Cloud.");
+            // GET /rest/v1/login/sessions/current.
             checkServerCloudConnection(context());
-        }
-        else if (userType.methods.testFlag(nx::vms::api::LoginMethod::http))
-        {
-            // Digest is the preferred method as it is the only way to use rtsp instead of rtsps.
-            loginWithDigest(context());
         }
         else
         {
-            // Try to login with an already saved token if present.
-            if (!loginWithToken(context()))
-                issueLocalToken(context());
+            NX_DEBUG(this, "Connecting as Local User, checking whether LDAP is required.");
+            // Step is performed for local users to upgrade them to LDAP if needed - or block
+            // cloud login using a local system tile / login dialog.
+            // GET /rest/v1/login/users/<username>.
+            nx::vms::api::LoginUser userType = verifyLocalUserType(context());
+            if (userType.methods.testFlag(nx::vms::api::LoginMethod::http))
+            {
+                NX_DEBUG(this, "Digest authentication is preferred for the User.");
+                // Digest is the preferred method as it is the only way to use rtsp instead of
+                // rtsps.
+                // GET /api/moduleInformationAuthenticated.
+                loginWithDigest(context());
+            }
+            else
+            {
+                NX_DEBUG(this, "Logging in with a token.");
+                // Try to login with an already saved token if present.
+                if (!loginWithToken(context())) //< GET /rest/v1/login/sessions/current
+                    issueLocalToken(context()); //< GET /rest/v1/login/sessions
+            }
         }
-
-        pullRestCertificates(context());
     }
 };
 
@@ -649,6 +940,12 @@ void RemoteConnectionFactory::setUserInteractionDelegate(
     std::unique_ptr<AbstractRemoteConnectionUserInteractionDelegate> delegate)
 {
     d->userInteractionDelegate = std::move(delegate);
+}
+
+AbstractRemoteConnectionUserInteractionDelegate*
+    RemoteConnectionFactory::userInteractionDelegate() const
+{
+    return d->userInteractionDelegate.get();
 }
 
 void RemoteConnectionFactory::shutdown()
