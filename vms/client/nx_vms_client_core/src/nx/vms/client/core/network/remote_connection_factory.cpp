@@ -76,12 +76,12 @@ RemoteConnectionErrorCode toErrorCode(ServerCompatibilityValidator::Reason reaso
     return RemoteConnectionErrorCode::internalError;
 }
 
-std::optional<std::string> publicKey(const std::optional<std::string>& pem)
+std::optional<std::string> publicKey(const std::string& pem)
 {
-    if (!pem)
+    if (pem.empty())
         return {};
 
-    auto chain = nx::network::ssl::Certificate::parse(*pem);
+    auto chain = nx::network::ssl::Certificate::parse(pem);
     if (chain.empty())
         return {};
 
@@ -753,11 +753,7 @@ struct RemoteConnectionFactory::Private: public /*mixin*/ QnCommonModuleAware
             {
                 ctx->handshakeCertificate = reply.handshakeCertificate;
 
-                if (expectedServerId)
-                {
-                    verifyExpectedServerId(ctx);
-                }
-                else
+                if (!expectedServerId)
                 {
                     // Try to deduct server id for the 5.1 Systems or Systems with one server.
                     expectedServerId = deductServerId(reply.serversInfo);

@@ -322,6 +322,7 @@ RemoteConnectionFactoryRequestsManager::ModuleInformationReply
     if (!context->failed())
     {
         NX_DEBUG(this, "Received module information for server %1", reply.moduleInformation.id);
+        NX_VERBOSE(this, "Data:\n%1", nx::reflect::json::serialize(reply.moduleInformation));
         if (reply.moduleInformation.id.isNull())
         {
             NX_WARNING(this, "Received module information is invalid");
@@ -337,7 +338,7 @@ RemoteConnectionFactoryRequestsManager::ModuleInformationReply
 RemoteConnectionFactoryRequestsManager::ServersInfoReply
     RemoteConnectionFactoryRequestsManager::getServersInfo(ContextPtr context)
 {
-    NX_DEBUG(this, "Retrieving target server certificates from %1", context);
+    NX_DEBUG(this, "Retrieving list of servers info from %1", context);
 
     const auto url = makeUrl(context->address(), "/rest/v1/servers/*/info");
 
@@ -354,7 +355,10 @@ RemoteConnectionFactoryRequestsManager::ServersInfoReply
         d->doGet<std::vector<nx::vms::api::ServerInformation>>(url, context, std::move(request));
 
     if (!context->failed())
+    {
         NX_DEBUG(this, "Received list of %1 servers", reply.serversInfo.size());
+        NX_VERBOSE(this, "Data:\n%1", nx::reflect::json::serialize(reply.serversInfo));
+    }
 
     NX_DEBUG(this, "Stored certificate chain length: %1", reply.handshakeCertificate.size());
 
