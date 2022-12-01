@@ -72,7 +72,7 @@ bool Pipeline::performHandshake()
     if (resultCode <= 0)
     {
         handleSslIoResult(resultCode);
-        NX_VERBOSE(this, nx::format("Handshake failed. %1").args(resultCode));
+        NX_VERBOSE(this, "Handshake failed (1). %1", resultCode);
         return false;
     }
 
@@ -192,16 +192,24 @@ int Pipeline::performSslIoOperation(Func sslFunc, Data* data, size_t size)
     {
         int resultCode = performHandshakeInternal();
         if (resultCode <= 0)
+        {
+            NX_VERBOSE(this, "Handshake failed (2). %1", resultCode);
             return handleSslIoResult(resultCode);
+        }
     }
     if (m_state < State::handshakeDone || m_isPaused)
         return utils::bstream::StreamIoError::wouldBlock;
 
     ERR_clear_error();
 
-
     const int resultCode = sslFunc(m_ssl.get(), data, static_cast<int>(size));
-    return handleSslIoResult(resultCode);
+    const auto ret = handleSslIoResult(resultCode);
+    if (ret == utils::bstream::StreamIoError::nonRecoverableError)
+    {
+        NX_VERBOSE(this, "SSL stream I/O failure. Last buffer: %1",
+            nx::Buffer((const char*) data, size).toBase64());
+    }
+    return ret;
 }
 
 int Pipeline::performHandshakeInternal()
