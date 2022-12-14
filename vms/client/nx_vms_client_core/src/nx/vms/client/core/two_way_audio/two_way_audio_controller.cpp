@@ -13,9 +13,11 @@
 #include <nx/utils/guarded_callback.h>
 #include <nx/utils/log/assert.h>
 #include <nx/vms/client/core/common/utils/ordered_requests_helper.h>
+#include <nx/vms/client/core/network/remote_connection.h>
 #include <nx/vms/client/core/network/remote_connection_aware.h>
 #include <nx/vms/client/core/two_way_audio/two_way_audio_availability_watcher.h>
 #include <plugins/resource/desktop_camera/desktop_resource_base.h>
+
 
 namespace nx::vms::client::core {
 
@@ -84,8 +86,17 @@ bool TwoWayAudioController::Private::setActive(bool active, OperationCallback&& 
                 callback(ok);
         });
 
-    return orderedRequestsHelper.getJsonResult(connectedServerApi(),
-        "/api/transmitAudio", params, requestCallback, QThread::currentThread());
+    auto serverVersion = connection()->moduleInformation().version;
+    if (serverVersion < nx::vms::api::SoftwareVersion(5, 0))
+    {
+        return orderedRequestsHelper.getJsonResult(connectedServerApi(),
+            "/api/transmitAudio", params, requestCallback, QThread::currentThread());
+    }
+    else
+    {
+        return orderedRequestsHelper.postJsonResult(connectedServerApi(),
+            "/api/transmitAudio", params, requestCallback, QThread::currentThread());
+    }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -154,4 +165,3 @@ bool TwoWayAudioController::available() const
 }
 
 } // namespace nx::vms::client::core
-
