@@ -52,7 +52,7 @@ void TwoWayAudioAvailabilityWatcher::Private::updateTargetDevice()
     if (camera == targetCamera)
         return;
 
-    if (targetCamera)
+    if (targetCamera && targetCamera != sourceCamera)
         targetCamera->disconnect(this);
 
     targetCamera = camera;
@@ -64,8 +64,6 @@ void TwoWayAudioAvailabilityWatcher::Private::updateTargetDevice()
     {
         const auto update = [this]() { updateAvailability(); };
         connect(targetCamera, &QnVirtualCameraResource::statusChanged, this, update);
-        connect(targetCamera, &QnSecurityCamResource::twoWayAudioEnabledChanged, this, update);
-        connect(targetCamera, &QnSecurityCamResource::audioOutputDeviceIdChanged, this, update);
 
         if (helper)
             connect(helper, &SingleCamLicenseStatusHelper::licenseStatusChanged, this, update);
@@ -80,10 +78,10 @@ void TwoWayAudioAvailabilityWatcher::Private::updateAvailability()
     const bool isAvailable =
         [this]()
     {
-        if (!targetCamera)
+        if (!targetCamera || !sourceCamera)
             return false;
 
-        if (!targetCamera->isTwoWayAudioEnabled() || !targetCamera->hasTwoWayAudio())
+        if (!sourceCamera->isTwoWayAudioEnabled() || !targetCamera->hasTwoWayAudio())
             return false;
 
         const auto user = q->commonModule()->instance<UserWatcher>()->user();
@@ -94,7 +92,7 @@ void TwoWayAudioAvailabilityWatcher::Private::updateAvailability()
         if (!manager->hasGlobalPermission(user, GlobalPermission::userInput))
             return false;
 
-        if (!targetCamera->isOnline())
+        if (!sourceCamera->isOnline() || !targetCamera->isOnline())
             return false;
 
         if (helper)
@@ -160,11 +158,14 @@ void TwoWayAudioAvailabilityWatcher::setResourceId(const QnUuid& id)
     if (d->sourceCamera)
         d->sourceCamera->disconnect(this);
 
-    const auto camera = resourcePool()->getResourceById<QnVirtualCameraResource>(id);
-    d->sourceCamera = camera && camera->hasTwoWayAudio() ? camera : QnVirtualCameraResourcePtr();
+    d->sourceCamera = resourcePool()->getResourceById<QnVirtualCameraResource>(id);
 
     if (d->sourceCamera)
     {
+        connect(d->sourceCamera.get(), &QnVirtualCameraResource::statusChanged,
+            d.get(), &Private::updateAvailability);
+        connect(d->sourceCamera.get(), &QnSecurityCamResource::twoWayAudioEnabledChanged,
+            d.get(), &Private::updateAvailability);
         connect(d->sourceCamera.get(), &QnVirtualCameraResource::audioOutputDeviceIdChanged,
             d.get(), &Private::updateTargetDevice);
     }

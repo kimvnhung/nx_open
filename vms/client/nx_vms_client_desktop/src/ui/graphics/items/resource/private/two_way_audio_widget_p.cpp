@@ -280,7 +280,7 @@ void QnTwoWayAudioWidget::Private::updateState()
 
 void QnTwoWayAudioWidget::Private::updateCamera(const QnSecurityCamResourcePtr& camera)
 {
-    m_controller.setResourceId(m_camera->getId());
+    m_controller.setResourceId(camera ? camera->getId() : QnUuid());
     updateState();
 }
 
