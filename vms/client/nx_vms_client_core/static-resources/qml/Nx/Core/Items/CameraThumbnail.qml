@@ -29,30 +29,15 @@ Rectangle
     ThreeDotBusyIndicator
     {
         anchors.centerIn: parent
-        visible: !image.visible && !noVideoPlaceholder.visible
+        visible: !image.visible && !noVideoPlaceholderImage.visible
     }
 
-    Column
+    Image
     {
-        id: noVideoPlaceholder
-
+        id: noVideoPlaceholderImage
         anchors.centerIn: parent
+        source: lp("/images/camera.svg")
         visible: thumbnail.status == AbstractResourceThumbnail.Status.unavailable
-
-        Image
-        {
-            anchors.horizontalCenter: parent.horizontalCenter
-            source: lp("/images/camera.svg")
-        }
-
-        Text
-        {
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            font.pixelSize: 12
-            color: ColorTheme.contrast16
-            text: qsTr("Can't view")
-        }
     }
 
     ResourceIdentificationThumbnail
