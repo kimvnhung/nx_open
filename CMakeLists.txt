@@ -29,7 +29,6 @@ endif()
 set(CMAKE_BUILD_TYPE ${default_cmake_build_type} CACHE STRING
     "One of [Debug Release RelWithDebInfo MinSizeRel].")
 
-include(cmake/open_source/vms_parts.cmake)
 
 # This variable is used in utils.cmake and ninja_tool.cmake.
 set(open_source_root "${CMAKE_SOURCE_DIR}")
@@ -61,6 +60,7 @@ list(APPEND CMAKE_MODULE_PATH
 )
 
 include(target_detection)
+include(cmake/open_source/vms_parts.cmake)
 include(output_directories)
 include(cmake/open_source/dependencies.cmake)
 
