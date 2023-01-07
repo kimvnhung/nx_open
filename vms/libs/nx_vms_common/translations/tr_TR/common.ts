@@ -1747,7 +1747,7 @@
     </message>
     <message>
       <source>Failed to backup file </source>
-      <translation type="unfinished">Failed to backup file </translation>
+      <translation>Dosya yedeklenemedi </translation>
     </message>
     <message>
       <source>Server Certificate Error</source>
