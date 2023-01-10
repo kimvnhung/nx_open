@@ -90,7 +90,7 @@
     </message>
     <message>
       <source>Invalid certificate</source>
-      <translation type="unfinished">Invalid certificate</translation>
+      <translation>Geçersiz sertifika</translation>
     </message>
     <message>
       <source>The server&amp;apos;s certificate was rejected.</source>
