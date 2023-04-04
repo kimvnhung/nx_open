@@ -36,7 +36,7 @@
     </message>
     <message>
       <source>%1 is not accessible yet. Please try again later.</source>
-      <translation type="unfinished">%1 is not accessible yet. Please try again later.</translation>
+      <translation>%1 henüz erişilebilir değil. Lütfen daha sonra tekrar deneyiniz.</translation>
     </message>
     <message>
       <source>The user is locked out due to several failed attempts. Please try again later.</source>
@@ -44,7 +44,7 @@
     </message>
     <message>
       <source>This authorization method is forbidden. Please contact your system administrator.</source>
-      <translation type="unfinished">This authorization method is forbidden. Please contact your system administrator.</translation>
+      <translation>Bu yetkilendirme yöntemi yasaktır. Lütfen sistem yöneticinize başvurun.</translation>
     </message>
     <message>
       <source>The session key is invalid or expired.</source>
@@ -1126,7 +1126,7 @@
     </message>
     <message>
       <source>Could not allocate output metadata stream.</source>
-      <translation type="unfinished">Could not allocate output metadata stream.</translation>
+      <translation>Çıkış meta veri akışı tahsis edilemedi.</translation>
     </message>
     <message>
       <source>Invalid audio codec information.</source>
@@ -1715,7 +1715,7 @@
     <message>
       <source>%1 at camera &apos;%2&apos;</source>
       <comment> is detected</comment>
-      <translation type="unfinished">%1 at camera &apos;%2&apos;</translation>
+      <translation>%1 kamerada &apos;%2&apos;</translation>
     </message>
     <message>
       <source>Plugin: %1</source>
@@ -1727,7 +1727,7 @@
     </message>
     <message>
       <source>Can&apos;t initialize AES encryption while recording media archive. Data is written unencrypted.</source>
-      <translation type="unfinished">Can&apos;t initialize AES encryption while recording media archive. Data is written unencrypted.</translation>
+      <translation>Medya arşivinde kayıt etkinken AES şifrelemesi başlatılamıyor. Veriler şifrelenmeden yazılır.</translation>
     </message>
     <message>
       <source>Archive backup failed.</source>
@@ -1755,7 +1755,7 @@
     </message>
     <message>
       <source>Server &quot;%1&quot; certificate error</source>
-      <translation type="unfinished">Server &quot;%1&quot; certificate error</translation>
+      <translation>Sunucu &quot;%1&quot; sertifika hatası</translation>
     </message>
   </context>
   <context>
