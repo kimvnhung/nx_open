@@ -2,6 +2,7 @@
 
 #include "desktop_audio_only_data_provider.h"
 
+#include <nx/audio/audio.h>
 #include <decoders/audio/ffmpeg_audio_decoder.h>
 #include <speex/speex_preprocess.h>
 #include <nx/build_info.h>
@@ -130,6 +131,9 @@ void QnDesktopAudioOnlyDataProvider::run()
 
     startInputs();
     m_initialized = true;
+
+    // Re-setup audio session since QAudioInput initialization may cause invalid changes.
+    nx::audio::setupAudio();
 
     exec();
 
