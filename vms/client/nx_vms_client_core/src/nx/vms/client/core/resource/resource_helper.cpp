@@ -140,7 +140,7 @@ bool ResourceHelper::hasOldCameraFirmware() const
 bool ResourceHelper::audioSupported() const
 {
     const auto camera = m_resource.dynamicCast<QnSecurityCamResource>();
-    return camera && camera->isAudioSupported();
+    return camera && (camera->isAudioSupported() || !camera->audioInputDeviceId().isNull());
 }
 
 bool ResourceHelper::isIoModule() const
