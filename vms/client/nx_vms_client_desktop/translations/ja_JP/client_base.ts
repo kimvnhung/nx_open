@@ -7262,7 +7262,7 @@ We recommend you not to open this web page. If you understand the risks, you can
     </message>
     <message>
       <source>Open door</source>
-      <translation>ドアを開く</translation>
+      <translation>ドアを開ける</translation>
     </message>
   </context>
   <context>
