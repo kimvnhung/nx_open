@@ -1693,7 +1693,7 @@
     </message>
     <message>
       <source>Failed to backup file %1</source>
-      <translation>檔案備份失敗 %1</translation>
+      <translation>%1 檔案備份失敗</translation>
     </message>
     <message>
       <source>Do HTTP(S) request</source>
