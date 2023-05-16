@@ -1051,7 +1051,7 @@
     </message>
     <message>
       <source>HTTP(S) content</source>
-      <translation type="unfinished">HTTP(S) content</translation>
+      <translation>HTTP(S) 內容</translation>
     </message>
   </context>
   <context>
@@ -1259,7 +1259,7 @@
     </message>
     <message>
       <source>Allow computer entering sleep mode on idle</source>
-      <translation type="unfinished">Allow computer entering sleep mode on idle</translation>
+      <translation>允許電腦在閒置時進入睡眠模式</translation>
     </message>
   </context>
   <context>

@@ -2192,7 +2192,7 @@
     </message>
     <message>
       <source>Source Camera</source>
-      <translation>源攝影機</translation>
+      <translation>來源攝影機</translation>
     </message>
     <message numerus="yes">
       <source>Source and %n more Cameras</source>
@@ -10231,15 +10231,15 @@ You can view %2 or read this %3 to learn more about the current problem.</source
     </message>
     <message>
       <source>Export archive from %1 stopped</source>
-      <translation type="unfinished">Export archive from %1 stopped</translation>
+      <translation>從 %1 匯入錄影資料失敗</translation>
     </message>
     <message>
       <source>The archive stream settings have been changed by user</source>
-      <translation type="unfinished">The archive stream settings have been changed by user</translation>
+      <translation>錄影資料中的串流設定已被使用者更改</translation>
     </message>
     <message>
       <source>The recording settings have been changed by user</source>
-      <translation type="unfinished">The recording settings have been changed by user</translation>
+      <translation>錄影設定已被使用者更改</translation>
     </message>
   </context>
   <context>
