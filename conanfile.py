@@ -218,7 +218,7 @@ class NxConan(ConanFile):
 
     @property
     def haveMobileClient(self):
-        return self.haveDesktopClient or self.isAndroid or self.isIos
+        return self.isAndroid or self.isIos
 
     @property
     def _lib_path(self):
