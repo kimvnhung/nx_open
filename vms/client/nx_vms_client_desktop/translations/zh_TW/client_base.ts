@@ -2356,7 +2356,7 @@
     <message>
       <source>%1 Running</source>
       <comment>%1 will be substituted with desktop client display name, e.g &apos;NX Witness Client&apos;</comment>
-      <translation type="unfinished">%1 Running</translation>
+      <translation>%1 執行中</translation>
     </message>
   </context>
   <context>
