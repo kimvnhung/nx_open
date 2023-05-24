@@ -628,11 +628,11 @@
     </message>
     <message>
       <source>Import From Device</source>
-      <translation type="unfinished">Import From Device</translation>
+      <translation>Importuj z urządzenia</translation>
     </message>
     <message>
       <source>Import video automatically</source>
-      <translation type="unfinished">Import video automatically</translation>
+      <translation>Importuj wideo automatycznie</translation>
     </message>
     <message>
       <source>Web Page</source>
@@ -1047,11 +1047,11 @@
     </message>
     <message>
       <source>HTTP(S) URL</source>
-      <translation type="unfinished">HTTP(S) URL</translation>
+      <translation>Adres URL http(s)</translation>
     </message>
     <message>
       <source>HTTP(S) content</source>
-      <translation type="unfinished">HTTP(S) content</translation>
+      <translation>Zawartość Http(s)</translation>
     </message>
   </context>
   <context>
@@ -1259,7 +1259,7 @@
     </message>
     <message>
       <source>Allow computer entering sleep mode on idle</source>
-      <translation type="unfinished">Allow computer entering sleep mode on idle</translation>
+      <translation>Zezwól komputerowi na przejście w tryb uśpienia w stanie bezczynności</translation>
     </message>
   </context>
   <context>

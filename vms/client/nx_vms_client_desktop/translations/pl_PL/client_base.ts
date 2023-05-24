@@ -9577,7 +9577,7 @@ Możesz to wymusić, ale może to znacznie zwiększyć obciążenie procesora.</
     </message>
     <message>
       <source>Looking for a local layout? Select only one user from the &quot;Show to&quot; list to display their local layouts as an option here.</source>
-      <translation type="unfinished">Looking for a local layout? Select only one user from the &quot;Show to&quot; list to display their local layouts as an option here.</translation>
+      <translation>Szukasz lokalnego układu? Wybierz tylko jednego użytkownika z &quot; Pokaż listę &quot; aby wyświetlić lokalne układy jako opcję tutaj.</translation>
     </message>
   </context>
   <context>
