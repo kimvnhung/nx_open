@@ -3,5 +3,7 @@
 nx_add_test(nx_media_ut
     PUBLIC_LIBS
         nx_media
+    PROJECT VMS
+    COMPONENT Client
     FOLDER client/tests
 )
