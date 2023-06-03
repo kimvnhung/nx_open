@@ -1555,7 +1555,7 @@
     </message>
     <message>
       <source>Camera time is back to normal</source>
-      <translation>カメラの時間が通常に戻りました</translation>
+      <translation>カメラ時刻が正常な状態に戻りました</translation>
     </message>
     <message>
       <source>Multiple %1 events have occurred</source>
