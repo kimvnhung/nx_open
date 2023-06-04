@@ -5519,7 +5519,7 @@ If you intended to move analytics data to another storage location, please conta
     </message>
     <message>
       <source>Remote archive synchronization has been stopped</source>
-      <translation type="unfinished">Remote archive synchronization has been stopped</translation>
+      <translation>遠端錄影同步已停止</translation>
     </message>
   </context>
   <context>
