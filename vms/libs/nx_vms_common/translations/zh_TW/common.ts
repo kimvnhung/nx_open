@@ -1697,11 +1697,11 @@
     </message>
     <message>
       <source>Do HTTP(S) request</source>
-      <translation type="unfinished">Do HTTP(S) request</translation>
+      <translation>發送一則HTTP(S)請求</translation>
     </message>
     <message>
       <source>Show Intercom Informer</source>
-      <translation type="unfinished">Show Intercom Informer</translation>
+      <translation>顯示對講機通知</translation>
     </message>
   </context>
   <context>
