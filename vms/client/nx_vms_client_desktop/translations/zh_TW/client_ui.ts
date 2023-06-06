@@ -640,7 +640,7 @@
     </message>
     <message>
       <source>Web Page Port</source>
-      <translation type="unfinished">Web Page Port</translation>
+      <translation>網頁埠號</translation>
     </message>
   </context>
   <context>
@@ -1047,7 +1047,7 @@
     </message>
     <message>
       <source>HTTP(S) URL</source>
-      <translation type="unfinished">HTTP(S) URL</translation>
+      <translation>HTTP(S) 網址</translation>
     </message>
     <message>
       <source>HTTP(S) content</source>
