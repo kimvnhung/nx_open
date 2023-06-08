@@ -620,19 +620,19 @@
     </message>
     <message>
       <source>Do not record primary stream</source>
-      <translation type="unfinished">Do not record primary stream</translation>
+      <translation>Ne pas enregistrer le flux principal</translation>
     </message>
     <message>
       <source>Do not record secondary stream</source>
-      <translation type="unfinished">Do not record secondary stream</translation>
+      <translation>Ne pas enregistrer le flux secondaire</translation>
     </message>
     <message>
       <source>Import From Device</source>
-      <translation type="unfinished">Import From Device</translation>
+      <translation>Importer depuis l'appareil</translation>
     </message>
     <message>
       <source>Import video automatically</source>
-      <translation type="unfinished">Import video automatically</translation>
+      <translation>Importer automatiquement la vidéo</translation>
     </message>
     <message>
       <source>Web Page</source>
@@ -640,7 +640,7 @@
     </message>
     <message>
       <source>Web Page Port</source>
-      <translation type="unfinished">Web Page Port</translation>
+      <translation>Port de la page Web</translation>
     </message>
   </context>
   <context>
