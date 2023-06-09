@@ -7206,7 +7206,7 @@ We recommend you not to open this web page. If you understand the risks, you can
     </message>
     <message>
       <source>The progress will be displayed once the backup process starts</source>
-      <translation type="unfinished">The progress will be displayed once the backup process starts</translation>
+      <translation>當備份開始進行時，將顯示進度於此</translation>
     </message>
   </context>
   <context>
@@ -7341,7 +7341,7 @@ We recommend you not to open this web page. If you understand the risks, you can
     </message>
     <message>
       <source>Video recorded on the internal camera&apos;s storage will be automatically uploaded to the main archive.</source>
-      <translation type="unfinished">Video recorded on the internal camera&apos;s storage will be automatically uploaded to the main archive.</translation>
+      <translation>在攝影機內的錄影資料，將會被自動上傳至媒體伺服器。</translation>
     </message>
   </context>
   <context>
