@@ -2387,7 +2387,7 @@
     <message>
       <source>%1 Running</source>
       <comment>%1 will be substituted with desktop client display name, e.g &apos;NX Witness Client&apos;</comment>
-      <translation type="unfinished">%1 Running</translation>
+      <translation>%1 en cours</translation>
     </message>
   </context>
   <context>
@@ -5588,7 +5588,7 @@ Si vous avez l'intention de déplacer les données d'analyse vers un autre empla
     </message>
     <message>
       <source>Remote archive synchronization has been stopped</source>
-      <translation type="unfinished">Remote archive synchronization has been stopped</translation>
+      <translation>La synchronisation des archives à distance a été arrêtée</translation>
     </message>
   </context>
   <context>
