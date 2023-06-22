@@ -11467,7 +11467,7 @@ Ikke fest dette sertifikatet hvis du ikke har endret %2 Server SSL-sertifikat.</
     </message>
     <message>
       <source>Cannot add resources from other Systems.</source>
-      <translation type="unfinished">Cannot add resources from other Systems.</translation>
+      <translation>Kan ikke legge til ressurser fra andre systemer.</translation>
     </message>
   </context>
   <context>
