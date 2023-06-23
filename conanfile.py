@@ -91,7 +91,7 @@ class NxOpenConan(ConanFile):
 
     def requirements(self):
         if not self.options.skipCustomizationPackage:
-            self.requires("customization/1.0" "#b6c2fa68ea52e82bf8c83eb214ae18d7")
+            self.requires("customization/1.0")  #< Always use the latest revision.
 
         self.requires("boost/1.76.0" "#bf922d85865a39cc5d2bc9dc3cf3ff6e")
 
