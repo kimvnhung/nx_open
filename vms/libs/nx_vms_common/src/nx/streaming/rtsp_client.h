@@ -318,7 +318,6 @@ public:
     bool ignoreQopInDigest(bool value) const;
 
     bool readAndProcessTextData();
-    void setCloudConnectEnabled(bool enabled);
 
 private:
     void addRangeHeader( nx::network::http::Request* const request, qint64 startPos, qint64 endPos );
@@ -409,7 +408,6 @@ private:
     int m_tcpRecvBufferSize = 512 * 1024;
     int m_nonceCount = 0;
     bool m_ignoreQopInDigest = false;
-    nx::network::NatTraversalSupport m_natTraversal{nx::network::NatTraversalSupport::enabled};
 
     /*!
         \param readSome if \a true, returns as soon as some data has been read. Otherwise, blocks till all \a bufSize bytes has been read
