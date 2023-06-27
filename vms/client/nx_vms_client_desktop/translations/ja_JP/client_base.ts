@@ -5851,7 +5851,7 @@ If you intended to move analytics data to another storage location, please conta
     </message>
     <message>
       <source>Login cannot be empty.</source>
-      <translation>ログイン情報を入力してください</translation>
+      <translation>ログイン名を入力してください。</translation>
     </message>
     <message>
       <source>User with specified login already exists.</source>
