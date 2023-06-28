@@ -4886,7 +4886,7 @@ to %1</source>
     </message>
     <message>
       <source>Email is not valid.</source>
-      <translation>Emailは有効ではありません</translation>
+      <translation>メールアドレスが不正です。</translation>
     </message>
     <message>
       <source>Password</source>
@@ -5926,7 +5926,7 @@ If you intended to move analytics data to another storage location, please conta
     </message>
     <message>
       <source>Email is not valid.</source>
-      <translation>Emailは有効ではありません</translation>
+      <translation>メールアドレスが不正です。</translation>
     </message>
     <message>
       <source>Password cannot be empty.</source>
@@ -10433,7 +10433,7 @@ You can view %2 or read this %3 to learn more about the current problem.</source
     </message>
     <message>
       <source>The password is incorrect.</source>
-      <translation>パスワードが違います</translation>
+      <translation>パスワードが正しくありません。</translation>
     </message>
   </context>
   <context>
