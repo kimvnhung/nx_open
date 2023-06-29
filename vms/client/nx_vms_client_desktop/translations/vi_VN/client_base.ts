@@ -130,7 +130,7 @@
     </message>
     <message>
       <source>Fit in View</source>
-      <translation>Điền view</translation>
+      <translation>Vừa với Chế độ xem</translation>
     </message>
     <message>
       <source>Main Menu</source>
@@ -3806,15 +3806,15 @@ to %1</source>
     </message>
     <message>
       <source>Stretch</source>
-      <translation>Căng ra</translation>
+      <translation>Kéo giãn</translation>
     </message>
     <message>
       <source>Fit</source>
-      <translation>Phù hợp</translation>
+      <translation>Vừa với màn hình</translation>
     </message>
     <message>
       <source>Crop</source>
-      <translation>Trồng trọt</translation>
+      <translation>Cắt khung</translation>
     </message>
     <message>
       <source>This option will not affect Recording Schedule. Recording Schedule is always based on Server Time.</source>

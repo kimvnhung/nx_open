@@ -1400,7 +1400,7 @@
     </message>
     <message>
       <source>Crop to monitor aspect ratio</source>
-      <translation>&amp;Thay đổi tỉ lệ màn hình</translation>
+      <translation>Cắt theo tỷ lệ màn hình</translation>
     </message>
   </context>
   <context>
