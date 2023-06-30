@@ -1204,7 +1204,7 @@
     </message>
     <message>
       <source>Do HTTP request</source>
-      <translation type="unfinished">Do HTTP request</translation>
+      <translation>Udfør HTTP-anmodning</translation>
     </message>
     <message>
       <source>Device output</source>
