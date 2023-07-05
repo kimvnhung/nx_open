@@ -24,9 +24,11 @@
 
 namespace {
 
+static bool forceTrafficLogging = false;
+
 static bool logTraffic()
 {
-    return nx::network::ini().httpClientTraffic;
+    return nx::network::ini().httpClientTraffic || forceTrafficLogging;
 }
 
 } // namespace
@@ -1560,6 +1562,11 @@ ssl::AdapterFunc AsyncClient::setAdapterFunc(ssl::AdapterFunc adapterFunc)
 const ssl::AdapterFunc& AsyncClient::adapterFunc() const
 {
     return m_adapterFunc;
+}
+
+void AsyncClient::setForceTrafficLogging(bool value)
+{
+    forceTrafficLogging = value;
 }
 
 } // namespace nx::network::http
