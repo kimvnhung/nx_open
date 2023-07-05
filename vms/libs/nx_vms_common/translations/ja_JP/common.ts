@@ -1967,7 +1967,7 @@
     </message>
     <message>
       <source>System disk &quot;%1&quot; is almost full.</source>
-      <translation>システムディスク&quot;%1&quot; がほぼいっぱいです。</translation>
+      <translation>システムディスク &quot;%1&quot; の空き容量が少なくなっています。</translation>
     </message>
     <message>
       <source>start</source>
@@ -2076,7 +2076,7 @@
     </message>
     <message>
       <source>Analytics storage &quot;%1&quot; is almost full.</source>
-      <translation>分析ストレージ &quot;%1&quot; は容量が不足しかけています。</translation>
+      <translation>分析ストレージ &quot;%1&quot; の空き容量が少なくなっています。</translation>
     </message>
     <message>
       <source>Plugin Diagnostic Event</source>
