@@ -342,7 +342,7 @@
     </message>
     <message>
       <source>Please update firmware. Minimal supported version is %1. Current version is %2</source>
-      <translation>請更新韌體. 至少更新到 %1. 目前版本是 %2</translation>
+      <translation>目前版本是 %2，請更新韌體至 %1或以上版本。 </translation>
     </message>
     <message>
       <source>Plugin error. %1</source>
