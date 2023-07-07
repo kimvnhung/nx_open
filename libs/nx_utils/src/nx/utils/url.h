@@ -142,7 +142,6 @@ public:
     Q_INVOKABLE QString pathAndQuery(
         QUrl::ComponentFormattingOptions options = QUrl::PrettyDecoded) const;
 
-
     Q_INVOKABLE bool hasFragment() const;
     Q_INVOKABLE QString fragment(QUrl::ComponentFormattingOptions options = QUrl::PrettyDecoded) const;
     void setFragment(const QString &fragment, QUrl::ParsingMode mode = QUrl::TolerantMode);
@@ -158,7 +157,6 @@ public:
 
     bool operator <(const Url &url) const;
     bool operator ==(const Url &url) const;
-    bool operator !=(const Url &url) const;
 
     Q_INVOKABLE bool matches(const Url &url, QUrl::FormattingOptions options) const;
 
