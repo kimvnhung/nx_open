@@ -6741,9 +6741,9 @@ Nous vous recommandons de ne pas ouvrir cette page Web. Si vous comprenez les ri
     </message>
     <message numerus="yes">
       <source>You are about to move these web pages to Server &quot;%1&quot;. These web pages proxy all requested contents, and their proxy server will change to Server &quot;%1&quot;.</source>
-      <translation type="unfinished">
-        <numerusform>You are about to move these web pages to Server &quot;%1&quot;. These web pages proxy all requested contents, and their proxy server will change to Server &quot;%1&quot;.</numerusform>
-        <numerusform>You are about to move these web pages to Server &quot;%1&quot;. These web pages proxy all requested contents, and their proxy server will change to Server &quot;%1&quot;.</numerusform>
+      <translation>
+        <numerusform>Vous êtes sur le point de déplacer ces pages web vers le serveur &quot;%1&quot;. Ces pages Web proxy tous les contenus demandés, et leur serveur proxy passera au serveur &quot;%1&quot;.</numerusform>
+        <numerusform>Vous êtes sur le point de déplacer ces pages web vers le serveur &quot;%1&quot;. Ces pages Web proxy tous les contenus demandés, et leur serveur proxy passera au serveur &quot;%1&quot;.</numerusform>
       </translation>
     </message>
   </context>
@@ -6779,7 +6779,7 @@ Nous vous recommandons de ne pas ouvrir cette page Web. Si vous comprenez les ri
     <name>SourcePickerWidgetStrings</name>
     <message>
       <source>Select at least one Server</source>
-      <translation type="unfinished">Select at least one Server</translation>
+      <translation>Sélectionnez au moins un serveur</translation>
     </message>
     <message>
       <source>Select at least one user</source>
@@ -6795,7 +6795,7 @@ Nous vous recommandons de ne pas ouvrir cette page Web. Si vous comprenez les ri
     </message>
     <message>
       <source>Select at least one I/O module</source>
-      <translation type="unfinished">Select at least one I/O module</translation>
+      <translation>Sélectionnez au moins un module I/O</translation>
     </message>
   </context>
   <context>
@@ -7371,7 +7371,7 @@ Nous vous recommandons de ne pas ouvrir cette page Web. Si vous comprenez les ri
     </message>
     <message>
       <source>The progress will be displayed once the backup process starts</source>
-      <translation type="unfinished">The progress will be displayed once the backup process starts</translation>
+      <translation>La progression sera affichée une fois le processus de sauvegarde démarré</translation>
     </message>
   </context>
   <context>
@@ -7430,7 +7430,7 @@ Nous vous recommandons de ne pas ouvrir cette page Web. Si vous comprenez les ri
     </message>
     <message>
       <source>Open Door</source>
-      <translation type="unfinished">Open Door</translation>
+      <translation>Ouvrir la porte</translation>
     </message>
   </context>
   <context>
@@ -7518,7 +7518,7 @@ Nous vous recommandons de ne pas ouvrir cette page Web. Si vous comprenez les ri
     </message>
     <message>
       <source>Video recorded on the internal camera&apos;s storage will be automatically uploaded to the main archive.</source>
-      <translation type="unfinished">Video recorded on the internal camera&apos;s storage will be automatically uploaded to the main archive.</translation>
+      <translation>La vidéo enregistrée sur la caméra interne sera automatiquement téléchargée dans l'archive principale.</translation>
     </message>
   </context>
   <context>
@@ -7641,20 +7641,20 @@ Nous vous recommandons de ne pas ouvrir cette page Web. Si vous comprenez les ri
     </message>
     <message>
       <source>Checking if the old camera&apos;s data can be transferred to the new camera.</source>
-      <translation type="unfinished">Checking if the old camera&apos;s data can be transferred to the new camera.</translation>
+      <translation>Vérification si l'ancienne caméra peut être transférée vers la nouvelle caméra.</translation>
     </message>
     <message>
       <source>Some data and settings may not be compatible with the new camera</source>
-      <translation type="unfinished">Some data and settings may not be compatible with the new camera</translation>
+      <translation>Certaines données et paramètres peuvent ne pas être compatibles avec la nouvelle caméra</translation>
     </message>
     <message>
       <source>%1 will be removed from the System and replaced by the selected camera</source>
       <extracomment>%1 will be substituted with the camera&apos;s name.</extracomment>
-      <translation type="unfinished">%1 will be removed from the System and replaced by the selected camera</translation>
+      <translation>%1 sera retiré du système et remplacé par la caméra sélectionnée</translation>
     </message>
     <message>
       <source>The Camera Replacement operation is not possible as the Server is unavailable.</source>
-      <translation type="unfinished">The Camera Replacement operation is not possible as the Server is unavailable.</translation>
+      <translation>L'opération de remplacement de la caméra n'est pas possible car le serveur n'est pas disponible.</translation>
     </message>
   </context>
   <context>
@@ -7968,7 +7968,7 @@ Nous vous recommandons de ne pas ouvrir cette page Web. Si vous comprenez les ri
     </message>
     <message>
       <source>This web page is requesting access to your account for authorization</source>
-      <translation type="unfinished">This web page is requesting access to your account for authorization</translation>
+      <translation>Cette page Web demande l'accès à votre compte pour obtenir une autorisation</translation>
     </message>
   </context>
   <context>
@@ -8069,7 +8069,7 @@ Nous vous recommandons de ne pas ouvrir cette page Web. Si vous comprenez les ri
     </message>
     <message>
       <source>Click to Show Cameras</source>
-      <translation type="unfinished">Click to Show Cameras</translation>
+      <translation>Cliquez pour afficher les caméras</translation>
     </message>
   </context>
   <context>
@@ -8081,11 +8081,11 @@ Nous vous recommandons de ne pas ouvrir cette page Web. Si vous comprenez les ri
     </message>
     <message>
       <source>%1 Layouts are &lt;b&gt;cross-system layouts&lt;/b&gt; that allow you to work with devices from different Systems. Currently, only some features of regular layouts are available, but we will continue to expand the capabilities of %1 Layouts in future versions</source>
-      <translation type="unfinished">%1 Layouts are &lt;b&gt;cross-system layouts&lt;/b&gt; that allow you to work with devices from different Systems. Currently, only some features of regular layouts are available, but we will continue to expand the capabilities of %1 Layouts in future versions</translation>
+      <translation>%1 Les mises en page sont &lt;b&gt;des mises en page intersystème&lt;/b&gt; qui vous permettent de travailler avec des périphériques de différents systèmes. Actuellement, seules certaines fonctionnalités de mises en page régulières sont disponibles, mais nous allons continuer à étendre les capacités de %1 mises en page dans les versions futures</translation>
     </message>
     <message>
       <source>Read more on the %1</source>
-      <translation type="unfinished">Read more on the %1</translation>
+      <translation>En savoir plus sur le %1</translation>
     </message>
     <message>
       <source>help page</source>
@@ -8269,7 +8269,7 @@ Nous vous recommandons de ne pas ouvrir cette page Web. Si vous comprenez les ri
     <name>nx::vms::client::desktop::CrossSystemCameraResource</name>
     <message>
       <source>Unknown camera</source>
-      <translation type="unfinished">Unknown camera</translation>
+      <translation>Caméra inconnu</translation>
     </message>
   </context>
   <context>
@@ -8688,7 +8688,7 @@ Nous vous recommandons de ne pas ouvrir cette page Web. Si vous comprenez les ri
     </message>
     <message>
       <source>Select Folder...</source>
-      <translation type="unfinished">Select Folder...</translation>
+      <translation>Sélectionner un dossier...</translation>
     </message>
   </context>
   <context>
@@ -8941,23 +8941,23 @@ Nous vous recommandons de ne pas ouvrir cette page Web. Si vous comprenez les ri
     </message>
     <message>
       <source>Must be greater than or equal to the value set for Split File by Size</source>
-      <translation type="unfinished">Must be greater than or equal to the value set for Split File by Size</translation>
+      <translation>Doit être supérieur ou égal à la valeur définie pour Fractionner le fichier par taille</translation>
     </message>
     <message>
       <source>Must be less than or equal to the value set for Limit Max Volume</source>
-      <translation type="unfinished">Must be less than or equal to the value set for Limit Max Volume</translation>
+      <translation>Doit être inférieur ou égal à la valeur définie pour le volume maximal limite</translation>
     </message>
     <message>
       <source>The selected Logging Level may not be collecting enough information.
 The Logging Level &quot;%1&quot; will provide you with more granular information.</source>
-      <translation type="unfinished">The selected Logging Level may not be collecting enough information.
-The Logging Level &quot;%1&quot; will provide you with more granular information.</translation>
+      <translation>Le niveau de journalisation sélectionné peut ne pas collecter assez d'informations.
+Le niveau de journalisation &quot;%1&quot; vous fournira plus d'informations granulaires.</translation>
     </message>
     <message>
       <source>The selected Logging Level may degrade your system&apos;s performance.
 Remember to return the Logging Level to its default setting after you have collected enough logs.</source>
-      <translation type="unfinished">The selected Logging Level may degrade your system&apos;s performance.
-Remember to return the Logging Level to its default setting after you have collected enough logs.</translation>
+      <translation>Le niveau de journalisation sélectionné peut dégrader les performances de votre système.
+N'oubliez pas de retourner le niveau de journalisation à sa configuration par défaut après avoir collecté suffisamment de logs.</translation>
     </message>
   </context>
   <context>
@@ -9044,30 +9044,30 @@ Remember to return the Logging Level to its default setting after you have colle
     </message>
     <message>
       <source>Debug logging is enabled on the Client</source>
-      <translation type="unfinished">Debug logging is enabled on the Client</translation>
+      <translation>La journalisation du débogage est activée sur le client</translation>
     </message>
     <message>
       <source>Debug logging is enabled, resulting in degraded system performance.</source>
-      <translation type="unfinished">Debug logging is enabled, resulting in degraded system performance.</translation>
+      <translation>La journalisation du débogage est activée, ce qui entraîne des performances système dégradées.</translation>
     </message>
     <message numerus="yes">
       <source>Debug logging is enabled on %n Servers</source>
-      <translation type="unfinished">
-        <numerusform>Debug logging is enabled on %n Servers</numerusform>
-        <numerusform>Debug logging is enabled on %n Servers</numerusform>
+      <translation>
+        <numerusform>La journalisation du débogage est activée sur %n Serveur</numerusform>
+        <numerusform>La journalisation du débogage est activée sur %n Serveurs</numerusform>
       </translation>
     </message>
     <message>
       <source>Logs downloading canceled</source>
-      <translation type="unfinished">Logs downloading canceled</translation>
+      <translation>Téléchargement des journaux annulé</translation>
     </message>
     <message>
       <source>Apply Settings</source>
-      <translation type="unfinished">Apply Settings</translation>
+      <translation>Appliquer les paramètres</translation>
     </message>
     <message>
       <source>Enter your account password</source>
-      <translation type="unfinished">Enter your account password</translation>
+      <translation>Entrez le mot de passe de votre compte</translation>
     </message>
     <message>
       <source>Apply</source>
@@ -9078,7 +9078,7 @@ Remember to return the Logging Level to its default setting after you have colle
     <name>nx::vms::client::desktop::LogsManagementWidget</name>
     <message>
       <source>Select Folder...</source>
-      <translation type="unfinished">Select Folder...</translation>
+      <translation>Sélectionner un dossier...</translation>
     </message>
   </context>
   <context>
@@ -9638,14 +9638,14 @@ Vous pouvez le forcer, mais il peut augmenter significativement la charge du pro
     <name>nx::vms::client::desktop::NotificationListWidget::Private</name>
     <message numerus="yes">
       <source>%n notifications</source>
-      <translation type="unfinished">
-        <numerusform>%n notifications</numerusform>
+      <translation>
+        <numerusform>%n notification</numerusform>
         <numerusform>%n notifications</numerusform>
       </translation>
     </message>
     <message>
       <source>Current System</source>
-      <translation type="unfinished">Current System</translation>
+      <translation>Système actuel</translation>
     </message>
     <message>
       <source>All Systems</source>
@@ -9691,7 +9691,7 @@ Vous pouvez le forcer, mais il peut augmenter significativement la charge du pro
     </message>
     <message>
       <source>Looking for a local layout? Select only one user from the &quot;Show to&quot; list to display their local layouts as an option here.</source>
-      <translation type="unfinished">Looking for a local layout? Select only one user from the &quot;Show to&quot; list to display their local layouts as an option here.</translation>
+      <translation>Vous cherchez une mise en page locale? Sélectionnez un seul utilisateur dans la liste &quot;Afficher à&quot; pour afficher leurs mises en page locales en option ici.</translation>
     </message>
   </context>
   <context>
@@ -9958,7 +9958,7 @@ Vous pouvez le forcer, mais il peut augmenter significativement la charge du pro
     </message>
     <message>
       <source>The web page can interact with the Desktop Client and request access to the user session</source>
-      <translation type="unfinished">The web page can interact with the Desktop Client and request access to the user session</translation>
+      <translation>La page Web peut interagir avec le client de bureau et demander l'accès à la session utilisateur</translation>
     </message>
   </context>
   <context>
@@ -10425,25 +10425,25 @@ Attention : Ce mot de passe ne peut pas être réinitialisé. Si vous le perdez,
     </message>
     <message>
       <source>Server ID: %1</source>
-      <translation type="unfinished">Server ID: %1</translation>
+      <translation>ID du serveur: %1</translation>
     </message>
     <message>
       <source>Someone may be impersonating %1 to steal your personal information.
 Do not pin this certificate if you did not modify %2 Server SSL certificate.</source>
-      <translation type="unfinished">Someone may be impersonating %1 to steal your personal information.
-Do not pin this certificate if you did not modify %2 Server SSL certificate.</translation>
+      <translation>Quelqu'un peut usurper l'identité de %1 pour voler vos informations personnelles.
+N'épinglez pas ce certificat si vous n'avez pas modifié le certificat SSL du serveur %2.</translation>
     </message>
     <message>
       <source>Custom Certificate</source>
-      <translation type="unfinished">Custom Certificate</translation>
+      <translation>Certificat personnalisé</translation>
     </message>
     <message>
       <source>Auto-generated Certificate</source>
-      <translation type="unfinished">Auto-generated Certificate</translation>
+      <translation>Certificat généré automatiquement</translation>
     </message>
     <message>
       <source>Unknown Certificate</source>
-      <translation type="unfinished">Unknown Certificate</translation>
+      <translation>Certificat inconnu</translation>
     </message>
   </context>
   <context>
@@ -10712,60 +10712,60 @@ Do not pin this certificate if you did not modify %2 Server SSL certificate.</tr
     </message>
     <message>
       <source>Import in progress...</source>
-      <translation type="unfinished">Import in progress...</translation>
+      <translation>Importation en cours...</translation>
     </message>
     <message>
       <source>Import archive from %1 completed</source>
-      <translation type="unfinished">Import archive from %1 completed</translation>
+      <translation>Importation des archives de %1 terminée</translation>
     </message>
     <message>
       <source>Import archive from %1 failed</source>
-      <translation type="unfinished">Import archive from %1 failed</translation>
+      <translation>L'importation de l'archive de %1 a échoué</translation>
     </message>
     <message>
       <source>Import archive from %1 stopped</source>
-      <translation type="unfinished">Import archive from %1 stopped</translation>
+      <translation>Importer l'archive de %1 arrêtée</translation>
     </message>
     <message>
       <source>Import archive from %1</source>
-      <translation type="unfinished">Import archive from %1</translation>
+      <translation>Importer une archive depuis %1</translation>
     </message>
     <message numerus="yes">
       <source>Backup storage is not configured on %n Servers</source>
-      <translation type="unfinished">
-        <numerusform>Backup storage is not configured on %n Servers</numerusform>
-        <numerusform>Backup storage is not configured on %n Servers</numerusform>
+      <translation>
+        <numerusform>Le stockage de sauvegarde n'est pas configuré sur le serveur %n</numerusform>
+        <numerusform>Le stockage de sauvegarde n'est pas configuré sur les serveurs %n</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>Storage for analytics data is not set on %n Servers</source>
-      <translation type="unfinished">
-        <numerusform>Storage for analytics data is not set on %n Servers</numerusform>
-        <numerusform>Storage for analytics data is not set on %n Servers</numerusform>
+      <translation>
+        <numerusform>Le stockage pour les données analytiques n'est pas défini sur %n serveur</numerusform>
+        <numerusform>Le stockage pour les données analytiques n'est pas défini sur %n serveurs</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>System storage is used for analytics data on %n Servers</source>
-      <translation type="unfinished">
-        <numerusform>System storage is used for analytics data on %n Servers</numerusform>
-        <numerusform>System storage is used for analytics data on %n Servers</numerusform>
+      <translation>
+        <numerusform>Le stockage système est utilisé pour les données d'analyse sur le serveur %n</numerusform>
+        <numerusform>Le stockage système est utilisé pour les données d'analyse sur les serveurs %n</numerusform>
       </translation>
     </message>
     <message>
       <source>Not imported archive found on device %1</source>
-      <translation type="unfinished">Not imported archive found on device %1</translation>
+      <translation>Archive non importée trouvée sur l'appareil %1</translation>
     </message>
     <message>
       <source>Not imported archive found on camera %1</source>
-      <translation type="unfinished">Not imported archive found on camera %1</translation>
+      <translation>Archive non importée trouvée sur la caméra %1</translation>
     </message>
     <message>
       <source>The archive stream settings have been changed by the user</source>
-      <translation type="unfinished">The archive stream settings have been changed by the user</translation>
+      <translation>Les paramètres du flux d'archives ont été modifiés par l'utilisateur</translation>
     </message>
     <message>
       <source>The recording settings have been changed by the user</source>
-      <translation type="unfinished">The recording settings have been changed by the user</translation>
+      <translation>Les paramètres d'enregistrement ont été modifiés par l'utilisateur</translation>
     </message>
   </context>
   <context>
@@ -11036,7 +11036,7 @@ Do not pin this certificate if you did not modify %2 Server SSL certificate.</tr
     </message>
     <message>
       <source>Users with Digest Authentication</source>
-      <translation type="unfinished">Users with Digest Authentication</translation>
+      <translation>Utilisateurs avec l'authentification Digest</translation>
     </message>
   </context>
   <context>
@@ -11463,15 +11463,15 @@ Do not pin this certificate if you did not modify %2 Server SSL certificate.</tr
     </message>
     <message>
       <source>Cannot find an item with the specified ID</source>
-      <translation type="unfinished">Cannot find an item with the specified ID</translation>
+      <translation>Impossible de trouver un élément avec l'ID spécifié</translation>
     </message>
     <message>
       <source>Cannot find a resource with the specified ID.</source>
-      <translation type="unfinished">Cannot find a resource with the specified ID.</translation>
+      <translation>Impossible de trouver une ressource avec l'ID spécifié.</translation>
     </message>
     <message>
       <source>Cannot add resources from other Systems.</source>
-      <translation type="unfinished">Cannot add resources from other Systems.</translation>
+      <translation>Impossible d'ajouter des ressources à partir d'autres systèmes.</translation>
     </message>
   </context>
   <context>
@@ -11516,11 +11516,11 @@ Do not pin this certificate if you did not modify %2 Server SSL certificate.</tr
     </message>
     <message>
       <source>Failed to restore rules.</source>
-      <translation type="unfinished">Failed to restore rules.</translation>
+      <translation>Échec de la restauration des règles.</translation>
     </message>
     <message>
       <source>Apply changes before exiting?</source>
-      <translation type="unfinished">Apply changes before exiting?</translation>
+      <translation>Appliquer les modifications avant de quitter ?</translation>
     </message>
   </context>
   <context>
@@ -11972,11 +11972,11 @@ Vous pouvez sélectionner un autre emplacement de stockage dans l'onglet &quot;G
     </message>
     <message>
       <source>Select Folder...</source>
-      <translation type="unfinished">Select Folder...</translation>
+      <translation>Sélectionner un dossier...</translation>
     </message>
     <message>
       <source>There are no suitable cameras for replacement on the Server &quot;%1&quot;</source>
-      <translation type="unfinished">There are no suitable cameras for replacement on the Server &quot;%1&quot;</translation>
+      <translation>Il n'y a pas de caméras appropriées à remplacer sur le serveur &quot;%1&quot;</translation>
     </message>
   </context>
   <context>
@@ -12165,7 +12165,7 @@ pour afficher plus de signets</translation>
     </message>
     <message>
       <source>Rewind is not available for VMAX</source>
-      <translation type="unfinished">Rewind is not available for VMAX</translation>
+      <translation>Le retour en arrière n'est pas disponible pour VMAX</translation>
     </message>
   </context>
   <context>
@@ -12227,7 +12227,7 @@ pour afficher plus de signets</translation>
     </message>
     <message>
       <source>Cannot check Client update availability. Check your internet connection and try again.</source>
-      <translation type="unfinished">Cannot check Client update availability. Check your internet connection and try again.</translation>
+      <translation>Impossible de vérifier la disponibilité des mises à jour du client. Vérifiez votre connexion internet et réessayez.</translation>
     </message>
   </context>
 </TS>
