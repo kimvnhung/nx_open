@@ -7318,7 +7318,7 @@ Nous vous recommandons de ne pas ouvrir cette page Web. Si vous comprenez les ri
     </message>
     <message>
       <source>The progress will be displayed once the backup process starts</source>
-      <translation type="unfinished">The progress will be displayed once the backup process starts</translation>
+      <translation>La progression sera affichée une fois le processus de sauvegarde démarré</translation>
     </message>
   </context>
   <context>
@@ -7455,7 +7455,7 @@ Nous vous recommandons de ne pas ouvrir cette page Web. Si vous comprenez les ri
     </message>
     <message>
       <source>Video recorded on the internal camera&apos;s storage will be automatically uploaded to the main archive.</source>
-      <translation type="unfinished">Video recorded on the internal camera&apos;s storage will be automatically uploaded to the main archive.</translation>
+      <translation>La vidéo enregistrée sur la caméra interne sera automatiquement téléchargée dans l'archive principale.</translation>
     </message>
   </context>
   <context>
@@ -9321,7 +9321,7 @@ Vous pouvez le forcer, mais il peut augmenter significativement la charge du pro
     </message>
     <message>
       <source>Looking for a local layout? Select only one user from the &quot;Show to&quot; list to display their local layouts as an option here.</source>
-      <translation type="unfinished">Looking for a local layout? Select only one user from the &quot;Show to&quot; list to display their local layouts as an option here.</translation>
+      <translation>Vous cherchez une mise en page locale? Sélectionnez un seul utilisateur dans la liste &quot;Afficher à&quot; pour afficher leurs mises en page locales en option ici.</translation>
     </message>
   </context>
   <context>
