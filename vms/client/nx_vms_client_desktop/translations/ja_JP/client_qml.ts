@@ -806,7 +806,7 @@
     </message>
     <message>
       <source>Next</source>
-      <translation>次</translation>
+      <translation>次へ</translation>
     </message>
   </context>
   <context>

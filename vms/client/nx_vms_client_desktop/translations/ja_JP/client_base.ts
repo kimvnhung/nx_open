@@ -10985,7 +10985,7 @@ You can view %2 or read this %3 to learn more about the current problem.</source
     <name>nx::vms::client::desktop::ui::dialogs::LicenseDeactivationReason</name>
     <message>
       <source>Next</source>
-      <translation>次</translation>
+      <translation>次へ</translation>
     </message>
     <message>
       <source>Name is necessary</source>
