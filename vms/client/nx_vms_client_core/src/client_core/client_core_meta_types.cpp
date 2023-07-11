@@ -22,7 +22,6 @@
 #include <client/forgotten_systems_manager.h>
 #include <helpers/nx_globals_object.h>
 #include <common/common_meta_types.h>
-
 #include <nx/vms/api/types/dewarping_types.h>
 #include <nx/vms/client/core/animation/kinetic_animation.h>
 #include <nx/vms/client/core/common/data/motion_selection.h>
@@ -38,6 +37,7 @@
 #include <nx/vms/client/core/event_search/models/abstract_search_list_model.h>
 #include <nx/vms/client/core/event_search/utils/common_object_search_setup.h>
 #include <nx/vms/client/core/event_search/utils/text_filter_setup.h>
+#include <nx/vms/client/core/extended_camera_output/extended_camera_output_controller.h>
 #include <nx/vms/client/core/graphics/shader_helper.h>
 #include <nx/vms/client/core/items/grid_viewport.h>
 #include <nx/vms/client/core/thumbnails/abstract_resource_thumbnail.h>
@@ -145,6 +145,7 @@ void initializeMetaTypes()
     MediaPlayer::registerQmlTypes();
     AbstractSearchListModel::registerQmlType();
     CommonObjectSearchSetup::registerQmlType();
+    ExtendedCameraOutputController::registerQmlType();
 
     qRegisterMetaType<MediaDewarpingParams>();
     qmlRegisterUncreatableType<MediaDewarpingParams>("nx.vms.client.core", 1, 0,

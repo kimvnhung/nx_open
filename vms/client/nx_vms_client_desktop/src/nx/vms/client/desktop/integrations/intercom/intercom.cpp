@@ -10,6 +10,7 @@
 #include <nx/reflect/json.h>
 #include <nx/utils/std/algorithm.h>
 #include <nx/vms/api/data/event_rule_data.h>
+#include <nx/vms/client/core/extended_camera_output/intercom_helper.h>
 #include <nx/vms/client/core/resource/session_resources_signal_listener.h>
 #include <nx/vms/common/resource/analytics_engine_resource.h>
 #include <nx/vms/common/resource/analytics_plugin_resource.h>
@@ -22,6 +23,7 @@
 #include <nx_ec/managers/abstract_event_rules_manager.h>
 
 using namespace std::chrono;
+using nx::vms::client::core::IntercomHelper;
 
 namespace {
 
@@ -35,11 +37,9 @@ const QString kOpenDoorRuleIsInitializedPropertyValue = "true";
 const QString kCallEvent = "nx.sys.CallRequest";
 const QnUuid kOpenLayoutRuleId = QnUuid::fromArbitraryData(
     std::string("nx.sys.IntercomIntegrationOpenLayout"));
-const std::string kOpenDoorRuleIdBase = "nx.sys.IntercomIntegrationOpenDoor";
 const QString kOpenDoorIcon = "_door_opened";
 const QString kOpenDoorPortName =
     QString::fromStdString(nx::reflect::toString(nx::vms::api::ExtendedCameraOutput::powerRelay));
-constexpr milliseconds kOpenedDoorDuration = 6s;
 
 } // namespace
 
@@ -256,11 +256,6 @@ struct IntercomIntegration::Private: public QObject
         return rule;
     }
 
-    QnUuid getOpenDoorRuleId(const QnVirtualCameraResourcePtr& camera) const
-    {
-        return QnUuid::fromArbitraryData(kOpenDoorRuleIdBase + camera->getId().toStdString());
-    }
-
     void tryCreateOpenDoorRule(
         const ec2::AbstractEventRulesManagerPtr& manager,
         const QnVirtualCameraResourceList& cameras,
@@ -277,7 +272,7 @@ struct IntercomIntegration::Private: public QObject
                 continue;
             }
 
-            const QnUuid openDoorRuleId = getOpenDoorRuleId(camera);
+            const QnUuid openDoorRuleId = IntercomHelper::intercomOpenDoorRuleId(camera->getId());
             nx::vms::event::RulePtr rule = localRuleManager->rule(openDoorRuleId);
 
             if (!rule)
@@ -297,7 +292,7 @@ struct IntercomIntegration::Private: public QObject
         const QnVirtualCameraResourcePtr& camera) const
     {
         nx::vms::api::EventRuleData rule;
-        rule.id = getOpenDoorRuleId(camera);
+        rule.id = IntercomHelper::intercomOpenDoorRuleId(camera->getId());
         rule.eventType = nx::vms::api::EventType::softwareTriggerEvent;
         rule.actionType = nx::vms::api::ActionType::cameraOutputAction;
         rule.aggregationPeriod = 0;
@@ -320,7 +315,7 @@ struct IntercomIntegration::Private: public QObject
         if (NX_ASSERT(portIter != portDescriptions.end(), "Door open output port is absent."))
             actionParameters.relayOutputId = portIter->id;
 
-        actionParameters.durationMs = kOpenedDoorDuration.count();
+        actionParameters.durationMs = IntercomHelper::kOpenedDoorDuration.count();
         rule.actionParams =
             QByteArray::fromStdString(nx::reflect::json::serialize(actionParameters));
 
