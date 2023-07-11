@@ -7504,7 +7504,7 @@ We recommend you not to open this web page. If you understand the risks, you can
     </message>
     <message>
       <source>Next</source>
-      <translation>次</translation>
+      <translation>次へ</translation>
     </message>
     <message>
       <source>Finish</source>
@@ -10543,7 +10543,7 @@ Do not pin this certificate if you did not modify %2 Server SSL certificate.</so
     </message>
     <message>
       <source>Click on the &quot;Undo Replace&quot; button to continue using two devices.</source>
-      <translation>2つのデバイスを引き続き使用するに、&quot;交換を元に戻す&quot; ボタンをクリックしてください。</translation>
+      <translation>2つのデバイスを引き続き使用するには、&quot;交換を元に戻す&quot; ボタンをクリックしてください。</translation>
     </message>
     <message>
       <source>Undo Replace</source>
@@ -11531,7 +11531,7 @@ Do not pin this certificate if you did not modify %2 Server SSL certificate.</so
     <name>nx::vms::client::desktop::ui::dialogs::LicenseDeactivationReason</name>
     <message>
       <source>Next</source>
-      <translation>次</translation>
+      <translation>次へ</translation>
     </message>
     <message>
       <source>Name is necessary</source>
@@ -11790,7 +11790,7 @@ You can select another storage location in the &quot;Storage Management&quot; ta
     </message>
     <message>
       <source>Undo replacement completed successfully!</source>
-      <translation>交換の差し戻しが正常に完了しました!</translation>
+      <translation>交換の取り消しが正常に完了しました!</translation>
     </message>
     <message>
       <source>Some settings may not be transferred from the replaced camera due to compatibility issues.</source>
@@ -11798,7 +11798,7 @@ You can select another storage location in the &quot;Storage Management&quot; ta
     </message>
     <message>
       <source>Confirm undo replacement?</source>
-      <translation>置換を元に戻しますか？</translation>
+      <translation>交換を元に戻してもよろしいですか?</translation>
     </message>
     <message>
       <source>Select Folder...</source>
