@@ -5063,7 +5063,7 @@ to %1</source>
     </message>
     <message>
       <source>Enable</source>
-      <translation>有効</translation>
+      <translation>有効化</translation>
     </message>
     <message>
       <source>Activate License</source>
@@ -8577,7 +8577,7 @@ We recommend you not to open this web page. If you understand the risks, you can
     </message>
     <message>
       <source>Enable</source>
-      <translation>有効</translation>
+      <translation>有効化</translation>
     </message>
   </context>
   <context>
@@ -10535,7 +10535,7 @@ Do not pin this certificate if you did not modify %2 Server SSL certificate.</so
     </message>
     <message>
       <source>Replaced camera discovered</source>
-      <translation>交換されたカメラが見つかりました</translation>
+      <translation>交換済みのカメラが検出されました</translation>
     </message>
     <message>
       <source>Camera %1 has been replaced by %2.</source>
@@ -10857,7 +10857,7 @@ Do not pin this certificate if you did not modify %2 Server SSL certificate.</so
     <name>nx::vms::client::desktop::UserListWidget</name>
     <message>
       <source>Enable</source>
-      <translation>有効</translation>
+      <translation>有効化</translation>
     </message>
     <message>
       <source>Disable</source>
