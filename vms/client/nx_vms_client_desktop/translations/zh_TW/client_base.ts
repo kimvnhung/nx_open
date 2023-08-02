@@ -8808,11 +8808,11 @@ We recommend you not to open this web page. If you understand the risks, you can
     </message>
     <message>
       <source>Must be greater than or equal to the value set for Split File by Size</source>
-      <translation type="unfinished">Must be greater than or equal to the value set for Split File by Size</translation>
+      <translation>必須大於或等於各分割檔案大小的設定值</translation>
     </message>
     <message>
       <source>Must be less than or equal to the value set for Limit Max Volume</source>
-      <translation type="unfinished">Must be less than or equal to the value set for Limit Max Volume</translation>
+      <translation>必須小於或等於最大儲存容量的設定值</translation>
     </message>
     <message>
       <source>The selected Logging Level may not be collecting enough information.
@@ -9818,7 +9818,7 @@ You can force it, but it may significantly increase CPU load.</source>
     </message>
     <message>
       <source>The web page can interact with the Desktop Client and request access to the user session</source>
-      <translation type="unfinished">The web page can interact with the Desktop Client and request access to the user session</translation>
+      <translation>可透過網頁操作桌面客戶端並請求存取使用者連線</translation>
     </message>
   </context>
   <context>
