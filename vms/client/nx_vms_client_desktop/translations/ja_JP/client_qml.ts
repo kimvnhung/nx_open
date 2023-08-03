@@ -1216,7 +1216,7 @@ PTZを行います</translation>
     <name>TimeSelector</name>
     <message>
       <source>Any time</source>
-      <translation>いつでも</translation>
+      <translation>期間指定なし</translation>
     </message>
     <message>
       <source>Last day</source>
