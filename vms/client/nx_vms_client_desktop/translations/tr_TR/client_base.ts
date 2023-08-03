@@ -11461,7 +11461,7 @@ Do not pin this certificate if you did not modify %2 Server SSL certificate.</so
     </message>
     <message>
       <source>Cannot add resources from other Systems.</source>
-      <translation type="unfinished">Cannot add resources from other Systems.</translation>
+      <translation>Diğer Sistemlerden kaynak eklenemez.</translation>
     </message>
   </context>
   <context>

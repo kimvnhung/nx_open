@@ -1662,7 +1662,7 @@ License Key: %2</source>
     <name>Ptz</name>
     <message>
       <source>Cannot get the current position from camera &quot;%1&quot;</source>
-      <translation>カメラから現在位置を取得できません&quot;%1&quot;</translation>
+      <translation>カメラ &quot;%1&quot; から現在のポジションを取得できません</translation>
     </message>
     <message>
       <source>Please wait for the camera to go online.</source>
@@ -1670,15 +1670,15 @@ License Key: %2</source>
     </message>
     <message>
       <source>Failed to get current position</source>
-      <translation>現在の位置の取得に失敗しました</translation>
+      <translation>現在のポジションの取得に失敗しました</translation>
     </message>
     <message>
       <source>Cannot set the current position for camera &quot;%1&quot;</source>
-      <translation>カメラの現在位置を設定できません&quot;%1&quot;</translation>
+      <translation>カメラ &quot;%1&quot; のポジションを設定できません</translation>
     </message>
     <message>
       <source>Failed to set current position</source>
-      <translation>現在の位置の設定に失敗しました</translation>
+      <translation>ポジションの設定に失敗しました</translation>
     </message>
     <message>
       <source>Preset used by some tours. Delete it anyway?</source>
@@ -2308,15 +2308,15 @@ License Key: %2</source>
     </message>
     <message>
       <source>Stops</source>
-      <translation>停止</translation>
+      <translation>停止時</translation>
     </message>
     <message>
       <source>Starts</source>
-      <translation>開始</translation>
+      <translation>開始時</translation>
     </message>
     <message>
       <source>Occurs</source>
-      <translation>発生</translation>
+      <translation>発生時</translation>
     </message>
     <message>
       <source>N/A</source>
@@ -11322,11 +11322,11 @@ Do not pin this certificate if you did not modify %2 Server SSL certificate.</so
     </message>
     <message>
       <source>Starts</source>
-      <translation>開始</translation>
+      <translation>開始時</translation>
     </message>
     <message>
       <source>Stops</source>
-      <translation>停止</translation>
+      <translation>停止時</translation>
     </message>
     <message>
       <source>Instant</source>

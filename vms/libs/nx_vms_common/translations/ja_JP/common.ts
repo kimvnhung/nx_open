@@ -580,7 +580,7 @@
     <message numerus="yes">
       <source>%n Analog Encoder Licenses</source>
       <translation>
-        <numerusform>%n アナログ エンコーダー ライセンス</numerusform>
+        <numerusform>%n アナログエンコーダーライセンス</numerusform>
       </translation>
     </message>
     <message numerus="yes">
