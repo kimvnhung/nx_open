@@ -75,7 +75,7 @@
     </message>
     <message>
       <source>Installation completed</source>
-      <translation>インストール終了</translation>
+      <translation>インストール完了</translation>
     </message>
     <message>
       <source>Getting update information from the server</source>
@@ -118,7 +118,7 @@
     </message>
     <message>
       <source>Control Video Wall</source>
-      <translation>ビデオウォールコントロール</translation>
+      <translation>ビデオウォールの制御</translation>
     </message>
     <message>
       <source>Push my screen</source>
@@ -669,7 +669,7 @@
     </message>
     <message>
       <source>Close All But This</source>
-      <translation>全てを閉じる</translation>
+      <translation>これ以外をすべて閉じる</translation>
     </message>
     <message>
       <source>Play</source>
@@ -1148,7 +1148,7 @@
     </message>
     <message>
       <source>All Files</source>
-      <translation>全てのファイル</translation>
+      <translation>すべてのファイル</translation>
     </message>
   </context>
   <context>
@@ -1774,7 +1774,7 @@
     </message>
     <message>
       <source>Select All</source>
-      <translation>全て選択</translation>
+      <translation>すべて選択</translation>
     </message>
     <message>
       <source>Export selected records to a file</source>
@@ -2142,15 +2142,15 @@
     </message>
     <message>
       <source>Stops</source>
-      <translation>停止</translation>
+      <translation>停止時</translation>
     </message>
     <message>
       <source>Starts</source>
-      <translation>開始</translation>
+      <translation>開始時</translation>
     </message>
     <message>
       <source>Occurs</source>
-      <translation>発生</translation>
+      <translation>発生時</translation>
     </message>
     <message>
       <source>N/A</source>
@@ -2282,7 +2282,7 @@
     </message>
     <message>
       <source>No event rules</source>
-      <translation>イベント ルールなし</translation>
+      <translation>イベントルールがありません</translation>
     </message>
     <message>
       <source>Filter by devices...</source>
@@ -2482,7 +2482,7 @@
     </message>
     <message>
       <source>Select All</source>
-      <translation>全て選択</translation>
+      <translation>すべて選択</translation>
     </message>
     <message>
       <source>Devices List</source>
@@ -3094,7 +3094,7 @@ to %1</source>
     </message>
     <message>
       <source>Select All</source>
-      <translation>全て選択</translation>
+      <translation>すべて選択</translation>
     </message>
     <message>
       <source>Clear Filter</source>
@@ -3163,7 +3163,7 @@ to %1</source>
     </message>
     <message>
       <source>All users</source>
-      <translation>全ユーザー</translation>
+      <translation>すべてのユーザー</translation>
     </message>
     <message numerus="yes">
       <source>%1 (%n times)</source>
@@ -3896,7 +3896,7 @@ to %1</source>
     <message numerus="yes">
       <source>Set for all %n Cameras</source>
       <translation>
-        <numerusform>全ての %n カメラに設定</numerusform>
+        <numerusform>全 %n カメラに設定</numerusform>
       </translation>
     </message>
     <message>
@@ -4580,11 +4580,11 @@ to %1</source>
     </message>
     <message>
       <source>All Devices</source>
-      <translation>全デバイス</translation>
+      <translation>すべてのデバイス</translation>
     </message>
     <message>
       <source>All Cameras</source>
-      <translation>全カメラ</translation>
+      <translation>すべてのカメラ</translation>
     </message>
     <message>
       <source>Select devices...</source>
@@ -4624,7 +4624,7 @@ to %1</source>
     </message>
     <message>
       <source>All Users</source>
-      <translation>全てのユーザー</translation>
+      <translation>すべてのユーザー</translation>
     </message>
     <message>
       <source>Select Users...</source>
@@ -5066,7 +5066,7 @@ to %1</source>
     <name>QnStorageAnalyticsWidget</name>
     <message>
       <source>Select All</source>
-      <translation>全て選択</translation>
+      <translation>すべて選択</translation>
     </message>
     <message>
       <source>Export Selection to File...</source>
@@ -5671,7 +5671,7 @@ If you intended to move analytics data to another storage location, please conta
     </message>
     <message>
       <source>Control Video Walls</source>
-      <translation>ビデオウォールコントロール</translation>
+      <translation>ビデオウォールの制御</translation>
     </message>
   </context>
   <context>
@@ -5686,7 +5686,7 @@ If you intended to move analytics data to another storage location, please conta
     </message>
     <message>
       <source>All users</source>
-      <translation>全ユーザー</translation>
+      <translation>すべてのユーザー</translation>
     </message>
     <message>
       <source>With enabled digest authentication</source>
@@ -6244,7 +6244,7 @@ We recommend you not to open this web page. If you understand the risks, you can
     </message>
     <message>
       <source>Enter the name of Video Wall to create:</source>
-      <translation>登録するビデオウォールの名前入力:</translation>
+      <translation>作成するビデオウォールの名前を入力してください:</translation>
     </message>
     <message>
       <source>Activate License...</source>
@@ -7789,7 +7789,7 @@ We recommend you not to open this web page. If you understand the risks, you can
     </message>
     <message>
       <source>Could not connect to server. Video Wall will be closed.</source>
-      <translation>サーバーに接続できませんでした　ビデオウォールが閉じられます</translation>
+      <translation>サーバーに接続できませんでした。ビデオウォールを閉じます。</translation>
     </message>
     <message>
       <source>Could not connect to server. Application will be closed.</source>
@@ -8907,7 +8907,7 @@ You can force it, but it may significantly increase CPU load.</source>
     </message>
     <message>
       <source>Cancel update and delete all downloaded data?</source>
-      <translation>更新をキャンセルしてダウンロードしたデータをすべて削除しますか？</translation>
+      <translation>更新をキャンセルし、ダウンロードしたすべてのデータを削除しますか？</translation>
     </message>
     <message>
       <source>OS versions of some components are no longer supported. Please remove them from the System or update their OS to a supported version.</source>
@@ -9011,7 +9011,7 @@ You can force it, but it may significantly increase CPU load.</source>
     </message>
     <message>
       <source>Download &amp;&amp; Install</source>
-      <translation>ダウンロードとインストール</translation>
+      <translation>ダウンロードしてインストール</translation>
     </message>
     <message>
       <source>Browse for Another File...</source>
@@ -10907,7 +10907,7 @@ You can view %2 or read this %3 to learn more about the current problem.</source
     <name>nx::vms::client::desktop::ui::SubjectSelectionDialog</name>
     <message>
       <source>All Users</source>
-      <translation>全てのユーザー</translation>
+      <translation>すべてのユーザー</translation>
     </message>
     <message>
       <source>Users</source>
@@ -11107,7 +11107,7 @@ You can view %2 or read this %3 to learn more about the current problem.</source
     </message>
     <message>
       <source>All Supported</source>
-      <translation>すべてサポート</translation>
+      <translation>サポートされているすべて</translation>
     </message>
     <message>
       <source>Select folder...</source>
