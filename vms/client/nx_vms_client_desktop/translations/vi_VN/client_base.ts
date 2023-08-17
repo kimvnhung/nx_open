@@ -166,7 +166,7 @@
     </message>
     <message>
       <source>User...</source>
-      <translation>Người sử dụng...</translation>
+      <translation>Người dùng...</translation>
     </message>
     <message>
       <source>New User...</source>
@@ -218,11 +218,11 @@
     </message>
     <message>
       <source>Start Screen Recording</source>
-      <translation>Màn hình khởi quay video</translation>
+      <translation>Bắt đầu ghi màn hình</translation>
     </message>
     <message>
       <source>Stop Screen Recording</source>
-      <translation>Dừng Screen Video Capture</translation>
+      <translation>Dừng ghi màn hình</translation>
     </message>
     <message>
       <source>Stop current action</source>
@@ -262,7 +262,7 @@
     </message>
     <message>
       <source>User Management...</source>
-      <translation>Quản lý người sử dụng...</translation>
+      <translation>Quản lý người dùng...</translation>
     </message>
     <message>
       <source>Local Settings...</source>
@@ -270,7 +270,7 @@
     </message>
     <message>
       <source>Audit Trail...</source>
-      <translation>Đường mòn kiểm toán...</translation>
+      <translation>Báo cáo hành vi người dùng...</translation>
     </message>
     <message>
       <source>Log in to %1...</source>
@@ -705,11 +705,11 @@
     </message>
     <message>
       <source>Show Bookmarks</source>
-      <translation>Hiện Bookmarks</translation>
+      <translation>Hiện dấu trang</translation>
     </message>
     <message>
       <source>Hide Bookmarks</source>
-      <translation>Ẩn Bookmarks</translation>
+      <translation>Ẩn dấu trang</translation>
     </message>
     <message>
       <source>Show Calendar</source>
@@ -849,7 +849,7 @@
     </message>
     <message>
       <source>Switch to Bookmarks tab</source>
-      <translation>Chuyển sang tab Bookmarks</translation>
+      <translation>Chuyển sang tab Dấu trang</translation>
     </message>
     <message>
       <source>Switch to Events tab</source>
@@ -2027,7 +2027,7 @@ Khóa giấy phép: %2</translation>
     </message>
     <message>
       <source>User updated</source>
-      <translation>Người sử dụng cập nhật</translation>
+      <translation>Đã cập nhật người dùng</translation>
     </message>
     <message>
       <source>Watching live</source>
@@ -2083,7 +2083,7 @@ Khóa giấy phép: %2</translation>
     </message>
     <message>
       <source>User</source>
-      <translation>Người sử dụng</translation>
+      <translation>Người dùng</translation>
     </message>
     <message>
       <source>IP</source>
@@ -2169,7 +2169,7 @@ Khóa giấy phép: %2</translation>
     </message>
     <message>
       <source>Event rules reset to default</source>
-      <translation>Quy tắc sự kiện đặt lại về mặc định</translation>
+      <translation>Đặt lại quy tắc sự kiện về mặc định</translation>
     </message>
     <message>
       <source>Storage added</source>
@@ -2286,14 +2286,14 @@ Khóa giấy phép: %2</translation>
     </message>
     <message>
       <source>Any Camera</source>
-      <translation>Bất kỳ camera nào</translation>
+      <translation>Tất cả camera</translation>
     </message>
   </context>
   <context>
     <name>QnBusinessRuleItemDelegate</name>
     <message>
       <source>Manage Bookmarks</source>
-      <translation>Quản lý Bookmark</translation>
+      <translation>Quản lý Dấu trang</translation>
     </message>
   </context>
   <context>
@@ -2340,7 +2340,7 @@ Khóa giấy phép: %2</translation>
     </message>
     <message>
       <source>Any Camera</source>
-      <translation>Bất kỳ camera nào</translation>
+      <translation>Tất cả camera</translation>
     </message>
     <message numerus="yes">
       <source>%n Servers</source>
@@ -2350,7 +2350,7 @@ Khóa giấy phép: %2</translation>
     </message>
     <message>
       <source>User</source>
-      <translation>Người sử dụng</translation>
+      <translation>Người dùng</translation>
     </message>
     <message>
       <source>Source Server</source>
@@ -2417,7 +2417,7 @@ Khóa giấy phép: %2</translation>
     </message>
     <message>
       <source>Any Camera</source>
-      <translation>Bất kỳ camera nào</translation>
+      <translation>Tất cả camera</translation>
     </message>
     <message>
       <source>Force Acknowledgement will only work for Generic Events if camera identifiers are used in the Generic Event URL</source>
@@ -2448,7 +2448,7 @@ Khóa giấy phép: %2</translation>
     </message>
     <message>
       <source>No event rules</source>
-      <translation>Không có event rules</translation>
+      <translation>Không có quy tắc sự kiện</translation>
     </message>
     <message>
       <source>Filter by devices...</source>
@@ -2491,7 +2491,7 @@ Khóa giấy phép: %2</translation>
     </message>
     <message>
       <source>Event</source>
-      <translation>Biến cố</translation>
+      <translation>Sự kiện</translation>
     </message>
     <message>
       <source>Source</source>
@@ -2503,7 +2503,7 @@ Khóa giấy phép: %2</translation>
     </message>
     <message>
       <source>Target</source>
-      <translation>Mục đích</translation>
+      <translation>Đích đến</translation>
     </message>
     <message>
       <source>Interval of Action</source>
@@ -2937,7 +2937,7 @@ to %1</source>
     <message>
       <source>%1 is temporary unavailable. Please try again later.</source>
       <comment>%1 is the cloud name (like Nx Cloud)</comment>
-      <translation>%1 là tạm thời không có. Vui lòng thử lại sau.</translation>
+      <translation>%1 tạm thời không khả dụng. Vui lòng thử lại sau.</translation>
     </message>
     <message>
       <source>Credentials are no longer valid.</source>
@@ -3345,7 +3345,7 @@ to %1</source>
     </message>
     <message>
       <source>Clear Filter</source>
-      <translation>Rõ ràng Lọc</translation>
+      <translation>Xóa bộ lọc</translation>
     </message>
     <message>
       <source>Export selected events to file</source>
@@ -3353,7 +3353,7 @@ to %1</source>
     </message>
     <message>
       <source>Any Action</source>
-      <translation>Bất kỳ hành động</translation>
+      <translation>Tất cả hành động</translation>
     </message>
     <message>
       <source>No events</source>
@@ -3390,7 +3390,7 @@ to %1</source>
     </message>
     <message>
       <source>Event</source>
-      <translation>Biến cố</translation>
+      <translation>Sự kiện</translation>
     </message>
     <message>
       <source>Source</source>
@@ -3402,7 +3402,7 @@ to %1</source>
     </message>
     <message>
       <source>Target</source>
-      <translation>Mục đích</translation>
+      <translation>Đích đến</translation>
     </message>
     <message>
       <source>Description</source>
@@ -3549,11 +3549,11 @@ to %1</source>
     </message>
     <message>
       <source>Open Bookmarks List</source>
-      <translation>Danh sách mở Bookmarks</translation>
+      <translation>Mở danh sách dấu trang</translation>
     </message>
     <message>
       <source>Event Rules</source>
-      <translation>Event Rules</translation>
+      <translation>Quy tắc sự kiện</translation>
     </message>
     <message>
       <source>Event Log</source>
@@ -3561,11 +3561,11 @@ to %1</source>
     </message>
     <message>
       <source>Audit Trail</source>
-      <translation>Đường mòn kiểm toán</translation>
+      <translation>Báo cáo hành vi người dùng</translation>
     </message>
     <message>
       <source>Bookmarks</source>
-      <translation>Bookmarks</translation>
+      <translation>Dấu trang</translation>
     </message>
     <message>
       <source>Device List</source>
@@ -3577,7 +3577,7 @@ to %1</source>
     </message>
     <message>
       <source>Open Event Rules Management</source>
-      <translation>Mở báo / Quy định Quản lý sự kiện</translation>
+      <translation>Mở quản lý quy tắc sự kiện</translation>
     </message>
     <message>
       <source>Open Audit Trail Log</source>
@@ -3716,7 +3716,7 @@ to %1</source>
     </message>
     <message>
       <source>Changing any LDAP settings other than &quot;Search Filter&quot; will result in connectivity loss for all LDAP fetched users.</source>
-      <translation>Thay đổi bất kỳ cài đặt LDAP nào khác ngoài &quot; Bộ lọc tìm kiếm &quot; sẽ mất kết nối cho tất cả người dùng LDAP.</translation>
+      <translation>Thay đổi bất kỳ cài đặt LDAP nào khác với &quot;Bộ lọc tìm kiếm&quot; sẽ dẫn đến mất kết nối cho tất cả người dùng đã được nạp từ LDAP.</translation>
     </message>
   </context>
   <context>
@@ -3765,11 +3765,11 @@ to %1</source>
     </message>
     <message>
       <source>Could not load users.</source>
-      <translation>Không thể tải người sử dụng.</translation>
+      <translation>Không thể tải Người dùng.</translation>
     </message>
     <message>
       <source>Error while loading users.</source>
-      <translation>Lỗi trong khi tải người sử dụng.</translation>
+      <translation>Lỗi khi tải người dùng.</translation>
     </message>
     <message>
       <source>No new users found.</source>
@@ -3991,7 +3991,7 @@ to %1</source>
     </message>
     <message>
       <source>Screen Recording</source>
-      <translation>Màn hình video</translation>
+      <translation>Ghi màn hình</translation>
     </message>
     <message>
       <source>Notifications</source>
@@ -4294,11 +4294,11 @@ to %1</source>
     </message>
     <message>
       <source>View bookmarks</source>
-      <translation>Xem bookmark</translation>
+      <translation>Xem dấu trang</translation>
     </message>
     <message>
       <source>Modify bookmarks</source>
-      <translation>Tùy chỉnh Bookmark</translation>
+      <translation>Tùy chỉnh dấu trang</translation>
     </message>
     <message>
       <source>User Input</source>
@@ -4320,7 +4320,7 @@ to %1</source>
     <name>QnPopupBusinessActionWidget</name>
     <message>
       <source>Manage Bookmarks</source>
-      <translation>Quản lý Bookmark</translation>
+      <translation>Quản lý Dấu trang</translation>
     </message>
     <message>
       <source>Notification will be shown until one of the users who see it creates bookmark with event description</source>
@@ -4495,7 +4495,7 @@ to %1</source>
     <name>QnRecordingSettingsWidget</name>
     <message>
       <source>Screen %1 - %2x%3</source>
-      <translation>Màn %1 - %2x%3</translation>
+      <translation>Màn hình %1 - %2x%3</translation>
     </message>
     <message>
       <source>%1 (Primary)</source>
@@ -4702,7 +4702,7 @@ to %1</source>
     <name>QnSearchBookmarksDialogPrivate</name>
     <message>
       <source>No bookmarks</source>
-      <translation>Không có bookmark nào</translation>
+      <translation>Không có dấu trang</translation>
     </message>
     <message>
       <source>Search</source>
@@ -4729,7 +4729,7 @@ to %1</source>
     </message>
     <message>
       <source>Camera</source>
-      <translation>Máy ảnh</translation>
+      <translation>Camera</translation>
     </message>
     <message>
       <source>Created</source>
@@ -4752,7 +4752,7 @@ to %1</source>
     </message>
     <message>
       <source>Any Camera</source>
-      <translation>Bất kỳ camera nào</translation>
+      <translation>Tất cả camera</translation>
     </message>
     <message>
       <source>All Devices</source>
@@ -5405,7 +5405,7 @@ Nếu bạn có ý định di chuyển dữ liệu phân tích đến một vị
     </message>
     <message>
       <source>Licenses</source>
-      <translation>Ủy quyền</translation>
+      <translation>Giấy phép</translation>
     </message>
     <message>
       <source>Email</source>
@@ -5550,7 +5550,7 @@ Nếu bạn có ý định di chuyển dữ liệu phân tích đến một vị
     <message>
       <source>Check out %1 &amp;mdash; connect to your System from anywhere!</source>
       <comment>%1 is the cloud name (like Nx Cloud)</comment>
-      <translation>Hãy kiểm tra %1 &amp;mdash; kết nối với Hệ thống của bạn từ bất cứ đâu!</translation>
+      <translation>Kiểm tra %1 &amp;mdash; kết nối với Hệ thống của bạn từ mọi nơi!</translation>
     </message>
     <message>
       <source>Some cameras require passwords to be set</source>
@@ -6007,7 +6007,7 @@ Chúng tôi khuyến nghị bạn không nên mở trang web này. Nếu bạn h
     <name>QnWorkbenchBookmarksHandler</name>
     <message>
       <source>Bookmark</source>
-      <translation>Bookmark</translation>
+      <translation>Dấu trang</translation>
     </message>
     <message>
       <source>Server offline</source>
@@ -6015,16 +6015,16 @@ Chúng tôi khuyến nghị bạn không nên mở trang web này. Nếu bạn h
     </message>
     <message>
       <source>Bookmarks can only be edited on an online Server.</source>
-      <translation>Bookmark chỉ có thể được thêm vào một máy chủ trực tuyến.</translation>
+      <translation>Dấu trang chỉ có thể được chỉnh sửa trên Máy chủ trực tuyến.</translation>
     </message>
     <message>
       <source>Delete bookmark?</source>
-      <translation>Xóa bookmarks?</translation>
+      <translation>Xóa dấu trang?</translation>
     </message>
     <message numerus="yes">
       <source>Delete %n bookmarks?</source>
       <translation>
-        <numerusform>Xóa %n Bookmark?</numerusform>
+        <numerusform>Xóa %n dấu trang?</numerusform>
       </translation>
     </message>
   </context>
@@ -6088,19 +6088,19 @@ Chúng tôi khuyến nghị bạn không nên mở trang web này. Nếu bạn h
     <name>QnWorkbenchScreenRecordingHandler</name>
     <message>
       <source>Screen capturing subsystem is not initialized yet. Please try again later.</source>
-      <translation>Chụp màn hình hệ thống con đã không được khởi tạo. Vui lòng thử lại.</translation>
+      <translation>Trình chụp màn hình chưa được khởi tạo. Vui lòng thử lại sau.</translation>
     </message>
     <message>
       <source>Recording in %1...</source>
-      <translation>Đang ghi ở %1...</translation>
+      <translation>Bắt đầu ghi sau %1...</translation>
     </message>
     <message>
       <source>Recorded Video</source>
-      <translation>Video ghi lại</translation>
+      <translation>Video đã ghi</translation>
     </message>
     <message>
       <source>Save Recording As...</source>
-      <translation>Lưu video cho...</translation>
+      <translation>Lưu bản ghi dưới dạng...</translation>
     </message>
     <message>
       <source>Failed to start recording</source>
@@ -7270,7 +7270,7 @@ Chúng tôi khuyến nghị bạn không nên mở trang web này. Nếu bạn h
     <name>nx::vms::client::desktop::BookmarkSearchWidget</name>
     <message>
       <source>No bookmarks</source>
-      <translation>Không có bookmark nào</translation>
+      <translation>Không có dấu trang</translation>
     </message>
     <message numerus="yes">
       <source>%n bookmarks</source>
@@ -8032,7 +8032,7 @@ Chúng tôi khuyến nghị bạn không nên mở trang web này. Nếu bạn h
     <message>
       <source>Failed to connect System to %1</source>
       <comment>%1 is the cloud name (like Nx Cloud)</comment>
-      <translation>Kết nối hệ thống lỗi %1</translation>
+      <translation>Không thể kết nối Hệ thống với %1</translation>
     </message>
     <message>
       <source>Connect System to %1</source>
@@ -8302,7 +8302,7 @@ Chúng tôi khuyến nghị bạn không nên mở trang web này. Nếu bạn h
     <message>
       <source>Bookmarks</source>
       <comment>Bookmarks tab title</comment>
-      <translation>Bookmarks</translation>
+      <translation>Dấu trang</translation>
     </message>
     <message>
       <source>Events</source>
@@ -8458,7 +8458,7 @@ Chúng tôi khuyến nghị bạn không nên mở trang web này. Nếu bạn h
     </message>
     <message>
       <source>Delete Bookmark Info</source>
-      <translation>Xóa bookmarks</translation>
+      <translation>Xóa Dấu trang</translation>
     </message>
     <message>
       <source>Bookmark Info</source>
@@ -9643,7 +9643,7 @@ Bạn có thể buộc tính năng đó hoạt động, nhưng nó có thể là
     </message>
     <message>
       <source>Unexpected error code.</source>
-      <translation>Mã lỗi bất ngờ.</translation>
+      <translation>Lỗi không xác định.</translation>
     </message>
     <message>
       <source>Ready to install update</source>
@@ -9690,11 +9690,11 @@ Bạn có thể buộc tính năng đó hoạt động, nhưng nó có thể là
     </message>
     <message>
       <source>Powered</source>
-      <translation>Cung cấp</translation>
+      <translation>Đã cấp nguồn</translation>
     </message>
     <message>
       <source>Unexpected</source>
-      <translation>Bất ngờ</translation>
+      <translation>Không xác định</translation>
     </message>
     <message>
       <source>Empty</source>
@@ -11112,7 +11112,7 @@ Không ghim chứng chỉ này nếu bạn không sửa đổi chứng chỉ SSL
     </message>
     <message>
       <source>Bookmarks</source>
-      <translation>Bookmarks</translation>
+      <translation>Dấu trang</translation>
     </message>
     <message>
       <source>High-Res</source>
@@ -11366,7 +11366,7 @@ Không ghim chứng chỉ này nếu bạn không sửa đổi chứng chỉ SSL
     <name>nx::vms::client::desktop::rules::RulesTableModel</name>
     <message>
       <source>Event</source>
-      <translation>Biến cố</translation>
+      <translation>Sự kiện</translation>
     </message>
     <message>
       <source>Action</source>
@@ -11456,7 +11456,7 @@ Không ghim chứng chỉ này nếu bạn không sửa đổi chứng chỉ SSL
     </message>
     <message>
       <source>Users</source>
-      <translation>Người sử dụng</translation>
+      <translation>Người dùng</translation>
     </message>
     <message>
       <source>Custom Users</source>
@@ -11678,7 +11678,7 @@ Không ghim chứng chỉ này nếu bạn không sửa đổi chứng chỉ SSL
     </message>
     <message>
       <source>There is another user with the same name</source>
-      <translation>Có một người sử dụng có cùng tên</translation>
+      <translation>Có một người dùng khác có cùng tên</translation>
     </message>
     <message>
       <source>Updating Background...</source>
@@ -11931,7 +11931,8 @@ Bạn có thể chọn một vị trí lưu trữ khác trong tab &quot;Quản l
       <source>Zoom timeline
 to view more bookmarks</source>
       <comment>It is highly recommended to split message in two lines</comment>
-      <translation>Phóng to đường thời gian để xem thêm bookmarks</translation>
+      <translation>Thu phóng dòng thời gian
+để xem thêm dấu trang</translation>
     </message>
     <message>
       <source>Play bookmark from the beginning</source>
@@ -11939,7 +11940,7 @@ to view more bookmarks</source>
     </message>
     <message>
       <source>Edit bookmark</source>
-      <translation>Chỉnh sửa bookmarks</translation>
+      <translation>Chỉnh sửa dấu trang</translation>
     </message>
     <message>
       <source>Export bookmark</source>
@@ -11947,7 +11948,7 @@ to view more bookmarks</source>
     </message>
     <message>
       <source>Delete bookmark</source>
-      <translation>Xóa bookmarks</translation>
+      <translation>Xóa dấu trang</translation>
     </message>
   </context>
   <context>
