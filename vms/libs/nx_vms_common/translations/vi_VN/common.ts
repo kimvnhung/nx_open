@@ -1158,11 +1158,11 @@
     </message>
     <message>
       <source>Device output</source>
-      <translation>Sản lượng thiết bị</translation>
+      <translation>Đầu ra thiết bị</translation>
     </message>
     <message>
       <source>Camera output</source>
-      <translation>Sản lượng máy ảnh</translation>
+      <translation>Đầu ra camera</translation>
     </message>
     <message>
       <source>Device recording</source>
@@ -1208,7 +1208,7 @@
     </message>
     <message>
       <source>Any Event</source>
-      <translation>Bất kỳ tổ chức sự kiện</translation>
+      <translation>Tất cả sự kiện</translation>
     </message>
     <message numerus="yes">
       <source>Input Signal on Devices</source>
@@ -1322,7 +1322,7 @@
     </message>
     <message>
       <source>Event: %1</source>
-      <translation>Biến cố：%1</translation>
+      <translation>Sự kiện: %1</translation>
     </message>
     <message>
       <source>Source: %1</source>
