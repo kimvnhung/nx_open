@@ -1957,7 +1957,7 @@
     </message>
     <message>
       <source>Description</source>
-      <translation>Miêu tả</translation>
+      <translation>Mô tả</translation>
     </message>
     <message>
       <source>Click to expand</source>
@@ -3127,7 +3127,7 @@ to %1</source>
     </message>
     <message>
       <source>Description</source>
-      <translation>Miêu tả</translation>
+      <translation>Mô tả</translation>
     </message>
   </context>
   <context>
@@ -3158,7 +3158,7 @@ to %1</source>
     </message>
     <message>
       <source>Description</source>
-      <translation>Miêu tả</translation>
+      <translation>Mô tả</translation>
     </message>
     <message>
       <source>All users</source>
@@ -3747,7 +3747,7 @@ to %1</source>
     </message>
     <message>
       <source>Look and Feel</source>
-      <translation>Điều chỉnh thị giác</translation>
+      <translation>Giao diện</translation>
     </message>
     <message>
       <source>Screen Recording</source>
@@ -3790,7 +3790,7 @@ to %1</source>
     <name>QnLookAndFeelPreferencesWidget</name>
     <message>
       <source>Preparing Image...</source>
-      <translation>Chuẩn bị hình ảnh...</translation>
+      <translation>Đang chuẩn bị hình ảnh...</translation>
     </message>
     <message>
       <source>Please wait while image is being prepared...</source>
@@ -4564,7 +4564,7 @@ to %1</source>
     </message>
     <message>
       <source>Description</source>
-      <translation>Miêu tả</translation>
+      <translation>Mô tả</translation>
     </message>
   </context>
   <context>
@@ -10294,7 +10294,7 @@ Bạn có thể xem %2 hoặc đọc %3 này để tìm hiểu thêm về vấn 
     </message>
     <message>
       <source>Description</source>
-      <translation>Miêu tả</translation>
+      <translation>Mô tả</translation>
     </message>
     <message>
       <source>Enter parameters</source>
