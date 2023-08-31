@@ -1029,6 +1029,10 @@
       <source>Save Cloud Layout As...</source>
       <translation>名前を付けてクラウドレイアウトを保存...</translation>
     </message>
+    <message>
+      <source>User Manual...</source>
+      <translation type="unfinished">User Manual...</translation>
+    </message>
   </context>
   <context>
     <name>Deactivator</name>
@@ -1149,6 +1153,21 @@
       <translation>
         <numerusform>%n レイアウト</numerusform>
       </translation>
+    </message>
+  </context>
+  <context>
+    <name>FileExtensions</name>
+    <message>
+      <source>Pictures</source>
+      <translation>画像</translation>
+    </message>
+    <message>
+      <source>Video</source>
+      <translation>映像</translation>
+    </message>
+    <message>
+      <source>All Files</source>
+      <translation>すべてのファイル</translation>
     </message>
   </context>
   <context>
@@ -3102,21 +3121,6 @@ to %1</source>
     <message>
       <source>To generate Generic Event, please refer to %1.</source>
       <translation>汎用イベントを生成するには、 %1を参照してください。</translation>
-    </message>
-  </context>
-  <context>
-    <name>QnCustomFileDialog</name>
-    <message>
-      <source>Pictures</source>
-      <translation>画像</translation>
-    </message>
-    <message>
-      <source>Video</source>
-      <translation>映像</translation>
-    </message>
-    <message>
-      <source>All Files</source>
-      <translation>すべてのファイル</translation>
     </message>
   </context>
   <context>
@@ -8143,6 +8147,10 @@ We recommend you not to open this web page. If you understand the risks, you can
     <message>
       <source>Recording Schedule contains recording modes that are not supported by the selected cameras. Unsupported recording modes will be changed to &quot;Record Always&quot;.</source>
       <translation>録画スケジュールには、選択したカメラでサポートされていない録画モードが含まれています。サポートされていない録画モードは &quot;常時録画&quot; に変更されます。</translation>
+    </message>
+    <message>
+      <source>Recording will not be enabled on some cameras.</source>
+      <translation type="unfinished">Recording will not be enabled on some cameras.</translation>
     </message>
   </context>
   <context>

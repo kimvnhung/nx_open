@@ -1031,6 +1031,10 @@
       <source>Save Cloud Layout As...</source>
       <translation>Spara molnlayout som...</translation>
     </message>
+    <message>
+      <source>User Manual...</source>
+      <translation type="unfinished">User Manual...</translation>
+    </message>
   </context>
   <context>
     <name>Deactivator</name>
@@ -1152,6 +1156,21 @@
         <numerusform>%n vyer</numerusform>
         <numerusform>%n vyer</numerusform>
       </translation>
+    </message>
+  </context>
+  <context>
+    <name>FileExtensions</name>
+    <message>
+      <source>Pictures</source>
+      <translation>Bilder</translation>
+    </message>
+    <message>
+      <source>Video</source>
+      <translation>Video</translation>
+    </message>
+    <message>
+      <source>All Files</source>
+      <translation>Alla filer</translation>
     </message>
   </context>
   <context>
@@ -3142,21 +3161,6 @@ till %1</translation>
     <message>
       <source>To generate Generic Event, please refer to %1.</source>
       <translation>För att generera generisk händelse, se %1.</translation>
-    </message>
-  </context>
-  <context>
-    <name>QnCustomFileDialog</name>
-    <message>
-      <source>Pictures</source>
-      <translation>Bilder</translation>
-    </message>
-    <message>
-      <source>Video</source>
-      <translation>Video</translation>
-    </message>
-    <message>
-      <source>All Files</source>
-      <translation>Alla filer</translation>
     </message>
   </context>
   <context>
@@ -8268,6 +8272,10 @@ Vi rekommenderar att du inte öppnar den här webbsidan. Om du förstår riskern
     <message>
       <source>Recording Schedule contains recording modes that are not supported by the selected cameras. Unsupported recording modes will be changed to &quot;Record Always&quot;.</source>
       <translation>Inspelningsschemat innehåller inspelningslägen som inte stöds av de valda kamerorna. Inspelningslägen som inte stöds kommer att ändras till &quot;Spela in alltid&quot;.</translation>
+    </message>
+    <message>
+      <source>Recording will not be enabled on some cameras.</source>
+      <translation type="unfinished">Recording will not be enabled on some cameras.</translation>
     </message>
   </context>
   <context>
