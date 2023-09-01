@@ -1736,7 +1736,7 @@
     </message>
     <message>
       <source>Semicolon-separated list of Servers designated to connect to the Cloud. Servers at the top of the list have higher priority. If the list is empty a Server for the Cloud connection is selected automatically.</source>
-      <translation type="unfinished">Semicolon-separated list of Servers designated to connect to the Cloud. Servers at the top of the list have higher priority. If the list is empty a Server for the Cloud connection is selected automatically.</translation>
+      <translation>Список серверов, разделенных точкой с запятой, предназначенных для подключения к облаку. Серверы, находящиеся вверху списка, имеют более высокий приоритет. Если список пуст, Сервер для подключения к Облаку выбирается автоматически.</translation>
     </message>
   </context>
   <context>

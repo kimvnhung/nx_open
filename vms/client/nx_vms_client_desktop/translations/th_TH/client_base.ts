@@ -1031,7 +1031,7 @@
     </message>
     <message>
       <source>User Manual...</source>
-      <translation type="unfinished">User Manual...</translation>
+      <translation>คู่มือการใช้...</translation>
     </message>
   </context>
   <context>
@@ -8148,7 +8148,7 @@ We recommend you not to open this web page. If you understand the risks, you can
     </message>
     <message>
       <source>Recording will not be enabled on some cameras.</source>
-      <translation type="unfinished">Recording will not be enabled on some cameras.</translation>
+      <translation>การบันทึกจะไม่สามารถเปิดใช้งานได้สำหรับกล้องบางรุ่น</translation>
     </message>
   </context>
   <context>

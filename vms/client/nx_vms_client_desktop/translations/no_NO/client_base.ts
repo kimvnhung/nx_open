@@ -1033,7 +1033,7 @@
     </message>
     <message>
       <source>User Manual...</source>
-      <translation type="unfinished">User Manual...</translation>
+      <translation>Brukermanual...</translation>
     </message>
   </context>
   <context>
@@ -8275,7 +8275,7 @@ Vi anbefaler at du ikke åpner denne nettsiden. Hvis du forstår risikoen, kan d
     </message>
     <message>
       <source>Recording will not be enabled on some cameras.</source>
-      <translation type="unfinished">Recording will not be enabled on some cameras.</translation>
+      <translation>Opptak vil ikke være aktivert på enkelte kameraer.</translation>
     </message>
   </context>
   <context>

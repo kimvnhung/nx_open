@@ -11012,7 +11012,7 @@ Do not pin this certificate if you did not modify %2 Server SSL certificate.</tr
     </message>
     <message>
       <source>Export</source>
-      <translation>ייצא</translation>
+      <translation>יצא</translation>
     </message>
     <message>
       <source>On-device recordings were found</source>
