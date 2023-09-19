@@ -1033,7 +1033,7 @@
     </message>
     <message>
       <source>User Manual...</source>
-      <translation type="unfinished">User Manual...</translation>
+      <translation>Manual de usuario...</translation>
     </message>
   </context>
   <context>
@@ -8273,7 +8273,7 @@ Le recomendamos que no abra esta página web. Si comprende los riesgos, puede ab
     </message>
     <message>
       <source>Recording will not be enabled on some cameras.</source>
-      <translation type="unfinished">Recording will not be enabled on some cameras.</translation>
+      <translation>La grabación no estará habilitada en algunas cámaras.</translation>
     </message>
   </context>
   <context>
