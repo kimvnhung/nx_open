@@ -1646,7 +1646,7 @@
     </message>
     <message>
       <source>Semicolon-separated list of Servers designated to connect to the Cloud. Servers at the top of the list have higher priority. If the list is empty a Server for the Cloud connection is selected automatically.</source>
-      <translation type="unfinished">Semicolon-separated list of Servers designated to connect to the Cloud. Servers at the top of the list have higher priority. If the list is empty a Server for the Cloud connection is selected automatically.</translation>
+      <translation>Liste séparée par des virgules de serveurs désignés pour se connecter au Cloud. Les serveurs en haut de la liste ont une priorité plus élevée. Si la liste est vide, un serveur pour la connexion Cloud est sélectionné automatiquement.</translation>
     </message>
   </context>
   <context>
