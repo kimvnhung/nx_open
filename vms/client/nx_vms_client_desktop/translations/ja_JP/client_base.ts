@@ -2245,11 +2245,11 @@ License Key: %2</source>
     </message>
     <message>
       <source>Name cannot be empty.</source>
-      <translation>名前を空にすることはできません</translation>
+      <translation>名前を入力してください。</translation>
     </message>
     <message>
       <source>Description cannot be empty</source>
-      <translation>説明は空にできません</translation>
+      <translation>説明を入力してください</translation>
     </message>
   </context>
   <context>
@@ -5714,7 +5714,7 @@ If you intended to move analytics data to another storage location, please conta
     <name>QnUserRoleSettingsWidget</name>
     <message>
       <source>Role name cannot be empty.</source>
-      <translation>ロール名は空欄にできません。</translation>
+      <translation>ロール名を入力してください。</translation>
     </message>
     <message>
       <source>Role with same name already exists.</source>
@@ -5865,7 +5865,7 @@ If you intended to move analytics data to another storage location, please conta
     </message>
     <message>
       <source>Email cannot be empty.</source>
-      <translation>メールを空にすることはできません</translation>
+      <translation>メールアドレスを入力してください。</translation>
     </message>
     <message>
       <source>Password</source>
@@ -5916,7 +5916,7 @@ If you intended to move analytics data to another storage location, please conta
     <name>QnValidatorStrings</name>
     <message>
       <source>Email cannot be empty.</source>
-      <translation>メールを空にすることはできません</translation>
+      <translation>メールアドレスを入力してください。</translation>
     </message>
     <message>
       <source>Email is not valid.</source>
@@ -5924,7 +5924,7 @@ If you intended to move analytics data to another storage location, please conta
     </message>
     <message>
       <source>Password cannot be empty.</source>
-      <translation>パスワードを入力してください</translation>
+      <translation>パスワードを入力してください。</translation>
     </message>
     <message>
       <source>Avoid leading and trailing spaces.</source>
@@ -8256,7 +8256,7 @@ We recommend you not to open this web page. If you understand the risks, you can
     </message>
     <message>
       <source>Address field cannot be empty</source>
-      <translation>アドレス フィールドは空にできません</translation>
+      <translation>アドレス欄に入力してください</translation>
     </message>
     <message>
       <source>Searching for devices on the network is restricted to cameras that support HTTPS connections. This can be changed in %1 settings.</source>
@@ -8554,7 +8554,7 @@ We recommend you not to open this web page. If you understand the risks, you can
     </message>
     <message>
       <source>Name cannot be empty.</source>
-      <translation>名前を空にすることはできません</translation>
+      <translation>名前を入力してください。</translation>
     </message>
     <message>
       <source>Select Folder...</source>
@@ -8994,7 +8994,7 @@ Remember to return the Logging Level to its default setting after you have colle
     </message>
     <message>
       <source>The login cannot be empty.</source>
-      <translation>ログインは空にできません。</translation>
+      <translation>ログイン名を入力してください。</translation>
     </message>
     <message>
       <source>Testing...</source>
@@ -9781,7 +9781,7 @@ You can force it, but it may significantly increase CPU load.</source>
     </message>
     <message>
       <source>URL cannot be empty.</source>
-      <translation>URLは空にできません</translation>
+      <translation>URLを入力してください。</translation>
     </message>
     <message>
       <source>Wrong URL format.</source>
