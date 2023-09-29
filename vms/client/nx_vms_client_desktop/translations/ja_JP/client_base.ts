@@ -5031,7 +5031,7 @@ to %1</source>
     </message>
     <message>
       <source>UNAUTHORIZED</source>
-      <translation>要認証</translation>
+      <translation>認証が必要です</translation>
     </message>
     <message>
       <source>SERVER UNAVAILABLE</source>
@@ -5039,11 +5039,11 @@ to %1</source>
     </message>
     <message>
       <source>NO ACCESS</source>
-      <translation>アクセスなし</translation>
+      <translation>アクセスできません</translation>
     </message>
     <message>
       <source>DEVICE DISABLED</source>
-      <translation>デバイスは使用不可</translation>
+      <translation>デバイスは無効化されています</translation>
     </message>
     <message>
       <source>Device Settings</source>
@@ -5075,7 +5075,7 @@ to %1</source>
     </message>
     <message>
       <source>NO LIVE STREAM</source>
-      <translation>ライブストリームなし</translation>
+      <translation>ライブ映像はありません</translation>
     </message>
     <message>
       <source>TOO MANY CONNECTIONS</source>
@@ -5091,7 +5091,7 @@ to %1</source>
     </message>
     <message>
       <source>UNSUPPORTED FIRMWARE VERSION</source>
-      <translation>サポートされていないファームウェアバージョン</translation>
+      <translation>非対応のファームウェアバージョンです</translation>
     </message>
     <message>
       <source>NOT ENOUGH LICENSES</source>
@@ -6448,7 +6448,7 @@ We recommend you not to open this web page. If you understand the risks, you can
     </message>
     <message>
       <source>This layout is shared with other users, so you change it for them too.</source>
-      <translation>このレイアウトは他のユーザーと共有されています</translation>
+      <translation>このレイアウトは他のユーザーと共有されています。共有しているユーザーにも変更が反映されます。</translation>
     </message>
     <message numerus="yes">
       <source>User will lose access to %n resources:</source>
