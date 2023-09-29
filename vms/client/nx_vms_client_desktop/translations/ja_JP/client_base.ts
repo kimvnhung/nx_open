@@ -2249,11 +2249,11 @@ License Key: %2</source>
     </message>
     <message>
       <source>Name cannot be empty.</source>
-      <translation>名前を空にすることはできません</translation>
+      <translation>名前を入力してください。</translation>
     </message>
     <message>
       <source>Description cannot be empty</source>
-      <translation>説明は空にできません</translation>
+      <translation>説明を入力してください</translation>
     </message>
   </context>
   <context>
@@ -5039,7 +5039,7 @@ to %1</source>
     </message>
     <message>
       <source>UNAUTHORIZED</source>
-      <translation>要認証</translation>
+      <translation>認証が必要です</translation>
     </message>
     <message>
       <source>SERVER UNAVAILABLE</source>
@@ -5047,11 +5047,11 @@ to %1</source>
     </message>
     <message>
       <source>NO ACCESS</source>
-      <translation>アクセスなし</translation>
+      <translation>アクセスできません</translation>
     </message>
     <message>
       <source>DEVICE DISABLED</source>
-      <translation>デバイスは使用不可</translation>
+      <translation>デバイスは無効化されています</translation>
     </message>
     <message>
       <source>Device Settings</source>
@@ -5083,7 +5083,7 @@ to %1</source>
     </message>
     <message>
       <source>NO LIVE STREAM</source>
-      <translation>ライブストリームなし</translation>
+      <translation>ライブ映像はありません</translation>
     </message>
     <message>
       <source>TOO MANY CONNECTIONS</source>
@@ -5099,7 +5099,7 @@ to %1</source>
     </message>
     <message>
       <source>UNSUPPORTED FIRMWARE VERSION</source>
-      <translation>サポートされていないファームウェアバージョン</translation>
+      <translation>非対応のファームウェアバージョンです</translation>
     </message>
     <message>
       <source>NOT ENOUGH LICENSES</source>
@@ -5722,7 +5722,7 @@ If you intended to move analytics data to another storage location, please conta
     <name>QnUserRoleSettingsWidget</name>
     <message>
       <source>Role name cannot be empty.</source>
-      <translation>ロール名は空欄にできません。</translation>
+      <translation>ロール名を入力してください。</translation>
     </message>
     <message>
       <source>Role with same name already exists.</source>
@@ -5873,7 +5873,7 @@ If you intended to move analytics data to another storage location, please conta
     </message>
     <message>
       <source>Email cannot be empty.</source>
-      <translation>メールを空にすることはできません</translation>
+      <translation>メールアドレスを入力してください。</translation>
     </message>
     <message>
       <source>Password</source>
@@ -5924,7 +5924,7 @@ If you intended to move analytics data to another storage location, please conta
     <name>QnValidatorStrings</name>
     <message>
       <source>Email cannot be empty.</source>
-      <translation>メールを空にすることはできません</translation>
+      <translation>メールアドレスを入力してください。</translation>
     </message>
     <message>
       <source>Email is not valid.</source>
@@ -5932,7 +5932,7 @@ If you intended to move analytics data to another storage location, please conta
     </message>
     <message>
       <source>Password cannot be empty.</source>
-      <translation>パスワードを入力してください</translation>
+      <translation>パスワードを入力してください。</translation>
     </message>
     <message>
       <source>Avoid leading and trailing spaces.</source>
@@ -6456,7 +6456,7 @@ We recommend you not to open this web page. If you understand the risks, you can
     </message>
     <message>
       <source>This layout is shared with other users, so you change it for them too.</source>
-      <translation>このレイアウトは他のユーザーと共有されています</translation>
+      <translation>このレイアウトは他のユーザーと共有されています。共有しているユーザーにも変更が反映されます。</translation>
     </message>
     <message numerus="yes">
       <source>User will lose access to %n resources:</source>
@@ -8269,7 +8269,7 @@ We recommend you not to open this web page. If you understand the risks, you can
     </message>
     <message>
       <source>Address field cannot be empty</source>
-      <translation>アドレス フィールドは空にできません</translation>
+      <translation>アドレス欄に入力してください</translation>
     </message>
     <message>
       <source>Searching for devices on the network is restricted to cameras that support HTTPS connections. This can be changed in %1 settings.</source>
@@ -8567,7 +8567,7 @@ We recommend you not to open this web page. If you understand the risks, you can
     </message>
     <message>
       <source>Name cannot be empty.</source>
-      <translation>名前を空にすることはできません</translation>
+      <translation>名前を入力してください。</translation>
     </message>
     <message>
       <source>Select Folder...</source>
@@ -9007,7 +9007,7 @@ Remember to return the Logging Level to its default setting after you have colle
     </message>
     <message>
       <source>The login cannot be empty.</source>
-      <translation>ログインは空にできません。</translation>
+      <translation>ログイン名を入力してください。</translation>
     </message>
     <message>
       <source>Testing...</source>
@@ -9794,7 +9794,7 @@ You can force it, but it may significantly increase CPU load.</source>
     </message>
     <message>
       <source>URL cannot be empty.</source>
-      <translation>URLは空にできません</translation>
+      <translation>URLを入力してください。</translation>
     </message>
     <message>
       <source>Wrong URL format.</source>
