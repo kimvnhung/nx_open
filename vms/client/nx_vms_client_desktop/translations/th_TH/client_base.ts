@@ -2909,7 +2909,7 @@ to %1</source>
     </message>
     <message>
       <source>System will be accessible only through local network.</source>
-      <translation type="unfinished">System will be accessible only through local network.</translation>
+      <translation>ระบบจะสามารถเข้าถึงได้ผ่านเครือข่ายท้องถิ่นเท่านั้น</translation>
     </message>
   </context>
   <context>
@@ -8065,7 +8065,7 @@ We recommend you not to open this web page. If you understand the risks, you can
     <message>
       <source>None of your Servers has connection to %1.</source>
       <comment>%1 is the short cloud name (like Cloud)</comment>
-      <translation type="unfinished">None of your Servers has connection to %1.</translation>
+      <translation>ไม่มีเซิร์ฟเวอร์ของคุณมีการเชื่อมต่อกับ %1</translation>
     </message>
   </context>
   <context>
