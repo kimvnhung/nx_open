@@ -4688,7 +4688,7 @@ to %1</source>
     </message>
     <message>
       <source>Top right corner</source>
-      <translation>左上</translation>
+      <translation>右上</translation>
     </message>
     <message>
       <source>Bottom left corner</source>
