@@ -1523,7 +1523,7 @@ License Key: %2</source>
     <message>
       <source>%1 users are receiving emails</source>
       <extracomment>%1 will be substituted with short, non-branded cloud service name e.g. &quot;Cloud&quot;.</extracomment>
-      <translation>%1 ユーザーがメールを受信します</translation>
+      <translation>%1 ユーザーはメールを受信しています</translation>
     </message>
     <message>
       <source>%1 is not available</source>
