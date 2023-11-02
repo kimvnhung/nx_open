@@ -1609,11 +1609,11 @@
     </message>
     <message>
       <source>Failed to force using camera time, it lags too much, system time will be used</source>
-      <translation type="unfinished">Failed to force using camera time, it lags too much, system time will be used</translation>
+      <translation>Mislykkedes at tvinge med kameraets tid, det halter for meget, systemtid vil blive brugt</translation>
     </message>
     <message>
       <source>Camera time is back to normal</source>
-      <translation type="unfinished">Camera time is back to normal</translation>
+      <translation>Kameratid er tilbage til normal</translation>
     </message>
     <message>
       <source>Multiple %1 events have occurred</source>
@@ -1621,11 +1621,11 @@
     </message>
     <message>
       <source>Multicast address conflict detected. Address %1 is already in use by %2 on %3 stream</source>
-      <translation type="unfinished">Multicast address conflict detected. Address %1 is already in use by %2 on %3 stream</translation>
+      <translation>Multicast adressekonflikt fundet. Adresse %1 er allerede i brug af %2 på %3 stream</translation>
     </message>
     <message>
       <source>Network address %1 is not a multicast address</source>
-      <translation type="unfinished">Network address %1 is not a multicast address</translation>
+      <translation>Netværksadresse %1 er ikke en multicast adresse</translation>
     </message>
     <message>
       <source>Analytics storage &quot;%1&quot; is offline.</source>
@@ -1645,7 +1645,7 @@
     </message>
     <message>
       <source>RAID error. %1.</source>
-      <translation type="unfinished">RAID error. %1.</translation>
+      <translation>RAID fejl. %1.</translation>
     </message>
     <message>
       <source>Buzzer</source>
@@ -1702,11 +1702,11 @@
     </message>
     <message>
       <source>RTP error in primary stream (%1)</source>
-      <translation type="unfinished">RTP error in primary stream (%1)</translation>
+      <translation>RTP-fejl i primær stream (%1)</translation>
     </message>
     <message>
       <source>RTP error in secondary stream (%1)</source>
-      <translation type="unfinished">RTP error in secondary stream (%1)</translation>
+      <translation>RTP-fejl i sekundær strøm (%1)</translation>
     </message>
     <message>
       <source>Analytics Object Detected</source>
@@ -1723,7 +1723,7 @@
     </message>
     <message>
       <source>Analytics storage &quot;%1&quot; DB error: Insufficient permissions on the mount point.</source>
-      <translation type="unfinished">Analytics storage &quot;%1&quot; DB error: Insufficient permissions on the mount point.</translation>
+      <translation>Analytics storage &quot;%1&quot; DB fejl: Utilstrækkelige tilladelser på monteringspunktet.</translation>
     </message>
     <message>
       <source>Can&apos;t initialize AES encryption while recording media archive. Data is written unencrypted.</source>
