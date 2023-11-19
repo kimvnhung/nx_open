@@ -1159,21 +1159,6 @@
     </message>
   </context>
   <context>
-    <name>FileExtensions</name>
-    <message>
-      <source>Pictures</source>
-      <translation>Imatges</translation>
-    </message>
-    <message>
-      <source>Video</source>
-      <translation>Vídeo</translation>
-    </message>
-    <message>
-      <source>All Files</source>
-      <translation>Tots els arxius</translation>
-    </message>
-  </context>
-  <context>
     <name>FileSystemStrings</name>
     <message>
       <source>Audio Video Interleave</source>
@@ -3160,6 +3145,21 @@ a %1</translation>
     <message>
       <source>To generate Generic Event, please refer to %1.</source>
       <translation>Per generar un esdeveniment genèric, consulteu %1.</translation>
+    </message>
+  </context>
+  <context>
+    <name>QnCustomFileDialog</name>
+    <message>
+      <source>Pictures</source>
+      <translation>Imatges</translation>
+    </message>
+    <message>
+      <source>Video</source>
+      <translation>Vídeo</translation>
+    </message>
+    <message>
+      <source>All Files</source>
+      <translation>Tots els arxius</translation>
     </message>
   </context>
   <context>

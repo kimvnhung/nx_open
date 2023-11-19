@@ -1159,21 +1159,6 @@
     </message>
   </context>
   <context>
-    <name>FileExtensions</name>
-    <message>
-      <source>Pictures</source>
-      <translation>Képek</translation>
-    </message>
-    <message>
-      <source>Video</source>
-      <translation>Videó</translation>
-    </message>
-    <message>
-      <source>All Files</source>
-      <translation>Minden fájl</translation>
-    </message>
-  </context>
-  <context>
     <name>FileSystemStrings</name>
     <message>
       <source>Audio Video Interleave</source>
@@ -3159,6 +3144,21 @@ to %1</source>
     <message>
       <source>To generate Generic Event, please refer to %1.</source>
       <translation>Általános Esemény generálásához, használja a %1.</translation>
+    </message>
+  </context>
+  <context>
+    <name>QnCustomFileDialog</name>
+    <message>
+      <source>Pictures</source>
+      <translation>Képek</translation>
+    </message>
+    <message>
+      <source>Video</source>
+      <translation>Videó</translation>
+    </message>
+    <message>
+      <source>All Files</source>
+      <translation>Minden fájl</translation>
     </message>
   </context>
   <context>

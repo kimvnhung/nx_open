@@ -1156,21 +1156,6 @@
     </message>
   </context>
   <context>
-    <name>FileExtensions</name>
-    <message>
-      <source>Pictures</source>
-      <translation>รูปภาพ</translation>
-    </message>
-    <message>
-      <source>Video</source>
-      <translation>วิดีโอ</translation>
-    </message>
-    <message>
-      <source>All Files</source>
-      <translation>ไฟล์ทั้งหมด</translation>
-    </message>
-  </context>
-  <context>
     <name>FileSystemStrings</name>
     <message>
       <source>Audio Video Interleave</source>
@@ -3120,6 +3105,21 @@ to %1</source>
     <message>
       <source>To generate Generic Event, please refer to %1.</source>
       <translation>เพื่อสร้างเหตุการณ์ทั่วไปโปรดดูที่%1.</translation>
+    </message>
+  </context>
+  <context>
+    <name>QnCustomFileDialog</name>
+    <message>
+      <source>Pictures</source>
+      <translation>รูปภาพ</translation>
+    </message>
+    <message>
+      <source>Video</source>
+      <translation>วิดีโอ</translation>
+    </message>
+    <message>
+      <source>All Files</source>
+      <translation>ไฟล์ทั้งหมด</translation>
     </message>
   </context>
   <context>

@@ -1162,21 +1162,6 @@
     </message>
   </context>
   <context>
-    <name>FileExtensions</name>
-    <message>
-      <source>Pictures</source>
-      <translation type="unfinished">Pictures</translation>
-    </message>
-    <message>
-      <source>Video</source>
-      <translation type="unfinished">Video</translation>
-    </message>
-    <message>
-      <source>All Files</source>
-      <translation type="unfinished">All Files</translation>
-    </message>
-  </context>
-  <context>
     <name>FileSystemStrings</name>
     <message>
       <source>Audio Video Interleave</source>
@@ -3198,6 +3183,21 @@ to %1</translation>
     <message>
       <source>To generate Generic Event, please refer to %1.</source>
       <translation type="unfinished">To generate Generic Event, please refer to %1.</translation>
+    </message>
+  </context>
+  <context>
+    <name>QnCustomFileDialog</name>
+    <message>
+      <source>Pictures</source>
+      <translation type="unfinished">Pictures</translation>
+    </message>
+    <message>
+      <source>Video</source>
+      <translation type="unfinished">Video</translation>
+    </message>
+    <message>
+      <source>All Files</source>
+      <translation type="unfinished">All Files</translation>
     </message>
   </context>
   <context>

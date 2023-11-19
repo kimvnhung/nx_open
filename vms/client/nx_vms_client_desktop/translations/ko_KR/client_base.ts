@@ -1156,21 +1156,6 @@
     </message>
   </context>
   <context>
-    <name>FileExtensions</name>
-    <message>
-      <source>Pictures</source>
-      <translation>그림</translation>
-    </message>
-    <message>
-      <source>Video</source>
-      <translation>동영상</translation>
-    </message>
-    <message>
-      <source>All Files</source>
-      <translation>모든 파일</translation>
-    </message>
-  </context>
-  <context>
     <name>FileSystemStrings</name>
     <message>
       <source>Audio Video Interleave</source>
@@ -3121,6 +3106,21 @@ to %1</source>
     <message>
       <source>To generate Generic Event, please refer to %1.</source>
       <translation>이벤트 설정은 %1을 참조 하세요</translation>
+    </message>
+  </context>
+  <context>
+    <name>QnCustomFileDialog</name>
+    <message>
+      <source>Pictures</source>
+      <translation>그림</translation>
+    </message>
+    <message>
+      <source>Video</source>
+      <translation>동영상</translation>
+    </message>
+    <message>
+      <source>All Files</source>
+      <translation>모든 파일</translation>
     </message>
   </context>
   <context>
