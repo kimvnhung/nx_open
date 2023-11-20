@@ -9553,7 +9553,7 @@ You can force it, but it may significantly increase CPU load.</source>
     </message>
     <message>
       <source>Local layouts can only be shown to their owners.</source>
-      <translation>ローカルレイアウトはその所有者にのみ表示できます。</translation>
+      <translation>ローカルレイアウトは、その所有者にのみ表示できます。</translation>
     </message>
     <message>
       <source>None of selected user roles contain users. Action will not work.</source>
