@@ -1620,11 +1620,11 @@ License Key: %2</source>
     </message>
     <message>
       <source>Only latin letters, numbers and keyboard symbols %1 are allowed.</source>
-      <translation>英数字およびキーボードの記号%1のみが許可されます。</translation>
+      <translation>英数字およびキーボードの記号 %1 のみ使用可能です。</translation>
     </message>
     <message>
       <source>Only latin letters, numbers and keyboard symbols are allowed.</source>
-      <translation>ラテン文字、数字、およびキーボードの記号のみが許可されます</translation>
+      <translation>英数字およびキーボードの記号のみ使用可能です。</translation>
     </message>
   </context>
   <context>
