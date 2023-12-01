@@ -597,7 +597,7 @@
     <name>JoystickInvestigationWizard</name>
     <message>
       <source>Save</source>
-      <translation type="unfinished">Save</translation>
+      <translation>שמור</translation>
     </message>
     <message>
       <source>Previous</source>

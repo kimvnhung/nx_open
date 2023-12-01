@@ -8149,11 +8149,11 @@ We recommend you not to open this web page. If you understand the risks, you can
     <message numerus="yes">
       <source>%1 are required</source>
       <comment>Text like &apos;5 Professional Licenses&apos; will be substituted</comment>
-      <translation type="unfinished">
+      <translation>
         <numerusform>%1 требуется</numerusform>
-        <numerusform>%1 are required</numerusform>
-        <numerusform>%1 are required</numerusform>
-        <numerusform>%1 are required</numerusform>
+        <numerusform>%1 требуется</numerusform>
+        <numerusform>%1 требуется</numerusform>
+        <numerusform>%1 требуется</numerusform>
       </translation>
     </message>
   </context>
@@ -10336,7 +10336,7 @@ You can force it, but it may significantly increase CPU load.</translation>
     </message>
     <message>
       <source>Motion, Objects</source>
-      <translation type="unfinished">Motion, Objects</translation>
+      <translation>Движение, Объекты</translation>
     </message>
     <message>
       <source>Objects only</source>
@@ -10348,7 +10348,7 @@ You can force it, but it may significantly increase CPU load.</translation>
     </message>
     <message>
       <source>Objects + Lo-Res</source>
-      <translation type="unfinished">Objects + Lo-Res</translation>
+      <translation>Объекты + низкое разрешение</translation>
     </message>
   </context>
   <context>
@@ -11324,7 +11324,7 @@ Do not pin this certificate if you did not modify %2 Server SSL certificate.</tr
     </message>
     <message>
       <source>Groups</source>
-      <translation type="unfinished">Groups</translation>
+      <translation>Группы</translation>
     </message>
     <message>
       <source>Custom</source>
@@ -11366,7 +11366,7 @@ Do not pin this certificate if you did not modify %2 Server SSL certificate.</tr
     </message>
     <message>
       <source>Groups</source>
-      <translation type="unfinished">Groups</translation>
+      <translation>Группы</translation>
     </message>
     <message>
       <source>LDAP</source>

@@ -589,7 +589,7 @@
     <name>JoystickInvestigationWizard</name>
     <message>
       <source>Save</source>
-      <translation type="unfinished">Save</translation>
+      <translation>Tallenna</translation>
     </message>
     <message>
       <source>Previous</source>

@@ -5030,9 +5030,9 @@ to %1</source>
     </message>
     <message numerus="yes">
       <source>Server utilizes these %n SSL certificates to authenticate its identity</source>
-      <translation type="unfinished">
+      <translation>
         <numerusform>Sunucu, kimliğini doğrulamak için bu %n SSL sertifikalarını kullanır</numerusform>
-        <numerusform>Server utilizes these %n SSL certificates to authenticate its identity</numerusform>
+        <numerusform>Sunucu, kimliğini doğrulamak için bu %n SSL sertifikalarını kullanır</numerusform>
       </translation>
     </message>
     <message>
@@ -7279,9 +7279,9 @@ Bu web sayfasını açmamanızı öneririz. Riskleri anlıyorsanız web sayfası
     </message>
     <message numerus="yes">
       <source>Set for %n selected devices</source>
-      <translation type="unfinished">
+      <translation>
         <numerusform>%n seçili cihaz(lar) için ayarla</numerusform>
-        <numerusform>Set for %n selected devices</numerusform>
+        <numerusform>%n seçili cihaz(lar) için ayarla</numerusform>
       </translation>
     </message>
   </context>
@@ -7353,16 +7353,16 @@ Bu web sayfasını açmamanızı öneririz. Riskleri anlıyorsanız web sayfası
     </message>
     <message numerus="yes">
       <source>Backup is enabled for %n devices</source>
-      <translation type="unfinished">
+      <translation>
         <numerusform>Yedekleme %n cihazlar için etkinleştirildi</numerusform>
-        <numerusform>Backup is enabled for %n devices</numerusform>
+        <numerusform>Yedekleme %n cihazlar için etkinleştirildi</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>Backup is enabled for %n cameras</source>
-      <translation type="unfinished">
+      <translation>
         <numerusform>Yedekleme %n kameralar için etkinleştirildi</numerusform>
-        <numerusform>Backup is enabled for %n cameras</numerusform>
+        <numerusform>Yedekleme %n kameralar için etkinleştirildi</numerusform>
       </translation>
     </message>
     <message>
@@ -7844,30 +7844,30 @@ Bu web sayfasını açmamanızı öneririz. Riskleri anlıyorsanız web sayfası
     <name>nx::vms::client::desktop::CameraSettingsDialogStateConversionFunctions</name>
     <message numerus="yes">
       <source>Failed to enable audio on %n devices</source>
-      <translation type="unfinished">
+      <translation>
         <numerusform>Ses %n cihazlarda etkinleştirilemedi</numerusform>
-        <numerusform>Failed to enable audio on %n devices</numerusform>
+        <numerusform>Ses %n cihazlarda etkinleştirilemedi</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>These devices do not have audio inputs or are not configured correctly.</source>
-      <translation type="unfinished">
+      <translation>
         <numerusform>Bu cihazların ses girişleri yoktur veya doğru şekilde yapılandırılmamıştır.</numerusform>
-        <numerusform>These devices do not have audio inputs or are not configured correctly.</numerusform>
+        <numerusform>Bu cihazların ses girişleri yoktur veya doğru şekilde yapılandırılmamıştır.</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>Failed to enable 2-way audio on %n devices</source>
-      <translation type="unfinished">
+      <translation>
         <numerusform>%n cihazda 2 yönlü ses etkinleştirilemedi</numerusform>
-        <numerusform>Failed to enable 2-way audio on %n devices</numerusform>
+        <numerusform>%n cihazda 2 yönlü ses etkinleştirilemedi</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>These devices do not have audio outputs or are not configured correctly.</source>
-      <translation type="unfinished">
+      <translation>
         <numerusform>Bu cihazlarda ses çıkışı yoktur veya doğru şekilde yapılandırılmamıştır.</numerusform>
-        <numerusform>These devices do not have audio outputs or are not configured correctly.</numerusform>
+        <numerusform>Bu cihazlarda ses çıkışı yoktur veya doğru şekilde yapılandırılmamıştır.</numerusform>
       </translation>
     </message>
     <message>
@@ -7900,9 +7900,9 @@ Bu web sayfasını açmamanızı öneririz. Riskleri anlıyorsanız web sayfası
     <message numerus="yes">
       <source>%1 are required</source>
       <comment>Text like &apos;5 Professional Licenses&apos; will be substituted</comment>
-      <translation type="unfinished">
+      <translation>
         <numerusform>%1 gerekli</numerusform>
-        <numerusform>%1 are required</numerusform>
+        <numerusform>%1 gerekli</numerusform>
       </translation>
     </message>
   </context>
@@ -8933,9 +8933,9 @@ Bu web sayfasını açmamanızı öneririz. Riskleri anlıyorsanız web sayfası
     </message>
     <message numerus="yes">
       <source>%n minutes left</source>
-      <translation type="unfinished">
+      <translation>
         <numerusform>%n dakika kaldı</numerusform>
-        <numerusform>%n minutes left</numerusform>
+        <numerusform>%n dakika kaldı</numerusform>
       </translation>
     </message>
   </context>
@@ -10378,9 +10378,9 @@ Dikkat: Bu parola sıfırlanamaz. Kaybederseniz arşiv kurtarılamaz.</translati
     <message numerus="yes">
       <source>%n out of %1 users are allowed to use digest authentication (not secure).</source>
       <comment>%n is digest user count, %1 is total user count</comment>
-      <translation type="unfinished">
+      <translation>
         <numerusform>%1 kullanıcıdan %n özet kimlik doğrulamasını kullanmasına izin veriliyor (güvenli değildir).</numerusform>
-        <numerusform>%n out of %1 users are allowed to use digest authentication (not secure).</numerusform>
+        <numerusform>%1 kullanıcıdan %n özet kimlik doğrulamasını kullanmasına izin veriliyor (güvenli değildir).</numerusform>
       </translation>
     </message>
     <message>
