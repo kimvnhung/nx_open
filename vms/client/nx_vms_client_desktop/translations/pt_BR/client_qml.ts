@@ -589,11 +589,11 @@
     <name>JoystickInvestigationWizard</name>
     <message>
       <source>Save</source>
-      <translation type="unfinished">Save</translation>
+      <translation>Gravar</translation>
     </message>
     <message>
       <source>Previous</source>
-      <translation type="unfinished">Previous</translation>
+      <translation>Anterior</translation>
     </message>
     <message>
       <source>Next</source>

@@ -3172,7 +3172,7 @@
     </message>
     <message>
       <source>No groups found</source>
-      <translation type="unfinished">No groups found</translation>
+      <translation>Ningún grupo encontrado</translation>
     </message>
   </context>
   <context>
@@ -3187,7 +3187,7 @@
     </message>
     <message>
       <source>No users found</source>
-      <translation type="unfinished">No users found</translation>
+      <translation>No se han encontrado usuarios</translation>
     </message>
   </context>
   <context>
