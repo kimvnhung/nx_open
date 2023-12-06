@@ -817,7 +817,7 @@
     </message>
     <message>
       <source>New Virtual Camera...</source>
-      <translation>新虛擬攝影機...</translation>
+      <translation>新增虛擬攝影機...</translation>
     </message>
     <message>
       <source>Show Tree</source>
@@ -865,7 +865,7 @@
     </message>
     <message>
       <source>Unpin Calendar</source>
-      <translation>解鎖月曆</translation>
+      <translation>取消固定月曆</translation>
     </message>
     <message>
       <source>Page...</source>
