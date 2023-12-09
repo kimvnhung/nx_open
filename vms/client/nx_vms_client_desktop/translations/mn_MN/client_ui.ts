@@ -5,7 +5,7 @@
     <name>AboutDialog</name>
     <message>
       <source>About</source>
-      <translation type="unfinished">About</translation>
+      <translation>Тухай</translation>
     </message>
     <message>
       <source>Information</source>
@@ -21,7 +21,7 @@
     </message>
     <message>
       <source>Support</source>
-      <translation type="unfinished">Support</translation>
+      <translation>Тусламж</translation>
     </message>
     <message>
       <source>System Servers</source>
@@ -29,7 +29,7 @@
     </message>
     <message>
       <source>Developer</source>
-      <translation type="unfinished">Developer</translation>
+      <translation>Хөгжүүлэгч</translation>
     </message>
     <message>
       <source>Open source libraries</source>
@@ -118,15 +118,15 @@
     </message>
     <message>
       <source>Download</source>
-      <translation type="unfinished">Download</translation>
+      <translation>Татаж авах</translation>
     </message>
     <message>
       <source>Settings</source>
-      <translation type="unfinished">Settings</translation>
+      <translation>Тохиргоо</translation>
     </message>
     <message>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>Цуцлах</translation>
     </message>
     <message>
       <source>Done</source>
@@ -360,7 +360,7 @@
     </message>
     <message>
       <source>Tags:</source>
-      <translation type="unfinished">Tags:</translation>
+      <translation>Шошго:</translation>
     </message>
     <message>
       <source>Pre-recording:</source>
@@ -379,7 +379,7 @@
     </message>
     <message>
       <source>Delete</source>
-      <translation type="unfinished">Delete</translation>
+      <translation>Устгах</translation>
     </message>
     <message>
       <source>Area Width</source>
@@ -402,7 +402,7 @@
     </message>
     <message>
       <source>Name</source>
-      <translation type="unfinished">Name</translation>
+      <translation>Нэр</translation>
     </message>
     <message>
       <source>Description</source>
@@ -414,7 +414,7 @@
     </message>
     <message>
       <source>Tags</source>
-      <translation type="unfinished">Tags</translation>
+      <translation>Шошго</translation>
     </message>
     <message>
       <source>List of tags divided by commas</source>
@@ -479,11 +479,11 @@
     <name>BusinessRulesDialog</name>
     <message>
       <source>Add</source>
-      <translation type="unfinished">Add</translation>
+      <translation>Нэмэх</translation>
     </message>
     <message>
       <source>Delete</source>
-      <translation type="unfinished">Delete</translation>
+      <translation>Устгах</translation>
     </message>
     <message>
       <source>Event Rules</source>
@@ -535,7 +535,7 @@
     </message>
     <message>
       <source>Restore Defaults</source>
-      <translation type="unfinished">Restore Defaults</translation>
+      <translation>Үндсэн тохиргооруу буцаах</translation>
     </message>
     <message>
       <source>Do not change these settings unless you are absolutely sure of their potential impact on your system performance.</source>
@@ -567,7 +567,7 @@
     </message>
     <message>
       <source>PTZ</source>
-      <translation type="unfinished">PTZ</translation>
+      <translation>PTZ</translation>
     </message>
     <message>
       <source>Generate</source>
@@ -575,7 +575,7 @@
     </message>
     <message>
       <source>Reset</source>
-      <translation type="unfinished">Reset</translation>
+      <translation>Дахин тохируулах</translation>
     </message>
     <message>
       <source>Logical ID</source>
@@ -774,7 +774,7 @@
     </message>
     <message>
       <source>Reset</source>
-      <translation type="unfinished">Reset</translation>
+      <translation>Дахин тохируулах</translation>
     </message>
     <message>
       <source>in</source>
@@ -801,11 +801,11 @@
     </message>
     <message>
       <source>Name</source>
-      <translation type="unfinished">Name</translation>
+      <translation>Нэр</translation>
     </message>
     <message>
       <source>Back</source>
-      <translation type="unfinished">Back</translation>
+      <translation>Буцах</translation>
     </message>
     <message>
       <source>Refresh</source>
@@ -847,7 +847,7 @@
     <name>CameraSelectionDialog</name>
     <message>
       <source>All Cameras</source>
-      <translation type="unfinished">All Cameras</translation>
+      <translation>Бүх камерууд</translation>
     </message>
     <message>
       <source>Select Cameras</source>
@@ -866,7 +866,7 @@
     </message>
     <message>
       <source>Audio</source>
-      <translation type="unfinished">Audio</translation>
+      <translation>Аудио</translation>
     </message>
     <message>
       <source>Enable audio</source>
@@ -899,7 +899,7 @@
     <name>ChangeUserPasswordDialog</name>
     <message>
       <source>Change password</source>
-      <translation type="unfinished">Change password</translation>
+      <translation>Нууц үг солих</translation>
     </message>
   </context>
   <context>
@@ -922,7 +922,7 @@
     </message>
     <message>
       <source>PTZ</source>
-      <translation type="unfinished">PTZ</translation>
+      <translation>PTZ</translation>
     </message>
     <message>
       <source>Showreels</source>
@@ -964,7 +964,7 @@
     <name>ConnectingToServerDialog</name>
     <message>
       <source>Connecting...</source>
-      <translation type="unfinished">Connecting...</translation>
+      <translation>Холбогдож байна...</translation>
     </message>
   </context>
   <context>
@@ -1039,7 +1039,7 @@
     </message>
     <message>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>Цуцлах</translation>
     </message>
     <message>
       <source>&lt;Message&gt;</source>
@@ -1090,11 +1090,11 @@
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Нууц үг</translation>
     </message>
     <message>
       <source>Login</source>
-      <translation type="unfinished">Login</translation>
+      <translation>Нэвтрэх</translation>
     </message>
     <message>
       <source>Search</source>
@@ -1129,7 +1129,7 @@
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Нууц үг</translation>
     </message>
   </context>
   <context>
@@ -1189,7 +1189,7 @@
     </message>
     <message>
       <source>Login</source>
-      <translation type="unfinished">Login</translation>
+      <translation>Нэвтрэх</translation>
     </message>
     <message>
       <source>Password to authenticate (optional)</source>
@@ -1197,7 +1197,7 @@
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Нууц үг</translation>
     </message>
     <message>
       <source>HTTP(S) URL</source>
@@ -1272,7 +1272,7 @@
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Нууц үг</translation>
     </message>
   </context>
   <context>
@@ -1369,7 +1369,7 @@
     </message>
     <message>
       <source>Camera</source>
-      <translation type="unfinished">Camera</translation>
+      <translation>Камер</translation>
     </message>
   </context>
   <context>
@@ -1396,7 +1396,7 @@
     </message>
     <message>
       <source>Remove</source>
-      <translation type="unfinished">Remove</translation>
+      <translation>Хасах</translation>
     </message>
     <message>
       <source>Local Media Folders</source>
@@ -1473,11 +1473,11 @@
     </message>
     <message>
       <source>Delete</source>
-      <translation type="unfinished">Delete</translation>
+      <translation>Устгах</translation>
     </message>
     <message>
       <source>Size</source>
-      <translation type="unfinished">Size</translation>
+      <translation>Хэмжээ</translation>
     </message>
     <message>
       <source>Opacity</source>
@@ -1527,7 +1527,7 @@
     </message>
     <message>
       <source>Delete</source>
-      <translation type="unfinished">Delete</translation>
+      <translation>Устгах</translation>
     </message>
   </context>
   <context>
@@ -1611,7 +1611,7 @@
     </message>
     <message>
       <source>Reset</source>
-      <translation type="unfinished">Reset</translation>
+      <translation>Дахин тохируулах</translation>
     </message>
     <message>
       <source>Minimum Grid Size</source>
@@ -1649,7 +1649,7 @@
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Нууц үг</translation>
     </message>
     <message>
       <source>Search Base</source>
@@ -1676,7 +1676,7 @@
     </message>
     <message>
       <source>Loading...</source>
-      <translation type="unfinished">Loading...</translation>
+      <translation>Ачааллаж байна...</translation>
     </message>
     <message>
       <source>Connection error</source>
@@ -1718,7 +1718,7 @@
     </message>
     <message>
       <source>Remove</source>
-      <translation type="unfinished">Remove</translation>
+      <translation>Хасах</translation>
     </message>
     <message>
       <source>New License</source>
@@ -1833,11 +1833,11 @@
     </message>
     <message>
       <source>Login</source>
-      <translation type="unfinished">Login</translation>
+      <translation>Нэвтрэх</translation>
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Нууц үг</translation>
     </message>
     <message>
       <source>Test</source>
@@ -1848,11 +1848,11 @@
     <name>LogsManagementWidget</name>
     <message>
       <source>Download</source>
-      <translation type="unfinished">Download</translation>
+      <translation>Татаж авах</translation>
     </message>
     <message>
       <source>Settings</source>
-      <translation type="unfinished">Settings</translation>
+      <translation>Тохиргоо</translation>
     </message>
     <message>
       <source>Reset to Default</source>
@@ -1860,7 +1860,7 @@
     </message>
     <message>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>Цуцлах</translation>
     </message>
     <message>
       <source>Done</source>
@@ -1868,7 +1868,7 @@
     </message>
     <message>
       <source>Retry</source>
-      <translation type="unfinished">Retry</translation>
+      <translation>Дахин оролдох</translation>
     </message>
     <message>
       <source>Download complete!</source>
@@ -1950,11 +1950,11 @@
     </message>
     <message>
       <source>Password:</source>
-      <translation type="unfinished">Password:</translation>
+      <translation>Нууц үг:</translation>
     </message>
     <message>
       <source>Login:</source>
-      <translation type="unfinished">Login:</translation>
+      <translation>Нэвтрэх:</translation>
     </message>
     <message>
       <source>Check</source>
@@ -1977,7 +1977,7 @@
     </message>
     <message>
       <source>Download</source>
-      <translation type="unfinished">Download</translation>
+      <translation>Татаж авах</translation>
     </message>
     <message>
       <source>Browse</source>
@@ -1989,7 +1989,7 @@
     </message>
     <message>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>Цуцлах</translation>
     </message>
     <message>
       <source>Link copied</source>
@@ -2017,7 +2017,7 @@
     </message>
     <message>
       <source>Try Again</source>
-      <translation type="unfinished">Try Again</translation>
+      <translation>Дахин оролдоно уу</translation>
     </message>
   </context>
   <context>
@@ -2053,7 +2053,7 @@
     <name>OauthLoginPlaceholder</name>
     <message>
       <source>Try Again</source>
-      <translation type="unfinished">Try Again</translation>
+      <translation>Дахин оролдоно уу</translation>
     </message>
   </context>
   <context>
@@ -2083,7 +2083,7 @@
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Нууц үг</translation>
     </message>
     <message>
       <source>User</source>
@@ -2118,7 +2118,7 @@
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Нууц үг</translation>
     </message>
     <message>
       <source>Username</source>
@@ -2247,7 +2247,7 @@
     </message>
     <message>
       <source>Delete</source>
-      <translation type="unfinished">Delete</translation>
+      <translation>Устгах</translation>
     </message>
     <message>
       <source>Details</source>
@@ -2278,7 +2278,7 @@
     </message>
     <message>
       <source>Name:</source>
-      <translation type="unfinished">Name:</translation>
+      <translation>Нэр:</translation>
     </message>
     <message>
       <source>Hotkey:</source>
@@ -2335,7 +2335,7 @@
     <name>QnCameraBookmarkDialog</name>
     <message>
       <source>Bookmark</source>
-      <translation type="unfinished">Bookmark</translation>
+      <translation>Тэмдэглэл</translation>
     </message>
   </context>
   <context>
@@ -2365,7 +2365,7 @@
     </message>
     <message>
       <source>Delete...</source>
-      <translation type="unfinished">Delete...</translation>
+      <translation>Устгах...</translation>
     </message>
     <message>
       <source>Force Secure Authentication</source>
@@ -2415,11 +2415,11 @@
     </message>
     <message>
       <source>Rename...</source>
-      <translation type="unfinished">Rename...</translation>
+      <translation>Нэр өөрчлөх...</translation>
     </message>
     <message>
       <source>Delete...</source>
-      <translation type="unfinished">Delete...</translation>
+      <translation>Устгах...</translation>
     </message>
   </context>
   <context>
@@ -2430,11 +2430,11 @@
     </message>
     <message>
       <source>Remove</source>
-      <translation type="unfinished">Remove</translation>
+      <translation>Хасах</translation>
     </message>
     <message>
       <source>Add</source>
-      <translation type="unfinished">Add</translation>
+      <translation>Нэмэх</translation>
     </message>
     <message>
       <source>Removing this connection option could lead to System malfunction.</source>
@@ -2532,7 +2532,7 @@
     </message>
     <message>
       <source>s</source>
-      <translation type="unfinished">s</translation>
+      <translation>с</translation>
     </message>
     <message>
       <source>Pre-Recording:</source>
@@ -2613,7 +2613,7 @@
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Нууц үг</translation>
     </message>
   </context>
   <context>
@@ -2713,7 +2713,7 @@
     </message>
     <message>
       <source>Motion</source>
-      <translation type="unfinished">Motion</translation>
+      <translation>Хөдөлгөөн</translation>
     </message>
     <message>
       <source>Objects</source>
@@ -2772,7 +2772,7 @@
     </message>
     <message>
       <source>Change Password...</source>
-      <translation type="unfinished">Change Password...</translation>
+      <translation>Нууц үг солих...</translation>
     </message>
     <message>
       <source>Encrypting video traffic will significantly increase CPU usage.</source>
@@ -2826,7 +2826,7 @@
     </message>
     <message>
       <source>Expires</source>
-      <translation type="unfinished">Expires</translation>
+      <translation>Дуусах</translation>
     </message>
     <message>
       <source>Certificate is expired</source>
@@ -2834,7 +2834,7 @@
     </message>
     <message>
       <source>Fingerprints</source>
-      <translation type="unfinished">Fingerprints</translation>
+      <translation>Хурууны хээ</translation>
     </message>
     <message>
       <source>Details</source>
@@ -2872,7 +2872,7 @@
     </message>
     <message>
       <source>Name</source>
-      <translation type="unfinished">Name</translation>
+      <translation>Нэр</translation>
     </message>
     <message>
       <source>IP Address</source>
@@ -2944,7 +2944,7 @@
     </message>
     <message>
       <source>Name</source>
-      <translation type="unfinished">Name</translation>
+      <translation>Нэр</translation>
     </message>
     <message>
       <source>Icon</source>
@@ -2974,7 +2974,7 @@
     </message>
     <message>
       <source>State</source>
-      <translation type="unfinished">State</translation>
+      <translation>Нөхцөл байдал</translation>
     </message>
   </context>
   <context>
@@ -3004,7 +3004,7 @@
     <name>StorageConfigWidget</name>
     <message>
       <source>Add External Storage...</source>
-      <translation type="unfinished">Add External Storage...</translation>
+      <translation>Хадгалах сан нэмэх...</translation>
     </message>
     <message>
       <source>Storage Locations</source>
@@ -3039,14 +3039,14 @@
     <name>StorageRebuildWidget</name>
     <message>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>Цуцлах</translation>
     </message>
   </context>
   <context>
     <name>StorageUrlDialog</name>
     <message>
       <source>Add External Storage...</source>
-      <translation type="unfinished">Add External Storage...</translation>
+      <translation>Хадгалах сан нэмэх...</translation>
     </message>
     <message>
       <source>Protocol:</source>
@@ -3058,11 +3058,11 @@
     </message>
     <message>
       <source>Login:</source>
-      <translation type="unfinished">Login:</translation>
+      <translation>Нэвтрэх:</translation>
     </message>
     <message>
       <source>Password:</source>
-      <translation type="unfinished">Password:</translation>
+      <translation>Нууц үг:</translation>
     </message>
   </context>
   <context>
@@ -3088,7 +3088,7 @@
     <name>SystemSettingsWidget</name>
     <message>
       <source>(recommended)</source>
-      <translation type="unfinished">(recommended)</translation>
+      <translation>(санал болгож буй)</translation>
     </message>
     <message>
       <source>Send anonymous usage and crash statistics to software developers</source>
@@ -3111,7 +3111,7 @@
     </message>
     <message>
       <source>Delete</source>
-      <translation type="unfinished">Delete</translation>
+      <translation>Устгах</translation>
     </message>
     <message>
       <source>Font Size</source>
@@ -3157,7 +3157,7 @@
     </message>
     <message>
       <source>Delete</source>
-      <translation type="unfinished">Delete</translation>
+      <translation>Устгах</translation>
     </message>
   </context>
   <context>
@@ -3194,18 +3194,18 @@
     <name>UserProfileWidget</name>
     <message>
       <source>Change Password...</source>
-      <translation type="unfinished">Change Password...</translation>
+      <translation>Нууц үг солих...</translation>
     </message>
   </context>
   <context>
     <name>UserRoleSettingsWidget</name>
     <message>
       <source>Name</source>
-      <translation type="unfinished">Name</translation>
+      <translation>Нэр</translation>
     </message>
     <message>
       <source>Users</source>
-      <translation type="unfinished">Users</translation>
+      <translation>Хэрэглэгчид</translation>
     </message>
     <message>
       <source>Delete Role</source>
@@ -3250,7 +3250,7 @@
     </message>
     <message>
       <source>Role</source>
-      <translation type="unfinished">Role</translation>
+      <translation>Үүрэг</translation>
     </message>
     <message>
       <source>Edit Roles...</source>
@@ -3298,7 +3298,7 @@
     <name>VirtualCameraUploadWidget</name>
     <message>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>Цуцлах</translation>
     </message>
     <message>
       <source>Upload Footage</source>
