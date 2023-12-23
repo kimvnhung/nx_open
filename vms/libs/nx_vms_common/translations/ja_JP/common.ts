@@ -1111,11 +1111,11 @@
     <name>nx::utils::CryptedFileStream</name>
     <message>
       <source>Wrong crypted stream size.</source>
-      <translation>暗号化されたストリームサイズが正しくありません.</translation>
+      <translation>暗号化されたストリームのサイズが間違っています。</translation>
     </message>
     <message>
       <source>Damaged crypted stream header.</source>
-      <translation>暗号化されたストリームヘッダーが破損しています</translation>
+      <translation>暗号化されたストリームのヘッダーが破損しています。</translation>
     </message>
   </context>
   <context>
@@ -1563,7 +1563,7 @@
     </message>
     <message>
       <source>Multicast address conflict detected. Address %1 is already in use by %2 on %3 stream</source>
-      <translation>マルチキャストアドレスの競合が検出されました。アドレス %1 は %3 ストリームで %2 によってすでに使用されています</translation>
+      <translation>マルチキャストアドレスの競合が検出されました。アドレス %1 は、 %2 の %3 ストリームですでに使用されています</translation>
     </message>
     <message>
       <source>Network address %1 is not a multicast address</source>
