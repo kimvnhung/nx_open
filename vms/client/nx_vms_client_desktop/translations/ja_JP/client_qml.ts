@@ -1353,7 +1353,7 @@ PTZを行います</translation>
     <name>WelcomeScreen</name>
     <message>
       <source>Official Website</source>
-      <translation>公式ウェブサイト</translation>
+      <translation>公式Webサイト</translation>
     </message>
     <message>
       <source>Help &amp; User Manual</source>

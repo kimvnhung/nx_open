@@ -9806,15 +9806,15 @@ You can force it, but it may significantly increase CPU load.</source>
     </message>
     <message>
       <source>Add Proxied Web Page</source>
-      <translation>プロキシされたウェブページを追加</translation>
+      <translation>プロキシされたWebページを追加</translation>
     </message>
     <message>
       <source>Add Web Page</source>
-      <translation>ウェブページを追加</translation>
+      <translation>Webページを追加</translation>
     </message>
     <message>
       <source>Edit Proxied Web Page</source>
-      <translation>プロキシされたウェブページを編集</translation>
+      <translation>プロキシされたWebページを追加</translation>
     </message>
     <message>
       <source>Edit Web Page</source>
