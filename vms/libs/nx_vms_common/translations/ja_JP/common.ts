@@ -825,7 +825,7 @@
     </message>
     <message>
       <source>Watermark: %1</source>
-      <translation>透かし: %1</translation>
+      <translation>ウォーターマーク: %1</translation>
     </message>
     <message>
       <source>Hardware ID: %1</source>
