@@ -675,7 +675,7 @@
     </message>
     <message>
       <source>Web Page</source>
-      <translation>ウェブページ</translation>
+      <translation>Webページ</translation>
     </message>
     <message>
       <source>Web Page Port</source>
@@ -710,7 +710,7 @@
     </message>
     <message>
       <source>Web Page</source>
-      <translation>ウェブページ</translation>
+      <translation>Webページ</translation>
     </message>
     <message>
       <source>Primary Stream</source>
@@ -1997,7 +1997,7 @@
     </message>
     <message>
       <source>Advanced Update Settings</source>
-      <translation>詳細設定</translation>
+      <translation>更新の詳細設定</translation>
     </message>
     <message>
       <source>It looks like the update process is taking more time than usual. Please keep waiting.</source>
@@ -2732,11 +2732,11 @@
     </message>
     <message>
       <source>Display watermark with username over video</source>
-      <translation>ビデオの上にユーザー名で透かしを表示する</translation>
+      <translation>映像上にユーザー名のウォーターマークを表示する</translation>
     </message>
     <message>
       <source>Watermark Preview</source>
-      <translation>透かしのプレビュー</translation>
+      <translation>ウォーターマークのプレビュー</translation>
     </message>
     <message>
       <source>to</source>
@@ -2925,7 +2925,7 @@
     <name>SignDialog</name>
     <message>
       <source>Watermark Check</source>
-      <translation>ウォーターマーク チェック</translation>
+      <translation>ウォーターマーク確認</translation>
     </message>
     <message>
       <source>Checked File:</source>
@@ -3344,7 +3344,7 @@
     </message>
     <message>
       <source>Advanced</source>
-      <translation>詳細</translation>
+      <translation>上級設定</translation>
     </message>
     <message>
       <source>Allow using Client API</source>
@@ -3386,7 +3386,7 @@
     <name>nx::vms::client::desktop::WatermarkPreviewDialog</name>
     <message>
       <source>Watermark preview</source>
-      <translation>透かしのプレビュー</translation>
+      <translation>ウォーターマークのプレビュー</translation>
     </message>
     <message>
       <source>Opacity</source>
