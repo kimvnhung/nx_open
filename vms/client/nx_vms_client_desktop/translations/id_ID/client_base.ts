@@ -1855,7 +1855,7 @@ License Key: %2</translation>
     </message>
     <message>
       <source>Continue</source>
-      <translation type="unfinished">Continue</translation>
+      <translation>Lanjutkan</translation>
     </message>
     <message>
       <source>On the first connection to the server, your confirmation will be requested to accept the certificate if it contains errors</source>
@@ -2889,7 +2889,7 @@ to %1</translation>
     </message>
     <message>
       <source>Continue</source>
-      <translation type="unfinished">Continue</translation>
+      <translation>Lanjutkan</translation>
     </message>
     <message>
       <source>Cannot disconnect the System from %1</source>
@@ -5607,7 +5607,7 @@ If you intended to move analytics data to another storage location, please conta
     </message>
     <message>
       <source>Analytics data can take up large amounts of space.</source>
-      <translation type="unfinished">Analytics data can take up large amounts of space.</translation>
+      <translation>Data Analitik dapat menghabiskan banyak ruang.</translation>
     </message>
     <message>
       <source>Remote archive synchronization is available</source>
@@ -10326,7 +10326,7 @@ Do not pin this certificate if you did not modify %2 Server SSL certificate.</tr
     </message>
     <message>
       <source>Continue</source>
-      <translation type="unfinished">Continue</translation>
+      <translation>Lanjutkan</translation>
     </message>
   </context>
   <context>
