@@ -381,11 +381,11 @@
     </message>
     <message>
       <source>Could not initialize audio encoder.</source>
-      <translation>オーディオエンコーダーをイニシャライズできません.</translation>
+      <translation>音声エンコーダーを初期化できませんでした。</translation>
     </message>
     <message>
       <source>Could not initialize audio decoder.</source>
-      <translation>オーディオエンコーダーをイニシャライズできません.</translation>
+      <translation>音声デコーダーを初期化できませんでした。</translation>
     </message>
     <message>
       <source>Could not find decoder for codec %1.</source>
@@ -393,15 +393,15 @@
     </message>
     <message>
       <source>Could not send audio frame to encoder, Error code: %1.</source>
-      <translation>エラー コード エンコーダーへオーディオ フレームを送信できませんでした: %1</translation>
+      <translation>音声フレームをエンコーダーに送信できませんでした。エラー コード: %1。</translation>
     </message>
     <message>
       <source>Could not receive audio packet from encoder, Error code: %1.</source>
-      <translation>エラーコード エンコーダーからオーディオ パケットを受信できませんでした: %1</translation>
+      <translation>エンコーダーから音声パケットを受信できませんでした。エラーコード: %1。</translation>
     </message>
     <message>
       <source>Could not receive audio frame from decoder, Error code: %1.</source>
-      <translation>エラー コード デコーダーからオーディオ フレームを受信できませんでした: %1</translation>
+      <translation>デコーダーから音声フレームを受信できませんでした。エラーコード: %1。</translation>
     </message>
     <message>
       <source>Could not allocate sample buffers</source>
@@ -432,7 +432,7 @@
     </message>
     <message>
       <source>Video or audio codec is incompatible with container %1.</source>
-      <translation>映像または音声のコーデックが %1 形式と互換性がありません。</translation>
+      <translation>映像または音声のコーデックが、%1 コンテナに対応していません。</translation>
     </message>
   </context>
   <context>
