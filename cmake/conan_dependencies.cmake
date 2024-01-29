@@ -85,6 +85,13 @@ elseif(targetDevice MATCHES "macos")
     )
 endif()
 
+if(CMAKE_HOST_SYSTEM_NAME STREQUAL Darwin)
+    # This setting should be removed when our CI switches to Python built for armv8 on armv8
+    # builders. Currently they have Python built for x86_64, and Conan detects build arch as
+    # x86_64. Thus, none of our conan_recipes pipelines build packages targeting build arch armv8.
+    list(APPEND _additional_conan_parameters "--settings:build arch=x86_64")
+endif()
+
 set(_run_conan_script_contents
     "#!/usr/bin/env -S cmake -P"
     ""
