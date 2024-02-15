@@ -1154,7 +1154,7 @@
     </message>
     <message>
       <source>Show on Alarm Layout</source>
-      <translation>アラームレイアウトに表示</translation>
+      <translation>アラームレイアウト表示</translation>
     </message>
     <message>
       <source>Do HTTP request</source>
