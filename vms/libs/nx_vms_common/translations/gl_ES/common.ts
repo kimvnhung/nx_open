@@ -9,7 +9,7 @@
     </message>
     <message>
       <source>empty</source>
-      <translation type="unfinished">empty</translation>
+      <translation>baleiro</translation>
     </message>
     <message>
       <source>less than an hour</source>
@@ -20,11 +20,11 @@
     <name>AuthResultTranslations</name>
     <message>
       <source>This user does not exist.</source>
-      <translation type="unfinished">This user does not exist.</translation>
+      <translation>Esta persoa usuaria non existe.</translation>
     </message>
     <message>
       <source>Wrong password.</source>
-      <translation type="unfinished">Wrong password.</translation>
+      <translation>Contrasinal incorrecto.</translation>
     </message>
     <message>
       <source>The password is expired. Please contact your system administrator.</source>
@@ -44,7 +44,7 @@
     </message>
     <message>
       <source>This authorization method is forbidden. Please contact your system administrator.</source>
-      <translation type="unfinished">This authorization method is forbidden. Please contact your system administrator.</translation>
+      <translation>Este método de autorización está prohibido. Por favor, ponte en contacto co teu administrador do sistema.</translation>
     </message>
     <message>
       <source>The session key is invalid or expired.</source>
@@ -56,7 +56,7 @@
     </message>
     <message>
       <source>This user has been disabled by a system administrator.</source>
-      <translation type="unfinished">This user has been disabled by a system administrator.</translation>
+      <translation>Esta persoa usuaria foi desactivada por unha persoa administradora do sistema.</translation>
     </message>
   </context>
   <context>
@@ -152,7 +152,7 @@
     <name>QnCameraDiagnosticsErrorCodeStrings</name>
     <message>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>Ok</translation>
     </message>
     <message>
       <source>Server has been stopped.</source>
@@ -168,7 +168,7 @@
     </message>
     <message>
       <source>(unknown)</source>
-      <translation type="unfinished">(unknown)</translation>
+      <translation>(descoñecido)</translation>
     </message>
     <message>
       <source>Server %1 is not available.</source>
@@ -456,15 +456,15 @@
     <name>QnLicense</name>
     <message>
       <source>Analog</source>
-      <translation type="unfinished">Analog</translation>
+      <translation>Analóxico</translation>
     </message>
     <message>
       <source>Professional</source>
-      <translation type="unfinished">Professional</translation>
+      <translation>Profesional</translation>
     </message>
     <message>
       <source>Edge</source>
-      <translation type="unfinished">Edge</translation>
+      <translation>Borde</translation>
     </message>
     <message>
       <source>Vmax</source>
@@ -472,7 +472,7 @@
     </message>
     <message>
       <source>Video Wall</source>
-      <translation type="unfinished">Video Wall</translation>
+      <translation>Video Wall / Muro</translation>
     </message>
     <message>
       <source>I/O Module</source>
@@ -480,11 +480,11 @@
     </message>
     <message>
       <source>Start</source>
-      <translation type="unfinished">Start</translation>
+      <translation>Comezar</translation>
     </message>
     <message>
       <source>Analog Encoder</source>
-      <translation type="unfinished">Analog Encoder</translation>
+      <translation>Codificador analóxico</translation>
     </message>
     <message>
       <source>Analog Licenses</source>
@@ -520,7 +520,7 @@
     </message>
     <message>
       <source>Invalid</source>
-      <translation type="unfinished">Invalid</translation>
+      <translation>Non válido</translation>
     </message>
     <message>
       <source>Invalid Licenses</source>
@@ -532,7 +532,7 @@
     </message>
     <message>
       <source>Time</source>
-      <translation type="unfinished">Time</translation>
+      <translation>Tempo</translation>
     </message>
     <message>
       <source>Time Licenses</source>
@@ -540,7 +540,7 @@
     </message>
     <message>
       <source>Bridge</source>
-      <translation type="unfinished">Bridge</translation>
+      <translation>Bridge</translation>
     </message>
     <message>
       <source>Bridge Licenses</source>
@@ -732,7 +732,7 @@
     </message>
     <message>
       <source>NVR</source>
-      <translation type="unfinished">NVR</translation>
+      <translation>NVR</translation>
     </message>
     <message>
       <source>NVR Licenses</source>
@@ -758,35 +758,35 @@
     <name>QnResourceNameStrings</name>
     <message>
       <source>Cameras</source>
-      <translation type="unfinished">Cameras</translation>
+      <translation>Cámaras</translation>
     </message>
     <message>
       <source>cameras</source>
-      <translation type="unfinished">cameras</translation>
+      <translation>cámaras</translation>
     </message>
     <message>
       <source>Camera</source>
-      <translation type="unfinished">Camera</translation>
+      <translation>Cámara</translation>
     </message>
     <message>
       <source>camera</source>
-      <translation type="unfinished">camera</translation>
+      <translation>cámara</translation>
     </message>
     <message>
       <source>Devices</source>
-      <translation type="unfinished">Devices</translation>
+      <translation>Dispositivos</translation>
     </message>
     <message>
       <source>devices</source>
-      <translation type="unfinished">devices</translation>
+      <translation>dispositivos</translation>
     </message>
     <message>
       <source>Device</source>
-      <translation type="unfinished">Device</translation>
+      <translation>Dispositivo</translation>
     </message>
     <message>
       <source>device</source>
-      <translation type="unfinished">device</translation>
+      <translation>dispositivo</translation>
     </message>
     <message>
       <source>I/O Modules</source>
@@ -851,7 +851,7 @@
     <name>QnSignHelper</name>
     <message>
       <source>Unknown</source>
-      <translation type="unfinished">Unknown</translation>
+      <translation>Descoñecido</translation>
     </message>
     <message>
       <source>FREE License</source>
@@ -935,7 +935,7 @@
     <message>
       <source>days</source>
       <comment>Long suffix for displaying days</comment>
-      <translation type="unfinished">days</translation>
+      <translation>días</translation>
     </message>
     <message>
       <source>wks</source>
@@ -971,25 +971,25 @@
     <message numerus="yes">
       <source>minutes</source>
       <comment>Full suffix for displaying minutes</comment>
-      <translation type="unfinished">
-        <numerusform>minutes</numerusform>
-        <numerusform>minutes</numerusform>
+      <translation>
+        <numerusform>minutos</numerusform>
+        <numerusform>minutos</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>hours</source>
       <comment>Full suffix for displaying hours</comment>
-      <translation type="unfinished">
-        <numerusform>hours</numerusform>
-        <numerusform>hours</numerusform>
+      <translation>
+        <numerusform>horas</numerusform>
+        <numerusform>horas</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>days</source>
       <comment>Full suffix for displaying days</comment>
-      <translation type="unfinished">
-        <numerusform>days</numerusform>
-        <numerusform>days</numerusform>
+      <translation>
+        <numerusform>días</numerusform>
+        <numerusform>días</numerusform>
       </translation>
     </message>
     <message numerus="yes">
@@ -1040,23 +1040,23 @@
     <name>QnUserRolesManager</name>
     <message>
       <source>Owner</source>
-      <translation type="unfinished">Owner</translation>
+      <translation>Propietario/a</translation>
     </message>
     <message>
       <source>Administrator</source>
-      <translation type="unfinished">Administrator</translation>
+      <translation>Administrador/a</translation>
     </message>
     <message>
       <source>Advanced Viewer</source>
-      <translation type="unfinished">Advanced Viewer</translation>
+      <translation>Visor avanzado</translation>
     </message>
     <message>
       <source>Viewer</source>
-      <translation type="unfinished">Viewer</translation>
+      <translation>Visor</translation>
     </message>
     <message>
       <source>Live Viewer</source>
-      <translation type="unfinished">Live Viewer</translation>
+      <translation>Visor en directo</translation>
     </message>
     <message>
       <source>Custom Role</source>
@@ -1064,7 +1064,7 @@
     </message>
     <message>
       <source>Custom</source>
-      <translation type="unfinished">Custom</translation>
+      <translation>Personalizado</translation>
     </message>
     <message>
       <source>Can manage all cameras and bookmarks.</source>
@@ -1099,7 +1099,7 @@
     <name>SystemHelpers</name>
     <message>
       <source>New System</source>
-      <translation type="unfinished">New System</translation>
+      <translation>Novo sistema</translation>
     </message>
   </context>
   <context>
@@ -1510,7 +1510,7 @@
     </message>
     <message>
       <source>start</source>
-      <translation type="unfinished">start</translation>
+      <translation>comezar</translation>
     </message>
     <message>
       <source>stop</source>
@@ -1530,7 +1530,7 @@
     </message>
     <message>
       <source>Role</source>
-      <translation type="unfinished">Role</translation>
+      <translation>Rol</translation>
     </message>
     <message numerus="yes">
       <source>%n Users</source>
@@ -1580,7 +1580,7 @@
     </message>
     <message>
       <source>Analytics Event</source>
-      <translation type="unfinished">Analytics Event</translation>
+      <translation>Evento analítico</translation>
     </message>
     <message>
       <source>%1 at %2</source>

@@ -972,17 +972,17 @@
     <message numerus="yes">
       <source>minutes</source>
       <comment>Full suffix for displaying minutes</comment>
-      <translation type="unfinished">
-        <numerusform>minutes</numerusform>
-        <numerusform>minutes</numerusform>
+      <translation>
+        <numerusform>минут</numerusform>
+        <numerusform>минут</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>hours</source>
       <comment>Full suffix for displaying hours</comment>
-      <translation type="unfinished">
-        <numerusform>hours</numerusform>
-        <numerusform>hours</numerusform>
+      <translation>
+        <numerusform>цаг</numerusform>
+        <numerusform>цаг</numerusform>
       </translation>
     </message>
     <message numerus="yes">
