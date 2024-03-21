@@ -1136,7 +1136,7 @@
     </message>
     <message>
       <source>Email from</source>
-      <translation type="unfinished">Email from</translation>
+      <translation>Email dari</translation>
     </message>
     <message>
       <source>SMTP user</source>
@@ -1148,7 +1148,7 @@
     </message>
     <message>
       <source>Email signature</source>
-      <translation type="unfinished">Email signature</translation>
+      <translation>Signature email</translation>
     </message>
     <message>
       <source>Email support link</source>
@@ -1172,7 +1172,7 @@
     </message>
     <message>
       <source>LDAP URI</source>
-      <translation type="unfinished">LDAP URI</translation>
+      <translation>URI LDAP</translation>
     </message>
     <message>
       <source>LDAP Admin DN</source>
@@ -1184,11 +1184,11 @@
     </message>
     <message>
       <source>LDAP search base</source>
-      <translation type="unfinished">LDAP search base</translation>
+      <translation>Basis pencarian LDAP</translation>
     </message>
     <message>
       <source>LDAP search filter</source>
-      <translation type="unfinished">LDAP search filter</translation>
+      <translation>Filter pencarian LDAP</translation>
     </message>
     <message>
       <source>LDAP password expiration (milliseconds)</source>
@@ -1264,7 +1264,7 @@
     </message>
     <message>
       <source>Cloud owner account</source>
-      <translation type="unfinished">Cloud owner account</translation>
+      <translation>Akun pemilik cloud</translation>
     </message>
     <message>
       <source>Cloud System ID</source>
@@ -1329,7 +1329,7 @@
     </message>
     <message>
       <source>Event log period (days)</source>
-      <translation type="unfinished">Event log period (days)</translation>
+      <translation>Periode event log (hari)</translation>
     </message>
     <message>
       <source>Enforce HTTPS (data traffic encryption)</source>
@@ -1449,7 +1449,7 @@
     </message>
     <message>
       <source>Default video codec</source>
-      <translation type="unfinished">Default video codec</translation>
+      <translation>Default video codec</translation>
     </message>
     <message>
       <source>Default codec for export video</source>

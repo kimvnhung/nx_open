@@ -1172,7 +1172,7 @@
     </message>
     <message>
       <source>LDAP URI</source>
-      <translation>URI LDAP</translation>
+      <translation>LDAP URL</translation>
     </message>
     <message>
       <source>LDAP Admin DN</source>
@@ -1256,7 +1256,7 @@
     </message>
     <message>
       <source>Sync time synchronization interval for network requests</source>
-      <translation>Thống nhất khoảng thời gian đồng bộ hóa cho các yêu cầu mạng</translation>
+      <translation>Đồng bộ khoảng thời gian đồng bộ hóa cho các yêu cầu mạng</translation>
     </message>
     <message>
       <source>Sync time epsilon. New value is not applied if time delta less than epsilon</source>
@@ -1321,7 +1321,7 @@
     </message>
     <message>
       <source>Enable audit trail</source>
-      <translation>Kích hoạt báo cáo hành vi người dùng</translation>
+      <translation>Kích hoạt tính năng dấu vết kiểm toán</translation>
     </message>
     <message>
       <source>Audit trail period (days, 14-730)</source>

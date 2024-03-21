@@ -1182,11 +1182,11 @@
     </message>
     <message>
       <source>Email from</source>
-      <translation>Kimden</translation>
+      <translation>Tarafından eposta</translation>
     </message>
     <message>
       <source>SMTP user</source>
-      <translation>SMTP kullanıcı</translation>
+      <translation>SMTP kullanıcısı</translation>
     </message>
     <message>
       <source>SMTP password</source>
@@ -1230,7 +1230,7 @@
     </message>
     <message>
       <source>LDAP search base</source>
-      <translation>LDAP veritabanı</translation>
+      <translation>LDAP arama tabanı</translation>
     </message>
     <message>
       <source>LDAP search filter</source>
@@ -1302,11 +1302,11 @@
     </message>
     <message>
       <source>Sync time synchronization interval for network requests</source>
-      <translation>Ağ istekleri için senkronizasyon zamanı senkronizasyon aralığı</translation>
+      <translation>Ağ istekleri için zaman eşitleme aralığını eşitle</translation>
     </message>
     <message>
       <source>Sync time epsilon. New value is not applied if time delta less than epsilon</source>
-      <translation>Sync time epsilon. New value is not applied if time detla less than epsilon</translation>
+      <translation>Zaman epsilonunu senkronize et. Zaman deltası epsilondan küçükse yeni değer uygulanmaz</translation>
     </message>
     <message>
       <source>Cloud owner account</source>

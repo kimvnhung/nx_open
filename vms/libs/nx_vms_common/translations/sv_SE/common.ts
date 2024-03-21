@@ -1178,7 +1178,7 @@
     <name>SystemSettings</name>
     <message>
       <source>SMTP host</source>
-      <translation>SMTP Server</translation>
+      <translation>SMTP värd</translation>
     </message>
     <message>
       <source>Email from</source>
@@ -1206,7 +1206,7 @@
     </message>
     <message>
       <source>SMTP port</source>
-      <translation>SMTP Port</translation>
+      <translation>SMTP port</translation>
     </message>
     <message>
       <source>SMTP timeout (seconds)</source>
@@ -1234,7 +1234,7 @@
     </message>
     <message>
       <source>LDAP search filter</source>
-      <translation>LDAP-sökfilter</translation>
+      <translation>LDAP sökfilter</translation>
     </message>
     <message>
       <source>LDAP password expiration (milliseconds)</source>
@@ -1310,7 +1310,7 @@
     </message>
     <message>
       <source>Cloud owner account</source>
-      <translation>Cloud ägarkonto</translation>
+      <translation>Molnägarkonto</translation>
     </message>
     <message>
       <source>Cloud System ID</source>
@@ -1322,7 +1322,7 @@
     </message>
     <message>
       <source>System name</source>
-      <translation>Systemets namn</translation>
+      <translation>Systemnamn</translation>
     </message>
     <message>
       <source>Local System ID</source>

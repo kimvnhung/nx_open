@@ -1194,7 +1194,7 @@
     </message>
     <message>
       <source>Email signature</source>
-      <translation>E-post signatur</translation>
+      <translation>E-postsignatur</translation>
     </message>
     <message>
       <source>Email support link</source>
@@ -1234,7 +1234,7 @@
     </message>
     <message>
       <source>LDAP search filter</source>
-      <translation>LDAP-søkefilter</translation>
+      <translation>LDAP søkefilter</translation>
     </message>
     <message>
       <source>LDAP password expiration (milliseconds)</source>
@@ -1310,7 +1310,7 @@
     </message>
     <message>
       <source>Cloud owner account</source>
-      <translation>Cloud eierkonto</translation>
+      <translation>Eiers skykonto</translation>
     </message>
     <message>
       <source>Cloud System ID</source>
@@ -1326,7 +1326,7 @@
     </message>
     <message>
       <source>Local System ID</source>
-      <translation>Lokal System-ID</translation>
+      <translation>Lokal system-ID</translation>
     </message>
     <message>
       <source>Last master System merge ID</source>

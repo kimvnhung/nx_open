@@ -1136,7 +1136,7 @@
     </message>
     <message>
       <source>Email from</source>
-      <translation>差出人</translation>
+      <translation>Eメール差出人</translation>
     </message>
     <message>
       <source>SMTP user</source>
@@ -1148,7 +1148,7 @@
     </message>
     <message>
       <source>Email signature</source>
-      <translation>メールの署名</translation>
+      <translation>Eメール署名</translation>
     </message>
     <message>
       <source>Email support link</source>
@@ -1309,7 +1309,7 @@
     </message>
     <message>
       <source>Max scene items (0 means default)</source>
-      <translation>シーンの最大アイテム数 (0でデフォルト値を使用)</translation>
+      <translation>シーン内最大アイテム数 (0でデフォルト値を使用)</translation>
     </message>
     <message>
       <source>Send plain-text emails</source>
@@ -1321,7 +1321,7 @@
     </message>
     <message>
       <source>Enable audit trail</source>
-      <translation>操作履歴を有効にする</translation>
+      <translation>操作履歴有効</translation>
     </message>
     <message>
       <source>Audit trail period (days, 14-730)</source>
@@ -1425,7 +1425,7 @@
     </message>
     <message>
       <source>Watermark settings</source>
-      <translation>ウォーターマーク設定</translation>
+      <translation>透かし設定</translation>
     </message>
     <message>
       <source>Authorization Session token lifetime (minutes)</source>
