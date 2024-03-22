@@ -348,15 +348,15 @@
     </message>
     <message>
       <source>First, try to turn on recording (if it is off) and decrease fps in device settings (error &quot;%1&quot;).</source>
-      <translation type="unfinished">First, try to turn on recording (if it is off) and decrease fps in device settings (error &quot;%1&quot;).</translation>
+      <translation>Primeiro, tenta activar a gravación (se está desactivada) e diminuír os fps na configuración do dispositivo (erro &quot;%1&quot;).</translation>
     </message>
     <message>
       <source>First, try to turn on recording (if it is off) and decrease fps in camera settings (error &quot;%1&quot;).</source>
-      <translation type="unfinished">First, try to turn on recording (if it is off) and decrease fps in camera settings (error &quot;%1&quot;).</translation>
+      <translation>Primeiro, tenta activar a gravación (se está desactivada) e diminuír os fps na configuración da cámara (erro &quot;%1&quot;).</translation>
     </message>
     <message>
       <source>First, try to turn on recording (if it is off) and decrease fps in I/O module settings (error &quot;%1&quot;).</source>
-      <translation type="unfinished">First, try to turn on recording (if it is off) and decrease fps in I/O module settings (error &quot;%1&quot;).</translation>
+      <translation>Primeiro, tenta activar a gravación (se está desactivada) e diminuír os fps na configuración do módulo de E/S (I/O) (erro &quot;%1&quot;).</translation>
     </message>
     <message>
       <source>Please update firmware. Minimal supported version is %1. Current version is %2</source>
@@ -1204,7 +1204,7 @@
     </message>
     <message>
       <source>Do HTTP request</source>
-      <translation type="unfinished">Do HTTP request</translation>
+      <translation>Facer solicitude HTTP</translation>
     </message>
     <message>
       <source>Device output</source>
@@ -1498,15 +1498,15 @@
     </message>
     <message>
       <source>Not enough licenses. Recording has been disabled on following devices:</source>
-      <translation type="unfinished">Not enough licenses. Recording has been disabled on following devices:</translation>
+      <translation>Non hai licenzas suficientes. Desactivouse a gravación nos seguintes dispositivos:</translation>
     </message>
     <message>
       <source>Not enough licenses. Recording has been disabled on following cameras:</source>
-      <translation type="unfinished">Not enough licenses. Recording has been disabled on following cameras:</translation>
+      <translation>Non hai licenzas suficientes. Desactivouse a gravación nas seguintes cámaras:</translation>
     </message>
     <message>
       <source>Not enough licenses. Recording has been disabled on following I/O modules:</source>
-      <translation type="unfinished">Not enough licenses. Recording has been disabled on following I/O modules:</translation>
+      <translation>Non hai licenzas suficientes. Desactivouse a gravación nos seguintes módulos de E/S (I/O):</translation>
     </message>
     <message>
       <source>start</source>
@@ -1609,11 +1609,11 @@
     </message>
     <message>
       <source>Failed to force using camera time, it lags too much, system time will be used</source>
-      <translation type="unfinished">Failed to force using camera time, it lags too much, system time will be used</translation>
+      <translation>Produciuse un erro ao forzar o uso do tempo da cámara, atrásase demasiado, empregarase o tempo do sistema</translation>
     </message>
     <message>
       <source>Camera time is back to normal</source>
-      <translation type="unfinished">Camera time is back to normal</translation>
+      <translation>O tempo da cámara volveu á normalidade</translation>
     </message>
     <message>
       <source>Multiple %1 events have occurred</source>
@@ -1621,11 +1621,11 @@
     </message>
     <message>
       <source>Multicast address conflict detected. Address %1 is already in use by %2 on %3 stream</source>
-      <translation type="unfinished">Multicast address conflict detected. Address %1 is already in use by %2 on %3 stream</translation>
+      <translation>Detectouse un conflito de enderezos de multidifusión. O enderezo %1 xa está sendo utilizado por %2 no fluxo %3</translation>
     </message>
     <message>
       <source>Network address %1 is not a multicast address</source>
-      <translation type="unfinished">Network address %1 is not a multicast address</translation>
+      <translation>O enderezo de rede %1 non é un enderezo de multidifusión</translation>
     </message>
     <message>
       <source>Analytics storage &quot;%1&quot; is offline.</source>
@@ -1645,7 +1645,7 @@
     </message>
     <message>
       <source>RAID error. %1.</source>
-      <translation type="unfinished">RAID error. %1.</translation>
+      <translation>Erro RAID. %1.</translation>
     </message>
     <message>
       <source>Buzzer</source>
@@ -1702,11 +1702,11 @@
     </message>
     <message>
       <source>RTP error in primary stream (%1)</source>
-      <translation type="unfinished">RTP error in primary stream (%1)</translation>
+      <translation>Erro de RTP no fluxo principal (%1)</translation>
     </message>
     <message>
       <source>RTP error in secondary stream (%1)</source>
-      <translation type="unfinished">RTP error in secondary stream (%1)</translation>
+      <translation>Erro de RTP no fluxo secundario (%1)</translation>
     </message>
     <message>
       <source>Analytics Object Detected</source>
@@ -1723,11 +1723,11 @@
     </message>
     <message>
       <source>Analytics storage &quot;%1&quot; DB error: Insufficient permissions on the mount point.</source>
-      <translation type="unfinished">Analytics storage &quot;%1&quot; DB error: Insufficient permissions on the mount point.</translation>
+      <translation>Almacenamento de Analítica &quot;%1&quot; Erro de base de datos: permisos insuficientes no punto de montaxe.</translation>
     </message>
     <message>
       <source>Can&apos;t initialize AES encryption while recording media archive. Data is written unencrypted.</source>
-      <translation type="unfinished">Can&apos;t initialize AES encryption while recording media archive. Data is written unencrypted.</translation>
+      <translation>&apos;Non se pode inicializar o cifrado AES mentres se grava o arquivo multimedia. Os datos escríbense sen cifrar.</translation>
     </message>
     <message>
       <source>Archive backup failed.</source>
@@ -1747,7 +1747,7 @@
     </message>
     <message>
       <source>Failed to backup file </source>
-      <translation type="unfinished">Failed to backup file </translation>
+      <translation>Erro ao facer a copia de seguridade do ficheiro </translation>
     </message>
     <message>
       <source>Server Certificate Error</source>

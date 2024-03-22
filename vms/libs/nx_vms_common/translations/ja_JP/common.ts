@@ -32,7 +32,7 @@
     </message>
     <message>
       <source>The LDAP server is not accessible. Please try again later.</source>
-      <translation>LDAPサーバーにアクセスできません。後でもう一度お試しください。</translation>
+      <translation>LDAP サーバーにアクセスできません。後でもう一度お試しください。</translation>
     </message>
     <message>
       <source>%1 is not accessible yet. Please try again later.</source>
@@ -405,7 +405,7 @@
     </message>
     <message>
       <source>Could not allocate sample buffers</source>
-      <translation>サンプルバッファを割り当てることができませんでした</translation>
+      <translation>サンプルバッファーを割り当てることができませんでした</translation>
     </message>
   </context>
   <context>
@@ -1414,7 +1414,7 @@
     </message>
     <message>
       <source>Device does not respond to network requests.</source>
-      <translation>デバイスがネットワーク要求に応答しません。</translation>
+      <translation>デバイスがネットワークリクエストに応答しません。</translation>
     </message>
     <message>
       <source>Connection to server is lost.</source>
