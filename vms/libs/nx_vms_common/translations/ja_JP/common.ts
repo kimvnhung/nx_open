@@ -282,7 +282,7 @@
     </message>
     <message>
       <source>Camera initialization process is in progress.</source>
-      <translation>カメラをイニシャライズしています。</translation>
+      <translation>カメラのイニシャライズ処理中です。</translation>
     </message>
     <message>
       <source>I/O Module initialization process is in progress.</source>
@@ -381,7 +381,7 @@
     </message>
     <message>
       <source>Could not initialize audio encoder.</source>
-      <translation>音声エンコーダーを初期化できませんでした。</translation>
+      <translation>オーディオエンコーダーを初期化できませんでした。</translation>
     </message>
     <message>
       <source>Could not initialize audio decoder.</source>
@@ -412,7 +412,7 @@
     <name>QnFfmpegTranscoder</name>
     <message>
       <source>Container %1 was not found in FFMPEG library.</source>
-      <translation>FFMPEGライブラリーにコンテナ%1が見つかりません.</translation>
+      <translation>FFMPEG ライブラリ内にコンテナ %1 が見つかりませんでした。</translation>
     </message>
     <message>
       <source>Could not create output context for format %1.</source>
@@ -439,7 +439,7 @@
     <name>QnFfmpegVideoTranscoder</name>
     <message>
       <source>Could not find encoder for codec %1.</source>
-      <translation>コーデック %1 のエンコーダーが見つかりません。</translation>
+      <translation>コーデック %1 のエンコーダーが見つかりませんでした。</translation>
     </message>
     <message>
       <source>Could not initialize video encoder.</source>
@@ -1064,7 +1064,7 @@
     </message>
     <message>
       <source>Corresponding container in FFMPEG library was not found.</source>
-      <translation>FFMPEGライブラリーにコンテナが見つかりません.</translation>
+      <translation>FFMPEG ライブラリ内に対応するコンテナが見つかりませんでした。</translation>
     </message>
     <message>
       <source>Could not create output file for video recording.</source>
