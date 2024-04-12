@@ -158,11 +158,11 @@
     </message>
     <message>
       <source>Unknown error. Please contact support.</source>
-      <translation>未知のエラーです。サポートにお問い合わせ下さい。</translation>
+      <translation>不明なエラー。サポートにお問い合わせください。</translation>
     </message>
     <message>
       <source>(unknown)</source>
-      <translation>（未知）</translation>
+      <translation>(不明)</translation>
     </message>
     <message>
       <source>Server %1 is not available.</source>
@@ -278,7 +278,7 @@
     </message>
     <message>
       <source>Device initialization process is in progress.</source>
-      <translation>デバイスをイニシャライズしています。</translation>
+      <translation>デバイスのイニシャライズ処理中です。</translation>
     </message>
     <message>
       <source>Camera initialization process is in progress.</source>
@@ -286,11 +286,11 @@
     </message>
     <message>
       <source>I/O Module initialization process is in progress.</source>
-      <translation>I/Oモジュールをイニシャライズしています。</translation>
+      <translation>I/Oモジュールのイニシャライズ処理中です。</translation>
     </message>
     <message>
       <source>Make sure port %1 is accessible (e.g. forwarded).</source>
-      <translation>ポート %1 にアクセス可能か (ポート転送など) 確認してください。</translation>
+      <translation>ポート %1 にアクセス可能か確認してください (ポート転送など)。</translation>
     </message>
     <message>
       <source>If it does not help, restore factory defaults on the device web-page.</source>
@@ -424,7 +424,7 @@
     </message>
     <message>
       <source>Could not perform direct stream copy because frame size is undefined.</source>
-      <translation>フレームサイズが指定されていないのでストリームを直接コピーできません.</translation>
+      <translation>フレームサイズが未定義のため、ストリームの直接コピーを実行できませんでした。</translation>
     </message>
     <message>
       <source>Could not find codec %1.</source>
@@ -975,15 +975,15 @@
     <name>QnTranscoder</name>
     <message>
       <source>OpenCL transcoding is not implemented.</source>
-      <translation>オープンCLトランスコードが実装されていません.</translation>
+      <translation>OpenCL トランスコーディングが実装されていません。</translation>
     </message>
     <message>
       <source>Unknown transcoding method.</source>
-      <translation>未知のトランスコード手段.</translation>
+      <translation>不明なトランスコーディング方式です。</translation>
     </message>
     <message>
       <source>OpenCLTranscode is not implemented.</source>
-      <translation>OpenCLトランスコードが実装されていません.</translation>
+      <translation>OpenCL トランスコードが実装されていません。</translation>
     </message>
     <message>
       <source>Unknown transcode method</source>
@@ -1088,7 +1088,7 @@
     </message>
     <message>
       <source>Video or audio codec is incompatible with the selected format.</source>
-      <translation>映像または音声のコーデックが、選択した形式との互換性を持ちません。</translation>
+      <translation>映像または音声のコーデックが、選択した形式に対応していません。</translation>
     </message>
     <message>
       <source>Video transcoding required.</source>
@@ -1096,7 +1096,7 @@
     </message>
     <message>
       <source>File write error. Not enough free space.</source>
-      <translation>空き容量が十分でない為に書き込みエラー.</translation>
+      <translation>ファイル書き込みエラー。空き容量が足りません。</translation>
     </message>
     <message>
       <source>Invalid resource type for data export.</source>
@@ -1430,7 +1430,7 @@
     </message>
     <message>
       <source>Not enough HDD/SSD speed for recording to %1.</source>
-      <translation>%1へのHDD/SSD書き込み速度が不十分です。</translation>
+      <translation>%1 に録画するためのHDD/SSD速度が不足しています。</translation>
     </message>
     <message>
       <source>HDD/SSD disk &quot;%1&quot; is full. Disk contains too much data that is not managed by VMS.</source>
