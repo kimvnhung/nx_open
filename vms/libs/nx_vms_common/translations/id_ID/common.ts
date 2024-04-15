@@ -1158,7 +1158,7 @@
     </message>
     <message>
       <source>Do HTTP request</source>
-      <translation type="unfinished">Do HTTP request</translation>
+      <translation>Lakukan HTTP request</translation>
     </message>
     <message>
       <source>Device output</source>
@@ -1442,15 +1442,15 @@
     </message>
     <message>
       <source>Not enough licenses. Recording has been disabled on following devices:</source>
-      <translation type="unfinished">Not enough licenses. Recording has been disabled on following devices:</translation>
+      <translation>Lisensi tidak cukup. Perekaman telah dinonaktifkan pada perangkat berikut:</translation>
     </message>
     <message>
       <source>Not enough licenses. Recording has been disabled on following cameras:</source>
-      <translation type="unfinished">Not enough licenses. Recording has been disabled on following cameras:</translation>
+      <translation>Lisensi tidak cukup. Perekaman telah dinonaktifkan pada kamera berikut:</translation>
     </message>
     <message>
       <source>Not enough licenses. Recording has been disabled on following I/O modules:</source>
-      <translation type="unfinished">Not enough licenses. Recording has been disabled on following I/O modules:</translation>
+      <translation>Lisensi tidak cukup. Perekaman telah dinonaktifkan pada modul I/O berikut:</translation>
     </message>
     <message>
       <source>start</source>
@@ -1551,11 +1551,11 @@
     </message>
     <message>
       <source>Failed to force using camera time, it lags too much, system time will be used</source>
-      <translation type="unfinished">Failed to force using camera time, it lags too much, system time will be used</translation>
+      <translation>Gagal memaksakan penggunaan waktu kamera, terlalu banyak lag, waktu sistem akan digunakan</translation>
     </message>
     <message>
       <source>Camera time is back to normal</source>
-      <translation type="unfinished">Camera time is back to normal</translation>
+      <translation>Waktu kamera kembali normal</translation>
     </message>
     <message>
       <source>Multiple %1 events have occurred</source>
@@ -1563,11 +1563,11 @@
     </message>
     <message>
       <source>Multicast address conflict detected. Address %1 is already in use by %2 on %3 stream</source>
-      <translation type="unfinished">Multicast address conflict detected. Address %1 is already in use by %2 on %3 stream</translation>
+      <translation>Konflik alamat multicast terdeteksi. Alamat %1 sudah digunakan oleh %2 di stream %3</translation>
     </message>
     <message>
       <source>Network address %1 is not a multicast address</source>
-      <translation type="unfinished">Network address %1 is not a multicast address</translation>
+      <translation>Alamat network %1 bukan alamat multicast</translation>
     </message>
     <message>
       <source>Analytics storage &quot;%1&quot; is offline.</source>
@@ -1587,7 +1587,7 @@
     </message>
     <message>
       <source>RAID error. %1.</source>
-      <translation type="unfinished">RAID error. %1.</translation>
+      <translation>Error RAID. %1.</translation>
     </message>
     <message>
       <source>Buzzer</source>
@@ -1644,11 +1644,11 @@
     </message>
     <message>
       <source>RTP error in primary stream (%1)</source>
-      <translation type="unfinished">RTP error in primary stream (%1)</translation>
+      <translation>Error RTP di stream primer (%1)</translation>
     </message>
     <message>
       <source>RTP error in secondary stream (%1)</source>
-      <translation type="unfinished">RTP error in secondary stream (%1)</translation>
+      <translation>Error RTP di stream sekunder (%1)</translation>
     </message>
     <message>
       <source>Analytics Object Detected</source>
@@ -1665,11 +1665,11 @@
     </message>
     <message>
       <source>Analytics storage &quot;%1&quot; DB error: Insufficient permissions on the mount point.</source>
-      <translation type="unfinished">Analytics storage &quot;%1&quot; DB error: Insufficient permissions on the mount point.</translation>
+      <translation>Penyimpanan analitik &quot;%1&quot; error DB: Izin tidak mencukupi pada titik pemasangan.</translation>
     </message>
     <message>
       <source>Can&apos;t initialize AES encryption while recording media archive. Data is written unencrypted.</source>
-      <translation type="unfinished">Can&apos;t initialize AES encryption while recording media archive. Data is written unencrypted.</translation>
+      <translation>&apos;tidak dapat menginisialisasi enkripsi AES saat merekam archive media. Data ditulis tidak terenkripsi.</translation>
     </message>
     <message>
       <source>Archive backup failed.</source>
@@ -1689,7 +1689,7 @@
     </message>
     <message>
       <source>Failed to backup file </source>
-      <translation type="unfinished">Failed to backup file </translation>
+      <translation>Gagal membackup file </translation>
     </message>
     <message>
       <source>Server Certificate Error</source>
