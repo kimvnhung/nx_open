@@ -342,15 +342,15 @@
     </message>
     <message>
       <source>First, try to turn on recording (if it is off) and decrease fps in device settings (error &quot;%1&quot;).</source>
-      <translation>まず、(録画オフの場合は)録画をOnにして、デバイス設定で fps を下げてください (エラー&quot;%1&quot;)。</translation>
+      <translation>まず、(録画オフの場合は) 録画を有効化して、デバイス設定で fps を下げてください (エラー &quot;%1&quot;)。</translation>
     </message>
     <message>
       <source>First, try to turn on recording (if it is off) and decrease fps in camera settings (error &quot;%1&quot;).</source>
-      <translation>まず、(録画オフの場合は)録画をOnにして、カメラ設定で fps を下げてください (エラー&quot;%1&quot;)。</translation>
+      <translation>まず、(録画オフの場合は) 録画を有効化して、カメラ設定で fps を下げてください (エラー &quot;%1&quot;)。</translation>
     </message>
     <message>
       <source>First, try to turn on recording (if it is off) and decrease fps in I/O module settings (error &quot;%1&quot;).</source>
-      <translation>まず、(録画オフの場合は)録画をOnにして、I/Oモジュール設定で fps を下げてください (エラー&quot;%1&quot;)。</translation>
+      <translation>まず、(録画オフの場合は) 録画を有効化して、I/Oモジュール設定で fps を下げてください (エラー &quot;%1&quot;)。</translation>
     </message>
     <message>
       <source>Please update firmware. Minimal supported version is %1. Current version is %2</source>
@@ -829,7 +829,7 @@
     </message>
     <message>
       <source>Hardware ID: %1</source>
-      <translation>ハードウェア ID: %1</translation>
+      <translation>ハードウェアID: %1</translation>
     </message>
   </context>
   <context>
@@ -1387,7 +1387,7 @@
       <source>First occurrence: %1 on %2 (%n times total)</source>
       <comment>%1 means time, %2 means date</comment>
       <translation>
-        <numerusform>最初の発生: %2 %1 (合計%n 回)</numerusform>
+        <numerusform>最初の発生: %2 %1 (合計 %n 回)</numerusform>
       </translation>
     </message>
     <message numerus="yes">
