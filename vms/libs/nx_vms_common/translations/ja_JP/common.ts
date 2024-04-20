@@ -1704,7 +1704,7 @@
     <name>utils::QnCameraNamesWatcher</name>
     <message>
       <source>Removed camera</source>
-      <translation>カメラ削除</translation>
+      <translation>削除されたカメラ</translation>
     </message>
   </context>
 </TS>
