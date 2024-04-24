@@ -1272,7 +1272,7 @@
     </message>
     <message>
       <source>I/O Module %1 was disconnected</source>
-      <translation>I/Oモジュール %1 が切断されました。</translation>
+      <translation>I/Oモジュール %1 が切断されました</translation>
     </message>
     <message>
       <source>Input on %1</source>
@@ -1346,7 +1346,7 @@
     </message>
     <message>
       <source>Conflicting Address: %1</source>
-      <translation>重複アドレス: %1</translation>
+      <translation>競合アドレス: %1</translation>
     </message>
     <message>
       <source>MAC #%1: %2</source>
