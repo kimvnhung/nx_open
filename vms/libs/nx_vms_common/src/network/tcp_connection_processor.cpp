@@ -809,7 +809,7 @@ void QnTCPConnectionProcessor::sendUnauthorizedResponse(
     else if (messageBody.isEmpty())
     {
         if (nx::network::http::getHeaderValue(d->request.headers, nx::network::http::header::kAccept)
-            == nx::network::http::header::ContentType::kJson)
+            == nx::network::http::header::ContentType::kJson.value)
         {
             d->response.messageBody =
                 QJson::serialized(nx::network::rest::Result::unauthorized(details)).toStdString();

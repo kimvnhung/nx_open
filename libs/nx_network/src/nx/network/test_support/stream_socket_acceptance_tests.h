@@ -1234,7 +1234,7 @@ protected:
                 }
             });
 
-        for (int i = 0; ; ++i)
+        while (true)
         {
             const auto connectResult = connectResultQueue->pop(std::chrono::milliseconds(100));
             if (!connectResult)
