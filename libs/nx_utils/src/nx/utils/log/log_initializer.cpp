@@ -11,6 +11,7 @@
 #include "logger_builder.h"
 #include "log_main.h"
 #include "log_logger.h"
+#include "log.h"
 
 namespace nx {
 namespace utils {
@@ -33,6 +34,7 @@ std::unique_ptr<AbstractLogger> buildLogger(
 
 void initializeGlobally(const nx::utils::ArgumentParser& arguments)
 {
+    DBG("");
     log::Settings settings;
     settings.load(QnSettings(arguments), "log"/*, deafultCompatibilityLevel "none"*/);
     for (auto& logger: settings.loggers)

@@ -6,6 +6,7 @@
 #include <QtCore/QBuffer>
 #include <QtCore/QUrl>
 #include <QtNetwork/QNetworkCookie>
+#include <nx/utils/log/log.h>
 
 extern "C"
 {
@@ -97,6 +98,7 @@ QnRtspClientArchiveDelegate::QnRtspClientArchiveDelegate(
     m_sleepIfEmptySocket(sleepIfEmptySocket),
     m_lastError(CameraDiagnostics::NoErrorResult())
 {
+    DBG("");
     m_rtspSession->setPlayNowModeAllowed(true); //< Default value.
     m_footageUpToDate.test_and_set();
     m_currentServerUpToDate.test_and_set();
@@ -227,6 +229,8 @@ QString getUrl(const QnSecurityCamResourcePtr& camera, const QnMediaServerResour
         url += camera->getPhysicalId();
     else
         url += server->rtspUrl();
+
+    DBG(url);
     return url;
 }
 
@@ -323,6 +327,7 @@ void QnRtspClientArchiveDelegate::checkMinTimeFromOtherServer(const QnSecurityCa
 }
 
 QnMediaServerResourcePtr QnRtspClientArchiveDelegate::getServerOnTime(qint64 timeUsec) {
+    DBG("timeUsec"<<timeUsec);
     if (!m_camera)
         return QnMediaServerResourcePtr();
     QnMediaServerResourcePtr currentServer = m_camera->getParentServer();
@@ -343,6 +348,11 @@ QnMediaServerResourcePtr QnRtspClientArchiveDelegate::getServerOnTime(qint64 tim
 
     if (mediaServer != m_server)
         qDebug() << "switch to server " << mediaServer->getUrl();
+
+    // Loop in mediaServer->getProperties() which is std::vector<>
+    // for(int i=0;i<mediaServer->getProperties().size();i++){
+    //     DBG(QString("mediaServer->getProperties()[%1] name %2 value %3").arg(i).arg(mediaServer->getProperties()[i].name).arg(mediaServer->getProperties()[i].value));
+    // }
     return mediaServer;
 
 }
@@ -736,12 +746,14 @@ void QnRtspClientArchiveDelegate::setAdditionalAttribute(const QByteArray& name,
 
 qint64 QnRtspClientArchiveDelegate::seek(qint64 startTime, qint64 endTime)
 {
+    DBG(QString("Seek to %1 - %2").arg(startTime).arg(endTime));
     m_forcedEndTime = endTime;
     return seek(startTime, true);
 }
 
 qint64 QnRtspClientArchiveDelegate::seek(qint64 time, bool findIFrame)
 {
+    DBG(QString("Seek to %1 - findIFrame %2").arg(time).arg(findIFrame));
     NX_DEBUG(this,
         "Set position %1 for device %2",
         nx::utils::timestampToDebugString(time / 1000),

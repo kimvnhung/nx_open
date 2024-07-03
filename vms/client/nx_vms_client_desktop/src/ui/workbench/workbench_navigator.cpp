@@ -2557,9 +2557,11 @@ void QnWorkbenchNavigator::reopenPlaybackConnection(const QnVirtualCameraResourc
 
 void QnWorkbenchNavigator::at_timeSlider_valueChanged(milliseconds value)
 {
+
     if (!m_currentWidget)
         return;
 
+    DBG("value "<< value.count());
     qint64 position = value.count();
 
     bool live = isLive();
@@ -2608,6 +2610,7 @@ void QnWorkbenchNavigator::at_timeSlider_valueChanged(milliseconds value)
 
 void QnWorkbenchNavigator::at_timeSlider_sliderPressed()
 {
+    DBG("");
     if (!m_currentWidget)
         return;
 
@@ -2622,6 +2625,7 @@ void QnWorkbenchNavigator::at_timeSlider_sliderPressed()
 
 void QnWorkbenchNavigator::at_timeSlider_sliderReleased()
 {
+    DBG("");
     if (!m_currentWidget)
         return;
 

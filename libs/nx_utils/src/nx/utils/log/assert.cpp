@@ -124,6 +124,7 @@ static void handleQtMessage(
 
 void enableQtMessageAsserts()
 {
+    DBG("");
     if (g_defaultQtMessageHandler)
         NX_ASSERT(false, "Qt message asserts are already enabled");
     else
@@ -133,6 +134,7 @@ void enableQtMessageAsserts()
 
 void disableQtMessageAsserts()
 {
+    DBG("");
     if (g_defaultQtMessageHandler)
         qInstallMessageHandler(g_defaultQtMessageHandler);
     else

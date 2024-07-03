@@ -3,9 +3,11 @@
 #include <nx/vms/client/desktop/application.h>
 
 #include <nx/build_info.h>
+#include <nx/utils/log/log.h>
 
 int main(int argc, char** argv)
 {
+    DBG("Starting Desktop Client");
     if (nx::build_info::isMacOsX())
     {
         // We do not rely on Mac OS OpenGL implementation-related throttling.

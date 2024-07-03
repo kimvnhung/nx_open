@@ -502,6 +502,16 @@ QnMediaServerResourcePtr QnCameraHistoryPool::getMediaServerOnTime(const QnSecur
         foundPeriod->clear();
 
     NX_MUTEX_LOCKER lock(&m_mutex);
+    // Print m_historyDetail
+    for (auto itr = m_historyDetail.begin(); itr != m_historyDetail.end(); ++itr)
+    {
+        DBG(QString("Camera ID: %1 History data: %2").arg(itr.key().getQUuid().toString()).arg(itr.value().size()));
+        for (const auto& item : itr.value())
+        {
+            DBG(QString("Server ID: %1 Time: %2").arg(item.serverGuid.getQUuid().toString()).arg(item.timestampMs));
+        }
+    }
+
     const auto& itr = m_historyDetail.find(camera->getId());
     if (itr == m_historyDetail.end() || itr.value().empty())
         return camera->getParentServer(); // no history data. use current server constantly

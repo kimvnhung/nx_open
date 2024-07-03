@@ -1256,6 +1256,7 @@ bool QnArchiveStreamReader::jumpToEx(
     qint64* outJumpTime,
     bool useDelegate)
 {
+    DBG("mksec "<<mksec<<" skipTime "<<skipTime);
     if (useDelegate && m_navDelegate) {
         return m_navDelegate->jumpTo(mksec, skipTime);
     }

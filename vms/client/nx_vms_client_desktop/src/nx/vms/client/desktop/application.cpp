@@ -327,6 +327,7 @@ int runApplicationInternal(QApplication* application, const QnStartupParameters&
 
 int runApplication(int argc, char** argv)
 {
+    DBG("");
     nx::kit::OutputRedirector::ensureOutputRedirection();
 
 #ifdef Q_WS_X11

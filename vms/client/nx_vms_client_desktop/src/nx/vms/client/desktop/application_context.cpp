@@ -343,6 +343,7 @@ struct ApplicationContext::Private
 
         auto logLevel = startupParameters.logLevel;
         auto logFile = startupParameters.logFile;
+        DBG("logLevel: "<<logLevel);
 
         if (logLevel.isEmpty())
         {

@@ -186,6 +186,7 @@ void ApplauncherProcess::initChannels()
 
 void ApplauncherProcess::launchClient()
 {
+    DBG("");
     nx::utils::SoftwareVersion versionToLaunch = getVersionToLaunch();
     if (versionToLaunch.isNull())
         return;
@@ -203,6 +204,7 @@ void ApplauncherProcess::launchClient()
 
 int ApplauncherProcess::run()
 {
+    DBG("");
     const bool applauncherIsAlreadyStarted = !m_taskServer.listen(launcherPipeName());
     if (applauncherIsAlreadyStarted)
     {
@@ -339,6 +341,7 @@ bool ApplauncherProcess::startApplication(
     NX_DEBUG(this, "Launching with request: %1, args: %2", runParams.path,
         runParams.arguments.join(", "));
 
+    DBG("startProcessDetached "<<runParams.path<<runParams.arguments);
     if (ProcessUtils::startProcessDetached(
         runParams.path, runParams.arguments, runParams.workingDirectory, environment))
     {

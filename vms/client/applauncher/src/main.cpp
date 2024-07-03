@@ -13,6 +13,8 @@
 #include <nx/branding.h>
 #include <nx/build_info.h>
 
+#include <nx/utils/log/log.h>
+
 #include "applauncher_process.h"
 #include "process_utils.h"
 
@@ -37,6 +39,7 @@ static BOOL WINAPI stopServer_WIN(DWORD /*dwCtrlType*/)
 
 static void initLogFromArgs(const QString& logLevel, const QString& logFileBaseName)
 {
+    DBG(logLevel);
     nx::utils::log::Settings settings;
     settings.loggers.resize(1);
     settings.loggers.front().level.parse(logLevel);
@@ -81,6 +84,7 @@ QStringList getClientArguments(QStringList arguments)
 
 ApplauncherProcess::StartupParameters parseCommandLineParameters()
 {
+    DBG("parseCommandLineParameters");
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addVersionOption();
@@ -146,6 +150,11 @@ int main(int argc, char* argv[])
     qApp->setApplicationVersion(nx::build_info::vmsVersion());
 
     QnLongRunnablePool runnablePool;
+
+
+    // Show all arguments for debugging purposes.
+    for (int i = 0; i < argc; i++)
+        DBG(argv[i]);
 
     QtSingleCoreApplication app(nx::branding::applauncherInternalName(), argc, argv);
     auto appDirPath = QCoreApplication::applicationDirPath();

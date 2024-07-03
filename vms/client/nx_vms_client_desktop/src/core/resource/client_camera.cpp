@@ -138,6 +138,7 @@ AudioLayoutConstPtr QnClientCameraResource::getAudioLayout(
 
 QnAbstractStreamDataProvider* QnClientCameraResource::createLiveDataProvider()
 {
+    DBG("");
     const auto camera = toSharedPointer(this);
     auto context = dynamic_cast<nx::vms::client::core::SystemContext*>(systemContext());
     if (!NX_ASSERT(context))

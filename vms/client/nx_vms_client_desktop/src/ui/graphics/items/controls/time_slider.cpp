@@ -1214,6 +1214,7 @@ void QnTimeSlider::setValue(milliseconds value, bool keepInWindow)
 
 void QnTimeSlider::navigateTo(milliseconds value)
 {
+    DBG("");
     setValue(value, false);
     scrollIntoWindow(this->value(), true);
 }
@@ -2598,6 +2599,7 @@ bool QnTimeSlider::eventFilter(QObject* target, QEvent* event)
     {
         case QEvent::MouseButtonPress:
         {
+            DBG("");
             auto mouseEvent = static_cast<QMouseEvent*>(event);
             m_dragDelta = m_tooltip->pointerPos() - mouseEvent->pos();
             m_dragMarker = DragMarker;
@@ -3577,6 +3579,7 @@ void QnTimeSlider::updateBookmarksViewerLocation()
 
 void QnTimeSlider::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
+    DBG("");
     bool immediateDrag = true;
     m_dragDelta = QPointF();
 
@@ -3596,6 +3599,7 @@ void QnTimeSlider::mousePressEvent(QGraphicsSceneMouseEvent* event)
     switch (event->button())
     {
         case Qt::LeftButton:
+            DBG("");
             m_dragMarker = markerFromPosition(event->pos(), kHoverEffectDistance);
 
             if (canSelect && m_dragMarker == NoMarker && !extendSelectionRequested

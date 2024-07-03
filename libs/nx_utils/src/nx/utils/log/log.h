@@ -5,6 +5,10 @@
 #include <nx/reflect/enum_instrument.h>
 #include <nx/utils/log/log_main.h>
 
+#include <QDateTime>
+#include <QDebug>
+#define DBG(...) qDebug()<<QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss.zzz")<<__FILE__<<__FUNCTION__<<__LINE__<<__VA_ARGS__
+
 namespace nx::log {
 
 NX_REFLECTION_ENUM_CLASS(LogName,

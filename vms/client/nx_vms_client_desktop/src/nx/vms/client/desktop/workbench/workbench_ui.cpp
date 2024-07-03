@@ -66,6 +66,7 @@
 #include <ui/workbench/workbench_navigator.h>
 #include <ui/workbench/workbench_ui_globals.h>
 #include <utils/common/event_processors.h>
+#include <nx/utils/log/log.h>
 
 #include "panels/calendar_workbench_panel.h"
 #include "panels/left_workbench_panel.h"
@@ -1619,6 +1620,7 @@ void WorkbenchUi::createDebugWidget()
     {
         m_connections << connect(m_title, &AbstractWorkbenchPanel::geometryChanged, this, updateDebugGeometry);
         debugLabel = m_debugOverlayLabel;
+        DBG("");
         previousMsgHandler = qInstallMessageHandler(uiMsgHandler);
     }
     updateDebugGeometry();

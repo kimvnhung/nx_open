@@ -9,6 +9,7 @@
 
 #include <core/resource/storage_resource.h>
 #include <nx/utils/fs/file.h>
+#include <nx/utils/log/log.h>
 
 #include <nx/streaming/archive_stream_reader.h>
 #include <core/resource/avi/single_shot_file_reader.h>
@@ -87,6 +88,7 @@ QnAbstractStreamDataProvider* QnAviResource::createDataProvider(
     const QnResourcePtr& resource,
     Qn::ConnectionRole /*role*/)
 {
+    DBG("");
     const auto aviResource = resource.dynamicCast<QnAviResource>();
     NX_ASSERT(aviResource);
     if (!aviResource)

@@ -819,7 +819,7 @@ bool PlayerPrivate::createArchiveReader()
         rtspArchiveDelegate->setCamera(camera);
         archiveDelegate = rtspArchiveDelegate;
     }
-
+    DBG("");
     archiveReader->setArchiveDelegate(archiveDelegate);
     if (!periods.isEmpty())
         archiveReader->setPlaybackMask(periods);
